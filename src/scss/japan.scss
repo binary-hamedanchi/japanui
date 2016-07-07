@@ -1,0 +1,11 @@
+.japan-table {
+  display: flex;
+
+  .row {
+  	display: flex;
+
+  	.col {
+  		padding: 5px;
+  	}
+  }
+}

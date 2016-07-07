@@ -1,0 +1,79 @@
+import Socket from '../utils/Socket';
+import config from '../config.json';
+
+const socket = new Socket(config.socket);
+
+export const WS_API = Symbol('WS API');
+
+const SocketMiddleware = () => (next) => (action) => {
+  let resolve;
+  let reject;
+  let promise = new Promise((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+
+  if (!action) {
+    reject();
+  } else {
+    const apiRequest = action[WS_API];
+
+    if (typeof apiRequest !== 'object' ||
+      typeof apiRequest.types !== 'object' ||
+      apiRequest.types.length !== 3) {
+      resolve(next(action));
+    } else {
+      const finalAction = (action, data) => {
+        const result = Object.assign({}, action, data);
+        delete result[WS_API];
+        return result;
+      };
+
+      const [pendingType, failureType, successType] = apiRequest.types;
+      delete apiRequest.types;
+
+      next(finalAction(action, {
+        type: pendingType,
+      }));
+
+      if (!apiRequest.subscribe) {
+        promise = socket.request(apiRequest).then((res) =>
+          next(finalAction(action, {
+            type: successType,
+            payload: res,
+          }))).catch((err) =>
+          next(finalAction(action, {
+            type: failureType,
+            payload: err,
+          })));
+      } else {
+        const stream = socket.stream(apiRequest);
+        stream.map((res) => {
+          const nextRes = Object.assign({}, res);
+
+          if (!res.isError) {
+            next(finalAction(action, {
+              type: successType,
+              payload: Object.assign({}, nextRes),
+              stream,
+            }));
+
+            resolve(res);
+          } else {
+            delete nextRes.isError;
+            next(finalAction(action, {
+              type: failureType,
+              payload: nextRes,
+            }));
+
+            reject(nextRes);
+          }
+        });
+      }
+    }
+  }
+
+  return promise;
+};
+
+export default SocketMiddleware;
