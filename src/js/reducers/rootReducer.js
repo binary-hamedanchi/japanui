@@ -54,12 +54,13 @@ export default function reducer(state = Map(), action = {}) {
     case 'FAILURE_PROPOSAL':
       return state.setIn(['status', 'proposals', action.shortCode], 'error')
         .deleteIn(['streams', 'proposals', action.shortCode])
-        .setIn(['errors', 'proposals', action.shortCode], payload);
+        .setIn(['errors', 'proposals', action.shortCode], payload.set('time', action.time));
 
     case 'SUCCESS_PROPOSAL':
       return state.setIn(['status', 'proposals', action.shortCode], 'ready')
         .setIn(['streams', 'proposals', action.shortCode, 'channel'], action.stream)
-        .setIn(['streams', 'proposals', action.shortCode, 'value'], payload)
+        .setIn(['streams', 'proposals', action.shortCode, 'value'],
+          payload.set('time', action.time))
         .deleteIn(['errors', 'proposals', action.shortCode]);
 
     case 'DELETE_STREAM':

@@ -56,14 +56,15 @@ export default class ContractsHelper {
   }
 
   static getTradingPeriods(contracts, category) {
-    return this.filter(contracts, { contract_category: category }).map((contract) => List.of(
-      contract.getIn(['trading_period', 'date_start', 'epoch']),
-      contract.getIn(['trading_period', 'date_expiry', 'epoch'])
-    )).sort((period1, period2) => {
-      if (period1.get(0) - period2.get(0)) {
-        return period1.get(0) - period2.get(0);
+    return this.filter(contracts, { contract_category: category }).map((contract) => Map({
+      start: contract.getIn(['trading_period', 'date_start', 'epoch']),
+      end: contract.getIn(['trading_period', 'date_expiry', 'epoch']),
+      duration: contract.getIn(['trading_period', 'duration']),
+    })).sort((period1, period2) => {
+      if (period2.get('start') - period1.get('start')) {
+        return period2.get('start') - period1.get('start');
       }
-      return period1.get(1) - period2.get(1);
+      return period2.get('end') - period1.get('end');
     });
   }
 
@@ -72,8 +73,7 @@ export default class ContractsHelper {
       .filter((contract) => {
         return (contract.getIn(['trading_period', 'date_expiry', 'epoch']) == endDate &&
           contract.getIn(['trading_period', 'date_start', 'epoch']) == startDate);
-      })
-      .first().get('available_barriers');
+      }).getIn([0, 'available_barriers'], List());
   }
 
   static getExpirySelectTypes(...args) {

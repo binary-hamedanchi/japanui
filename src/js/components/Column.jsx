@@ -5,9 +5,14 @@ import classNames from 'classnames';
 const Column = ({ list, type, buy, sell }) => {
   const barriers = list.keySeq().sort((barrie1, barrier2) => barrie1 > barrier2 ? -1 : 1);
   const rows = barriers.map((barrier, key) => {
+    const askInactive = { inactive: list.getIn([barrier, 'ask', 'inactive']) };
+    const bidInactive = { inactive: list.getIn([barrier, 'bid', 'inactive']) };
+
     return (<div key={key} className='row'>
-      <div className={classNames('ask-price', 'col', { inactive: list.getIn([barrier, 'ask', 'inactive']) })}>¥{list.getIn([barrier, 'ask', 'value'])}</div>
-      <div className={classNames('bid-price', 'col', { inactive: list.getIn([barrier, 'bid', 'inactive']) })}>¥{list.getIn([barrier, 'bid', 'value'])}</div>
+      <div className={classNames('ask-price', 'col', askInactive)}>
+        ¥{list.getIn([barrier, 'ask', 'value'])}</div>
+      <div className={classNames('bid-price', 'col', bidInactive)}>
+        ¥{list.getIn([barrier, 'bid', 'value'])}</div>
     </div>);
   }).toArray();
 

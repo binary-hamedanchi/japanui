@@ -7,7 +7,7 @@ export function getSymbols() {
   return (dispatch) => dispatch({
     [WS_API]: {
       types: ['PENDING_SYMBOLS', 'FAILURE_SYMBOLS', 'SUCCESS_SYMBOLS'],
-      landing_company: 'japan',
+      // landing_company: 'japan',
       active_symbols: 'brief',
     },
   }).then(() => dispatch(setSymbol()));
@@ -108,8 +108,8 @@ export function setPeriod(payload) {
       const periods = ContractsHelper.getTradingPeriods(contracts, category);
       period = getState().getIn(['storage', 'period']);
 
-      if (!periods.filter((v) => v.join('_') === period).size) {
-        period = periods.first().join('_');
+      if (!periods.filter((v) => `${v.get('start')}_${v.get('end')}` === period).size) {
+        period = `${periods.first().get('start')}_${periods.first().get('end')}`;
       }
     }
 
@@ -202,7 +202,7 @@ export function getPrices() {
         barrierName = barrier;
       }
 
-      const shortCode = [symbol, contractType, endDate, barrierName, payout].join('_');
+      const shortCode = [symbol, contractType, endDate, barrierName, payout].join('|');
 
       dispatch({
         shortCode,

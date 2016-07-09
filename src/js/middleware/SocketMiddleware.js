@@ -1,5 +1,6 @@
 import Socket from '../utils/Socket';
 import config from '../config.json';
+import moment from 'moment';
 
 const socket = new Socket(config.socket);
 
@@ -24,7 +25,8 @@ const SocketMiddleware = () => (next) => (action) => {
       resolve(next(action));
     } else {
       const finalAction = (action, data) => {
-        const result = Object.assign({}, action, data);
+        const time = { time: Number(moment()) };
+        const result = Object.assign({}, action, data, time);
         delete result[WS_API];
         return result;
       };
@@ -35,6 +37,7 @@ const SocketMiddleware = () => (next) => (action) => {
       next(finalAction(action, {
         type: pendingType,
       }));
+
 
       if (!apiRequest.subscribe) {
         promise = socket.request(apiRequest).then((res) =>
@@ -54,7 +57,7 @@ const SocketMiddleware = () => (next) => (action) => {
           if (!res.isError) {
             next(finalAction(action, {
               type: successType,
-              payload: Object.assign({}, nextRes),
+              payload: nextRes,
               stream,
             }));
 
