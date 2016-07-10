@@ -63,7 +63,7 @@ export default class SocketQueue {
   }
 
   isStream(req = {}) {
-    return req.hasOwnProperty('subscribe');
+    return req && req.hasOwnProperty('subscribe');
   }
 }
 
