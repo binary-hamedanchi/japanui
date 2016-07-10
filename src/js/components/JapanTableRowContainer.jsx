@@ -20,8 +20,9 @@ const JapanTableRowContainer = ({ price, isHeading }) => {
     sellClasses.up = price.getIn(['bid', 'dynamics']) > 0;
     sellClasses.down = price.getIn(['bid', 'dynamics']) < 0;
 
-    buy = <button onClick={price.get('cb')}>{price.getIn(['ask', 'val'])}</button>;
-    sell = String(price.getIn(['bid', 'val']));
+    buy = price.getIn(['ask', 'val']) ?
+      <button onClick={price.get('cb')}>{price.getIn(['ask', 'val'])}</button> : null;
+    sell = price.getIn(['bid', 'val']) ? String(price.getIn(['bid', 'val'])) : null;
   } else {
     buy = price.get('buy');
     sell = price.get('sell');

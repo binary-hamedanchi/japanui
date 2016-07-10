@@ -207,7 +207,7 @@ export function getPrices() {
       dispatch({
         shortCode,
         [WS_API]: request,
-      });
+      }).catch((err) => console.log(`${shortCode} ${err.message}`));
     }));
 
     return Promise.resolve();

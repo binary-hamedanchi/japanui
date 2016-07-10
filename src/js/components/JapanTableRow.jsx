@@ -19,11 +19,11 @@ JapanTableRow.displayName = 'JapanTableRow';
 JapanTableRow.propTypes = {
   barrier: React.PropTypes.string.isRequired,
   buy: React.PropTypes.oneOfType([
-    React.PropTypes.element.isRequired,
-    React.PropTypes.string.isRequired,
+    React.PropTypes.element,
+    React.PropTypes.string,
   ]),
   buyClasses: React.PropTypes.string,
-  sell: React.PropTypes.string.isRequired,
+  sell: React.PropTypes.string,
   sellClasses: React.PropTypes.string,
   isHeading: React.PropTypes.bool,
 };
