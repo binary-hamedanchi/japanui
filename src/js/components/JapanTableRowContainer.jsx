@@ -27,8 +27,10 @@ const JapanTableRowContainer = ({ price, isHeading }) => {
     sell = price.get('sell');
   }
 
+  const barrier = price.get('barrier').replace('_', ' ... ');
+
   return (<JapanTableRow
-    barrier={price.get('barrier')}
+    barrier={barrier}
     buy={buy}
     buyClasses={classNames(buyClasses)}
     sell={sell}

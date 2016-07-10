@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FetchingBox = () => {
-  return <div className='data-fetching'>fetching...</div>;
+  return <div className='data-fetching'>loading...</div>;
 };
 
 
