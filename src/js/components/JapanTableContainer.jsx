@@ -36,19 +36,8 @@ const getTable = (() => {
           }
         }
 
-        const ask = Map({
-          val: askPrice,
-          time,
-          isActive,
-          dynamics,
-        });
-
-        const oppositeBid = Map({
-          val: oppositeBidPrice,
-          time,
-          isActive,
-          dynamics: -dynamics,
-        });
+        const ask = Map({ val: askPrice, dynamics, time, isActive });
+        const oppositeBid = Map({ val: oppositeBidPrice, dynamics: -dynamics, time, isActive });
 
         return nextTable
           .setIn([contractType, barrier, 'ask'], ask)
