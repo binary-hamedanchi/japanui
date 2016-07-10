@@ -56,7 +56,7 @@ export function getContracts() {
       [WS_API]: {
         types: ['PENDING_CONTRACTS', 'FAILURE_CONTRACTS', 'SUCCESS_CONTRACTS'],
         contracts_for: symbol,
-        currency: 'USD',
+        currency: 'JPY',
         region: 'japan',
       },
     }).then(() => dispatch(setCategory()));
@@ -187,7 +187,7 @@ export function getPrices() {
         amount: payout,
         basis: 'payout',
         contract_type: contractType,
-        currency: 'USD',
+        currency: 'JPY',
         symbol: symbol,
         date_expiry: endDate,
       };

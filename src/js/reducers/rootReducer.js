@@ -68,8 +68,8 @@ export default function reducer(state = Map(), action = {}) {
         .deleteIn(['streams', 'proposals', payload.get('id')])
         .deleteIn(['errors', 'proposals', payload.get('id')]);
 
-    case 'SET_TEXTS':
-      return state.set('texts', payload);
+    case 'SET_TEXT':
+      return state.set('text', payload);
 
     case 'SET_PAYOUTS':
       return state.set('payouts', payload);

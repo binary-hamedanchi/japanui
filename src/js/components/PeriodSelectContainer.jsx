@@ -8,14 +8,14 @@ import Select from './Select';
 const getPeriods = (state = Map()) => {
   const contracts = state.getIn(['contracts', 'available'], List());
   const category = state.getIn(['values', 'category'], '');
-  const texts = state.get('texts', Map());
+  const text = state.get('text', Map());
 
   const periods = ContractsHelper.getTradingPeriods(contracts, category);
   return periods.map((period) => {
     const duration = period.get('duration').replace('0d', '1d');
     const formatDate = moment.utc(period.get('end') * 1000).utcOffset('+0800')
-      .format(`MM[${texts.get('textJapanPeriodM')}] ` +
-        `DD[${texts.get('textJapanPeriodD')}] HH:mm [(${duration})]`);
+      .format(`MM[${text.get('textJapanPeriodM')}] ` +
+        `DD[${text.get('textJapanPeriodD')}] HH:mm [(${duration})]`);
 
     return List.of(`${period.get('start') }_${period.get('end')}`, formatDate);
   });

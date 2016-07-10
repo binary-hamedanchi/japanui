@@ -23,7 +23,7 @@ const JapanTableCol = ({
     key='heading'
     isHeading
     price={Map({
-      barrier: text.get('textBarriers'),
+      barrier: text.get('textBarrier'),
       buy: text.get('textBuy'),
       sell: text.get('textSell'),
     })} />

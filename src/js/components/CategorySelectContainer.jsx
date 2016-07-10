@@ -6,13 +6,13 @@ import Select from './Select';
 
 const getCategories = (state = Map()) => {
   const contracts = state.getIn(['contracts', 'available'], List());
-  const texts = state.get('texts', Map());
+  const text = state.get('text', Map());
 
   const categoryNames = {
-    higherlower: texts.get('textHighLow'),
-    touchnotouch: texts.get('textTouchNoTouch'),
-    endsinout: texts.get('textEndInEndOut'),
-    staysinout: texts.get('textStayInBreakOut'),
+    higherlower: text.get('textHighLow'),
+    touchnotouch: text.get('textTouchNoTouch'),
+    endsinout: text.get('textEndInEndOut'),
+    staysinout: text.get('textStayInBreakOut'),
   };
 
   return ContractsHelper.getCategories(contracts)

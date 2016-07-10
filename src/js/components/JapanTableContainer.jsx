@@ -64,7 +64,7 @@ const JapanTableContainer = ({ state }) => (<JapanTable
   symbol={state.getIn(['values', 'symbol'])}
   period={state.getIn(['values', 'period'])}
   payout={state.getIn(['values', 'payout'])}
-  text={state.get('texts')} />);
+  text={state.get('text')} />);
 
 JapanTableContainer.displayName = 'JapanTableContainer';
 JapanTableContainer.propTypes = {

@@ -19,7 +19,7 @@ store.dispatch({
 });
 
 store.dispatch({
-  type: 'SET_TEXTS',
+  type: 'SET_TEXT',
   payload: {
     textHighLow: 'HIGH/LOW',
     textTouchNoTouch: 'TOUCH /NO-TOUCH',
@@ -30,7 +30,7 @@ store.dispatch({
     textJapanPeriodW: 'w',
     textJapanPeriodM: 'm',
     textJapanPeriodY: 'y',
-    textBarriers: 'Barriers',
+    textBarrier: 'Barrier',
     textSell: 'Sell',
     textBuy: 'Buy',
     textCALLE: '[_1] [_2] payout if [_3] is strictly higher or equal than Exercise price at close  on [_4].',
