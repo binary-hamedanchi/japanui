@@ -6,6 +6,13 @@
 
   	.col {
   		padding: 5px;
+  		&.down  {
+  			background: blue;
+  		}
+
+  		&.up  {
+  			background: red;
+  		}
   	}
   }
 }

@@ -1,43 +1,38 @@
 import React from 'react';
-import Select from './Select';
-import { List } from 'immutable';
+import { Map } from 'immutable';
 
-const Form = (props) => {
-  return (<section className='japan-form'>
-    <Select
-      className='symbol-select'
-      value={props.symbol}
-      options={props.symbols}
-      onChange={(e) => props.actions.setSymbol({ symbol: e.target.value })} />
-    <Select
-      className='category-select'
-      value={props.category}
-      options={props.categories}
-      onChange={(e) => props.actions.setCategory({ category: e.target.value })}/>
-    <Select
-      className='period-select'
-      value={props.period}
-      options={props.periods}
-      onChange={(e) => props.actions.setPeriod({ period: e.target.value })}/>
-    <Select
-      className='payout-select'
-      value={props.payout}
-      options={props.payouts}
-      onChange={(e) => props.actions.setPayout({ payout: e.target.value })}/>
-  </section>);
-};
+import SymbolSelectContainer from './SymbolSelectContainer';
+import CategorySelectContainer from './CategorySelectContainer';
+import PeriodSelectContainer from './PeriodSelectContainer';
+import PayoutSelectContainer from './PayoutSelectContainer';
 
-Form.displayName = 'Form';
-Form.propTypes = {
+const JapanFrom = ({ state, actions }) => (<section className='japan-form'>
+  <SymbolSelectContainer
+    state={state}
+    className='symbol-select'
+    value={state.getIn(['values', 'symbol'])}
+    onChange={(e) => actions.setSymbol({ symbol: e.target.value })} />
+  <CategorySelectContainer
+    state={state}
+    className='category-select'
+    value={state.getIn(['values', 'category'])}
+    onChange={(e) => actions.setCategory({ category: e.target.value })}/>
+  <PeriodSelectContainer
+    state={state}
+    className='period-select'
+    value={state.getIn(['values', 'period'])}
+    onChange={(e) => actions.setPeriod({ period: e.target.value })}/>
+  <PayoutSelectContainer
+    state={state}
+    className='payout-select'
+    value={state.getIn(['values', 'payout'])}
+    onChange={(e) => actions.setPayout({ payout: e.target.value })}/>
+</section>);
+
+JapanFrom.displayName = 'JapanFrom';
+JapanFrom.propTypes = {
   actions: React.PropTypes.object.isRequired,
-  symbols: React.PropTypes.instanceOf(List).isRequired,
-  categories: React.PropTypes.instanceOf(List).isRequired,
-  periods: React.PropTypes.instanceOf(List).isRequired,
-  payouts: React.PropTypes.instanceOf(List).isRequired,
-  symbol: React.PropTypes.string,
-  category: React.PropTypes.string,
-  period: React.PropTypes.string,
-  payout: React.PropTypes.string,
+  state: React.PropTypes.instanceOf(Map).isRequired,
 };
 
-export default Form;
+export default JapanFrom;

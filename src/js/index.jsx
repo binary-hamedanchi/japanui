@@ -36,6 +36,20 @@ store.dispatch({
   },
 });
 
+store.dispatch({
+  type: 'SET_CONTRACT_TYPES',
+  payload: {
+    CALLE: { opposite: 'PUT', order: 1 },
+    PUT: { opposite: 'CALLE', order: 2 },
+    ONETOUCH: { opposite: 'NOTOUCH', order: 1 },
+    NOTOUCH: { opposite: 'ONETOUCH', order: 2 },
+    EXPIRYRANGEE: { opposite: 'EXPIRYMISS', order: 1 },
+    EXPIRYMISS: { opposite: 'EXPIRYRANGEE', order: 2 },
+    RANGE: { opposite: 'UPORDOWN', order: 1 },
+    UPORDOWN: { opposite: 'RANGE', order: 2 },
+  },
+});
+
 store.dispatch(Actions.getSymbols());
 
 ReactDOM.render(<Provider store={store}>

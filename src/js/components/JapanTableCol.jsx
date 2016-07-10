@@ -1,34 +1,34 @@
 import React from 'react';
 import { Map, List } from 'immutable';
 
-import JapanColDescription from './JapanColDescription';
-import JapanTableRow from './JapanTableRow';
+import JapanPriceDetails from './JapanPriceDetails';
+import JapanTableRowContainer from './JapanTableRowContainer';
 
-const JapanTableCol = ({ list, type, text, buyCb }) => (<div className='col'>
-  <JapanColDescription
+const JapanTableCol = ({ prices, type, text }) => (<div className='col'>
+  <JapanPriceDetails
     key='description'
     text={text}
     type={type} />
-  <JapanTableRow
+  <JapanTableRowContainer
     key='heading'
-    item={Map({
-      barrier: text.get('textBarrier'),
+    isHeading
+    price={Map({
+      barrier: text.get('textBarriers'),
       buy: text.get('textBuy'),
       sell: text.get('textSell'),
     })} />
-  {list.map((item, key) => (
-    <JapanTableRow
+  {prices.map((price, key) => (
+    <JapanTableRowContainer
       key={key}
-      item={item.set('cb', () => buyCb({ barrier: item.get('barrier'), type }))} />
+      price={price} />
   ))}
 </div>);
 
 JapanTableCol.displayName = 'JapanTableCol';
 JapanTableCol.propTypes = {
-  list: React.PropTypes.instanceOf(List).isRequired,
+  prices: React.PropTypes.instanceOf(List).isRequired,
   type: React.PropTypes.string.isRequired,
   text: React.PropTypes.instanceOf(Map).isRequired,
-  buyCb: React.PropTypes.func.isRequired,
 };
 
 export default JapanTableCol;
