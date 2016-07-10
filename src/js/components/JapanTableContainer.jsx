@@ -58,7 +58,10 @@ const getTable = (() => {
     return table
       .reduce((tableList, value, contractType) => tableList.push(Map({
         prices: value
-          .reduce((prices, price, barrier) => prices.push(price.set('barrier', barrier)), List())
+          .reduce((prices, price, barrier) => prices
+            .push(price.set('barrier', barrier)
+              .deleteIn(['ask', 'time'])
+              .deleteIn(['ask', 'time'])), List())
           .sort((item1, item2) => item1.get('barrier') > item2.get('barrier') ? -1 : 1),
         contractType,
       })), List())
@@ -67,13 +70,9 @@ const getTable = (() => {
   };
 })();
 
-const JapanTableContainer = ({ state }) => <JapanTable
+const JapanTableContainer = ({ state }) => (<JapanTable
   table={getTable(state)}
-  text={state.get('texts')} />;
-// const JapanTableContainer = ({ state }) => {
-//   console.log(getTable(state).toJS());
-//   return <div />;
-// };
+  text={state.get('texts')} />);
 
 JapanTableContainer.displayName = 'JapanTableContainer';
 JapanTableContainer.propTypes = {
