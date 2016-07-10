@@ -61,6 +61,9 @@ const getTable = (() => {
 
 const JapanTableContainer = ({ state }) => (<JapanTable
   table={getTable(state)}
+  symbol={state.getIn(['values', 'symbol'])}
+  period={state.getIn(['values', 'period'])}
+  payout={state.getIn(['values', 'payout'])}
   text={state.get('texts')} />);
 
 JapanTableContainer.displayName = 'JapanTableContainer';

@@ -7,11 +7,17 @@
   	.col {
   		padding: 5px;
   		&.down  {
-  			background: blue;
+  			color: blue;
+        button {
+          color: blue;
+        }
   		}
 
   		&.up  {
-  			background: red;
+  			color: red;
+        button {
+          color: red;
+        }
   		}
   	}
   }

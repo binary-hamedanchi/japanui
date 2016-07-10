@@ -12,9 +12,10 @@ const getPeriods = (state = Map()) => {
 
   const periods = ContractsHelper.getTradingPeriods(contracts, category);
   return periods.map((period) => {
+    const duration = period.get('duration').replace('0d', '1d');
     const formatDate = moment.utc(period.get('end') * 1000).utcOffset('+0800')
       .format(`MM[${texts.get('textJapanPeriodM')}] ` +
-        `DD[${texts.get('textJapanPeriodD')}] HH:mm [(${period.get('duration')})]`);
+        `DD[${texts.get('textJapanPeriodD')}] HH:mm [(${duration})]`);
 
     return List.of(`${period.get('start') }_${period.get('end')}`, formatDate);
   });

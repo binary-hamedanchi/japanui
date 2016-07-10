@@ -1,14 +1,24 @@
 import React from 'react';
 import { Map, List } from 'immutable';
 
-import JapanPriceDetails from './JapanPriceDetails';
+import JapanPriceDetailsContainer from './JapanPriceDetailsContainer';
 import JapanTableRowContainer from './JapanTableRowContainer';
 
-const JapanTableCol = ({ prices, type, text }) => (<div className='col'>
-  <JapanPriceDetails
+const JapanTableCol = ({
+  prices,
+  symbol,
+  period,
+  payout,
+  type,
+  text,
+}) => (<div className='col'>
+  <JapanPriceDetailsContainer
     key='description'
     text={text}
-    type={type} />
+    type={type}
+    symbol={symbol}
+    period={period}
+    payout={payout} />
   <JapanTableRowContainer
     key='heading'
     isHeading
@@ -29,6 +39,9 @@ JapanTableCol.propTypes = {
   prices: React.PropTypes.instanceOf(List).isRequired,
   type: React.PropTypes.string.isRequired,
   text: React.PropTypes.instanceOf(Map).isRequired,
+  symbol: React.PropTypes.string,
+  period: React.PropTypes.string,
+  payout: React.PropTypes.string,
 };
 
 export default JapanTableCol;
