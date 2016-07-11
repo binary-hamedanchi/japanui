@@ -4,7 +4,7 @@ import { Map } from 'immutable';
 
 import JapanTableRow from './JapanTableRow';
 
-const JapanTableRowContainer = ({ price, isHeading }) => {
+const JapanTableRowContainer = ({ price, isHeading, buyCb, type }) => {
   const buyClasses = {};
   const sellClasses = {};
 
@@ -20,8 +20,10 @@ const JapanTableRowContainer = ({ price, isHeading }) => {
     sellClasses.up = price.getIn(['bid', 'dynamics']) > 0;
     sellClasses.down = price.getIn(['bid', 'dynamics']) < 0;
 
+    const buyCB = () => buyCb({ barriers: barrier, type, price: price.getIn(['ask', 'val']) });
+
     buy = price.hasIn(['ask', 'val']) ?
-      <button onClick={price.get('cb')}>{`¥${price.getIn(['ask', 'val'])}`}</button> : null;
+      <button onClick={buyCB}>{`¥${price.getIn(['ask', 'val'])}`}</button> : null;
     sell = price.hasIn(['bid', 'val']) ? `¥${price.getIn(['bid', 'val'])}` : null;
   } else {
     buy = price.get('buy');
@@ -41,6 +43,8 @@ const JapanTableRowContainer = ({ price, isHeading }) => {
 
 JapanTableRowContainer.displayName = 'JapanTableRowContainer';
 JapanTableRowContainer.propTypes = {
+  type: React.PropTypes.string,
+  buyCb: React.PropTypes.func,
   price: React.PropTypes.instanceOf(Map).isRequired,
   isHeading: React.PropTypes.bool,
 };

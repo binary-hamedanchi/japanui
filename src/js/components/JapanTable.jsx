@@ -9,8 +9,10 @@ const JapanTable = ({
   period,
   payout,
   text,
+  buyCb,
 }) => (<div className='japan-table'>
   {table.map((item, key) => (<JapanTableCol
+    buyCb={buyCb}
     prices={item.get('prices')}
     type={item.get('contractType')}
     symbol={symbol}
@@ -27,6 +29,7 @@ JapanTable.propTypes = {
   symbol: React.PropTypes.string,
   period: React.PropTypes.string,
   payout: React.PropTypes.string,
+  buyCb: React.PropTypes.func.isRequired,
 };
 
 export default JapanTable;

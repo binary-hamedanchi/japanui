@@ -11,6 +11,7 @@ const JapanTableCol = ({
   payout,
   type,
   text,
+  buyCb,
 }) => (<div className='col'>
   <JapanPriceDetailsContainer
     key='description'
@@ -29,6 +30,8 @@ const JapanTableCol = ({
     })} />
   {prices.map((price, key) => (
     <JapanTableRowContainer
+      buyCb={buyCb}
+      type={type}
       key={key}
       price={price} />
   ))}
@@ -42,6 +45,7 @@ JapanTableCol.propTypes = {
   symbol: React.PropTypes.string,
   period: React.PropTypes.string,
   payout: React.PropTypes.string,
+  buyCb: React.PropTypes.func.isRequired,
 };
 
 export default JapanTableCol;
