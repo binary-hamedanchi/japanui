@@ -19,7 +19,10 @@ const SocketMiddleware = () => (next) => (action) => {
   } else {
     const apiRequest = action[WS_API];
 
-    if (typeof apiRequest !== 'object' ||
+    if (apiRequest && apiRequest.close) {
+      socket.close();
+      resolve(next(action));
+    } else if (typeof apiRequest !== 'object' ||
       typeof apiRequest.types !== 'object' ||
       apiRequest.types.length !== 3) {
       resolve(next(action));

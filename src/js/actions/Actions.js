@@ -213,3 +213,12 @@ export function getPrices() {
     return Promise.resolve();
   };
 }
+
+export function close() {
+  return {
+    type: 'CLOSE',
+    [WS_API]: {
+      close: 1,
+    },
+  };
+}
