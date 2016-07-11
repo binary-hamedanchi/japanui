@@ -1,0 +1,24 @@
+.japan-table {
+  display: flex;
+
+  .row {
+  	display: flex;
+
+  	.col {
+  		padding: 5px;
+  		&.down  {
+  			color: blue;
+        button {
+          color: blue;
+        }
+  		}
+
+  		&.up  {
+  			color: red;
+        button {
+          color: red;
+        }
+  		}
+  	}
+  }
+}
