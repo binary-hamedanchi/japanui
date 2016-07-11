@@ -7,8 +7,8 @@ import Select from './Select';
 const getSymbols = (state = Map()) => {
   const symbols = state.get('symbols', List());
 
-  // return SymbolsHelper.getSymbols(symbols, 'major_pairs')
-  return SymbolsHelper.getSymbols(symbols, 'volidx')
+  return SymbolsHelper.getSymbols(symbols, 'major_pairs')
+  // return SymbolsHelper.getSymbols(symbols, 'volidx')
     .toList()
     .map((symbol) => List.of(symbol.get('symbol'), symbol.get('display_name')));
 };

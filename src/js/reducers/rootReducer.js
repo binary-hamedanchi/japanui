@@ -77,6 +77,9 @@ export default function reducer(state = Map(), action = {}) {
     case 'SET_CONTRACT_TYPES':
       return state.set('contractTypes', payload);
 
+    case 'SET_storage':
+      return state.set('storage', payload);
+
     default:
       return state;
   }

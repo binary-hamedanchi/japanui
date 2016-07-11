@@ -7,7 +7,7 @@ export function getSymbols() {
   return (dispatch) => dispatch({
     [WS_API]: {
       types: ['PENDING_SYMBOLS', 'FAILURE_SYMBOLS', 'SUCCESS_SYMBOLS'],
-      // landing_company: 'japan',
+      landing_company: 'japan',
       active_symbols: 'brief',
     },
   }).then(() => dispatch(setSymbol()));

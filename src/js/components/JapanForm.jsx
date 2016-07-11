@@ -25,7 +25,7 @@ const JapanFrom = ({ state, actions }) => (<section className='japan-form'>
   <PayoutSelectContainer
     state={state}
     className='payout-select'
-    value={state.getIn(['values', 'payout'])}
+    value={String(state.getIn(['values', 'payout']))}
     onChange={(e) => actions.setPayout({ payout: e.target.value })}/>
 </section>);
 

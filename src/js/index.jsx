@@ -7,9 +7,15 @@ import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 import '../scss/japan.scss';
 
-const store = configureStore(fromJS({
-  storage: JSON.parse(localStorage.getItem('japan')),
-}));
+const store = configureStore();
+
+const storage = localStorage.getItem('japan') && JSON.parse(localStorage.getItem('japan'));
+if (storage) {
+  store.dispatch({
+    type: 'SET_STORAGE',
+    payload: storage,
+  });
+}
 
 window.store = store;
 
