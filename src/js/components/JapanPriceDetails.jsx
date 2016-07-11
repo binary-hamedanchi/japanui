@@ -1,8 +1,10 @@
 import React from 'react';
 
-const JapanPriceDetails = ({ description, type }) => (<div>
-  <h1>{type}</h1>
-  <div className='descr'>{description}</div>
+const JapanPriceDetails = ({ description, type }) => (<div className='row descr-wrapper'>
+  <div className='col'>
+    <h1>{type}</h1>
+    <div className='descr'>{description}</div>
+  </div>
 </div>);
 
 JapanPriceDetails.displayName = 'JapanPriceDetails';

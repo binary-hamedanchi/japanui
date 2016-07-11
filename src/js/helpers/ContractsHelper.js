@@ -69,10 +69,10 @@ export default class ContractsHelper {
       }, Map())
       .reduce((contracts, contract) => contracts.push(contract), List())
       .sort((period1, period2) => {
-        if (period2.get('start') - period1.get('start')) {
-          return period2.get('start') - period1.get('start');
+        if (period2.get('end') - period1.get('end')) {
+          return period1.get('end') - period2.get('end');
         }
-        return period2.get('end') - period1.get('end');
+        return period2.get('start') - period1.get('start');
       });
   }
 
