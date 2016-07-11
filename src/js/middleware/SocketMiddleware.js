@@ -1,5 +1,5 @@
 import Socket from '../utils/Socket';
-import config from '../config.json';
+import config from 'config';
 import moment from 'moment';
 
 const socket = new Socket(config.socket);

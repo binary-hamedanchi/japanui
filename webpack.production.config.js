@@ -3,8 +3,6 @@ var path = require('path');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/only-dev-server',
     './src/js/index.jsx',
   ],
   module: {
@@ -25,10 +23,10 @@ module.exports = {
     }],
   },
   resolve: {
-    root: path.resolve(__dirname),
     extensions: ['', '.js', '.jsx'],
+    root: path.resolve(__dirname),
     alias: {
-      config: __dirname + '/src/js/config.json',
+      config: __dirname + '/src/js/config.production.json',
     },
   },
   output: {
@@ -36,15 +34,10 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js',
   },
-  devServer: {
-    contentBase: './dist',
-    hot: true,
-  },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development'),
+        NODE_ENV: JSON.stringify('production'),
       },
     }),
   ],

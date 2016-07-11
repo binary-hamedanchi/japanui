@@ -1,5 +1,5 @@
 import { List, Map, OrderedMap } from 'immutable';
-import config from '../config.json';
+import config from 'config';
 
 export default class ContractsHelper {
   static getCategories(contracts = List()) {
