@@ -17,7 +17,7 @@ const JapanPriceDetailsContainer = ({
   }
 
   const endDate = period.split('_')[1];
-  const close = moment.utc(endDate * 1000).utcOffset('+0800')
+  const close = moment.utc(endDate * 1000).utcOffset(9)
     .format(`MM[${text.get('textJapanPeriodMonth')}] ` +
       `DD[${text.get('textJapanPeriodDay')}] HH:mm`);
 

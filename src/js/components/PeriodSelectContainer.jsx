@@ -31,7 +31,7 @@ const getPeriods = (state = Map()) => {
       }
     });
 
-    const formatDate = moment.utc(period.get('end') * 1000).utcOffset('+0800')
+    const formatDate = moment.utc(period.get('end') * 1000).utcOffset(9)
       .format(`MM[${text.get('textJapanPeriodMonth')}] ` +
         `DD[${text.get('textJapanPeriodDay')}] HH:mm [(${duration})]`);
 
