@@ -32,7 +32,7 @@ const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
     const barrierBlock = barrier.replace('_', ' ... ');
     const cb = () => actions.buy({ barriers: barrier, price: buy, type });
     const buyBlock = typeof buy !== 'undefined' ? <button onClick={cb}>{`¥${buy}`}</button> : null;
-    const sellBlock = typeof sell !== 'undefined' ? String(sell) : null;
+    const sellBlock = typeof sell !== 'undefined' ? `¥${sell}` : null;
 
     barriers = barriers.push(barrierBlock);
     buyPrices = buyPrices.push(Map({
