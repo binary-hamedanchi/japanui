@@ -30,7 +30,8 @@ const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
     const sell = price.getIn(['bid', 'val']);
 
     const barrierBlock = barrier.replace('_', ' ... ');
-    const cb = () => actions.buy({ barriers: barrier, price: buy, type });
+    const cb = () => (
+      price.getIn(['ask', 'isActive']) && actions.buy({ barriers: barrier, price: buy, type }));
     const buyBlock = typeof buy !== 'undefined' ? <button onClick={cb}>{`¥${buy}`}</button> : null;
     const sellBlock = typeof sell !== 'undefined' ? `¥${sell}` : null;
 

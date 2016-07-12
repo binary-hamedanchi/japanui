@@ -1,36 +1,68 @@
-.flex-box {
-  display: flex;
-  &.col {
-    flex-direction: column;
-    justify-content: space-between;
+.japan-ui {
+  font-family: roboto, sans-serif;
+  font-size: 14px;
+  .flex-box {
+    display: flex;
+    &.col {
+      flex-direction: column;
+    }
+    &.row {
+      // flex-grow: 2;
+      // justify-content: space-around;
+    }
   }
-  &.row {
-    justify-content: space-around;
+  .japan-table {
+    align-items: stretch;
   }
-}
-
-.japan-table {
-  align-items: stretch;
-}
-
-.descr-wrapper {
-  flex-grow: 2;
-}
-
-button {
-  width: 100%;
-}
-
-.down {
-  color: blue;
+  .buy-prices,
+  .sell-prices,
+  .barriers {
+    flex-grow: 2;
+    .row {
+      padding: 0 5px;
+      line-height: 43px;
+      min-height: 43px;
+      &:nth-child(even){
+        background: #F2F2F2;
+      }
+    }
+  }
+  .descr-wrapper {
+    flex-grow: 2;
+  }
   button {
-    color: blue
+    width: 120px;
+    color: #FFF;
+    text-align: center;
+    line-height: 100%;
+    background: #2E8836;
+    border-radius: 3px;
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 14px;
+    border: 0;
   }
-}
-
-.up {
-  color: red;
-  button {
-    color: red
+  .inactive button {
+    opacity: 0.5;
+    background: grey;
+    cursor: default;
+  }
+  .inactive {
+    color: grey;
+  }
+  .down {
+    color: blue;
+    button {
+      color: #C7CDFF
+    }
+  }
+  .up {
+    color: red;
+    button {
+      color: #FFB3B3;
+    }
+  }
+  .heading {
+    font-weight: bold;
   }
 }
