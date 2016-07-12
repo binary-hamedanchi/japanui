@@ -1,34 +1,36 @@
-.japan-table {
+.flex-box {
   display: flex;
-  align-items: stretch;
-
-  .type-col{
-    display: flex;
+  &.col {
     flex-direction: column;
-    .descr-wrapper{
-      flex-grow: 2;
-    }
+    justify-content: space-between;
   }
-  .row {
-    display: flex;
+  &.row {
     justify-content: space-around;
-    .col {
-      // flex-grow: 2;
-      button{
-        width: 100%;
-      }
-      &.down {
-        color: blue;
-        button {
-          color: blue;
-        }
-      }
-      &.up {
-        color: red;
-        button {
-          color: red;
-        }
-      }
-    }
+  }
+}
+
+.japan-table {
+  align-items: stretch;
+}
+
+.descr-wrapper {
+  flex-grow: 2;
+}
+
+button {
+  width: 100%;
+}
+
+.down {
+  color: blue;
+  button {
+    color: blue
+  }
+}
+
+.up {
+  color: red;
+  button {
+    color: red
   }
 }

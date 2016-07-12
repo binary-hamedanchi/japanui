@@ -4,7 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import JapanContainer from './components/JapanContainer';
 import { Provider } from 'react-redux';
-import { fromJS } from 'immutable';
 import '../scss/japan.scss';
 
 const store = configureStore();

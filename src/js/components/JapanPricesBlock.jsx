@@ -12,7 +12,7 @@ const JapanPricesBlock = ({
   priceDetails,
 }) => (
   <div className='col prices-wrapper flex-box'>
-  <div className='row'>{priceDetails}</div>
+  {priceDetails}
   <div className='row flex-box'>
     <div className='col flex-box barriers'>
       <div className='row heading' key='barriers-label'>{barrierLabel}</div>
