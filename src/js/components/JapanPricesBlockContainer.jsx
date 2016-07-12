@@ -6,7 +6,7 @@ import JapanPriceDetailsContainer from './JapanPriceDetailsContainer';
 import JapanPricesBlock from './JapanPricesBlock';
 
 
-const getClasses = (price) => classNames({
+const getClasses = (price = Map()) => classNames({
   inactive: !price.get('isActive'),
   up: price.get('dynamics') > 0,
   down: price.get('dynamics') < 0,
