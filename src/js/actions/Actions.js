@@ -160,6 +160,7 @@ export function getPrices() {
 
       dispatch({
         type: 'DELETE_STREAM',
+        skipLog: true,
         payload: { id },
       });
     });
@@ -206,6 +207,7 @@ export function getPrices() {
 
       dispatch({
         shortCode,
+        skipLog: true,
         [WS_API]: request,
       }).catch((err) => console.log(`${shortCode} ${err.message}`));
     }));

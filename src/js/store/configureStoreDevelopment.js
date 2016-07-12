@@ -10,6 +10,7 @@ import rootReducer from '../reducers/rootReducer';
 const finalCreateStore = compose(
   applyMiddleware(thunk, SocketMiddleware, StorageMiddleware, createLogger({
     stateTransformer: (state) => state && state.toJS(),
+    predicate: (getState, action) => !action.skipLog,
   })),
   window.devToolsExtension ? window.devToolsExtension() : (f) => f
 )(createStore);
