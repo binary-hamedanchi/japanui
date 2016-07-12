@@ -13,7 +13,7 @@
   .japan-table {
     align-items: stretch;
   }
-  .descr-wrapper{
+  .descr-wrapper {
     align-items: center;
   }
   .buy-prices,
@@ -68,5 +68,45 @@
   }
   .heading {
     font-weight: bold;
+  }
+  .descr-wrapper{
+     .descr {
+    padding: 10px;
+    font-size: 16px;
+  }
+}
+  .details-heading {
+    padding-top: 40px;
+    background-repeat: no-repeat;
+    background-position: top center;
+    font-size: 18px;
+    min-width: 80px;
+    max-width: 80px;
+    text-align: center;
+    align-self: flex-start;
+    &.CALLE {
+      background-image: url('https://www.binary.com/images/pages/trade/rise_1.png')
+    }
+    &.PUT {
+      background-image: url('https://www.binary.com/images/pages/trade/fall_1.png')
+    }
+    &.ONETOUCH {
+      background-image: url('https://www.binary.com/images/pages/trade/touch_1.png')
+    }
+    &.NOTOUCH {
+      background-image: url('https://www.binary.com/images/pages/trade/no-touch_1.png')
+    }
+    &.EXPIRYRANGEE {
+      background-image: url('https://www.binary.com/images/pages/trade/ends-between_1.png')
+    }
+    &.EXPIRYMISS {
+      background-image: url('https://www.binary.com/images/pages/trade/ends-outside_1.png')
+    }
+    &.RANGE {
+      background-image: url('https://www.binary.com/images/pages/trade/stay-in-between_1.png')
+    }
+    &.UPORDOWN {
+      background-image: url('https://www.binary.com/images/pages/trade/stay-out_1.png')
+    }
   }
 }
