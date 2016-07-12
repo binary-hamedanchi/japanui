@@ -20,8 +20,10 @@
     flex-grow: 2;
     .row {
       padding: 0 5px;
-      line-height: 43px;
-      min-height: 43px;
+      line-height: 34px;
+      min-height: 34px;
+      padding: 3px 0;
+      text-align: center;
       &:nth-child(even){
         background: #F2F2F2;
       }
