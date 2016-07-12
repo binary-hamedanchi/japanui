@@ -1,35 +1,28 @@
 import React from 'react';
 import { List, Map } from 'immutable';
 
-import JapanTableCol from './JapanTableCol';
+import JapanPricesBlockContainer from './JapanPricesBlockContainer';
 
 const JapanTable = ({
   table,
-  symbol,
-  period,
-  payout,
+  values,
   text,
-  buyCb,
-}) => (<div className='japan-table'>
-  {table.map((item, key) => (<JapanTableCol
-    buyCb={buyCb}
-    prices={item.get('prices')}
-    type={item.get('contractType')}
-    symbol={symbol}
-    period={period}
-    payout={payout}
+  actions,
+}) => (<div className='japan-table flex-box'>
+  {table.map((item, key) => (<JapanPricesBlockContainer
     key={key}
-    text={text} />))}
+    table={item}
+    values={values}
+    text={text}
+    actions={actions} />))}
 </div>);
 
 JapanTable.displayName = 'JapanTable';
 JapanTable.propTypes = {
   table: React.PropTypes.instanceOf(List).isRequired,
+  values: React.PropTypes.instanceOf(Map).isRequired,
   text: React.PropTypes.instanceOf(Map).isRequired,
-  symbol: React.PropTypes.string,
-  period: React.PropTypes.string,
-  payout: React.PropTypes.string,
-  buyCb: React.PropTypes.func.isRequired,
+  actions: React.PropTypes.object.isRequired,
 };
 
 export default JapanTable;

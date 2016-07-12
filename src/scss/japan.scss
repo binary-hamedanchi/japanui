@@ -1,24 +1,34 @@
 .japan-table {
   display: flex;
+  align-items: stretch;
 
+  .type-col{
+    display: flex;
+    flex-direction: column;
+    .descr-wrapper{
+      flex-grow: 2;
+    }
+  }
   .row {
-  	display: flex;
-
-  	.col {
-  		padding: 5px;
-  		&.down  {
-  			color: blue;
+    display: flex;
+    justify-content: space-around;
+    .col {
+      // flex-grow: 2;
+      button{
+        width: 100%;
+      }
+      &.down {
+        color: blue;
         button {
           color: blue;
         }
-  		}
-
-  		&.up  {
-  			color: red;
+      }
+      &.up {
+        color: red;
         button {
           color: red;
         }
-  		}
-  	}
+      }
+    }
   }
 }

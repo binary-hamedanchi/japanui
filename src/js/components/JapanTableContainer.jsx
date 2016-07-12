@@ -64,12 +64,10 @@ const getTable = (() => {
 })();
 
 const JapanTableContainer = ({ state, actions }) => (<JapanTable
-  buyCb={actions.buy}
   table={getTable(state)}
-  symbol={state.getIn(['values', 'symbol'])}
-  period={state.getIn(['values', 'period'])}
-  payout={String(state.getIn(['values', 'payout']))}
-  text={state.get('text')} />);
+  values={state.get('values', Map())}
+  text={state.get('text', Map())}
+  actions={actions} />);
 
 JapanTableContainer.displayName = 'JapanTableContainer';
 JapanTableContainer.propTypes = {

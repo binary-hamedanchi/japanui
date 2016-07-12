@@ -3,7 +3,6 @@ import { List } from 'immutable';
 
 const Select = (props) => {
   const { options } = props;
-
   const menuItems = options.map((option, key) =>
     (<option value={option.first()} key={key}>{option.last()}</option>)).toArray();
 

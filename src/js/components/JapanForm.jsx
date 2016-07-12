@@ -6,7 +6,7 @@ import CategorySelectContainer from './CategorySelectContainer';
 import PeriodSelectContainer from './PeriodSelectContainer';
 import PayoutSelectContainer from './PayoutSelectContainer';
 
-const JapanFrom = ({ state, actions }) => (<section className='japan-form'>
+const JapanFrom = ({ state, actions }) => (<section className='japan-form flex-box'>
   <div className='col'>
     <SymbolSelectContainer
       state={state}
