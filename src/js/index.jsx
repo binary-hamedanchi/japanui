@@ -53,6 +53,14 @@ store.dispatch({
     textEXPIRYMISS: '[_1] [_2] payout if [_3] ends otside low and high values of Exercise price at close on [_4].',
     textRANGE: '[_1] [_2] payout if [_3] stays between low and high values of Exercise price through close on [_4].',
     textUPORDOWN: '[_1] [_2] payout if [_3] goes ouside of low and high values of Exercise price through close on [_4].',
+    textCALLEName: 'Higher',
+    textPUTName: 'Lower',
+    textONETOUCHName: 'Touches',
+    textNOTOUCHName: 'Does Not Touch',
+    textEXPIRYRANGEEName: 'Ends Between',
+    textEXPIRYMISSName: 'Ends Outside',
+    textRANGEName: 'Stays Between',
+    textUPORDOWNName: 'Goes Outside',  
   },
 });
 

@@ -11,20 +11,20 @@ const JapanPricesBlock = ({
   sellPrices,
   priceDetails,
 }) => (
-  <div className='col prices-wrapper flex-box'>
+  <div className='col prices-wrapper flex-box rows'>
   {priceDetails}
-  <div className='row flex-box'>
-    <div className='col flex-box barriers'>
+  <div className='row flex-box cols'>
+    <div className='col flex-box rows barriers'>
       <div className='row heading' key='barriers-label'>{barrierLabel}</div>
       {barriers.map((barrier, key) => <div className='row' key={key}>{barrier}</div>)}
     </div>
-    <div className='col flex-box buy-prices'>
+    <div className='col flex-box rows buy-prices'>
       <div className='row heading' key='buy-label'>{buyLabel}</div>
       {buyPrices.map((buyPrice, key) => (
         <div className={classNames('row', buyPrice.get('classes'))}
           key={key}>{buyPrice.get('val')}</div>))}
     </div>
-    <div className='col flex-box sell-prices'>
+    <div className='col flex-box rows sell-prices'>
       <div className='row heading' key='buy-label'>{sellLabel}</div>
       {sellPrices.map((sellPrice, key) => (
         <div className={classNames('row', sellPrice.get('classes'))}

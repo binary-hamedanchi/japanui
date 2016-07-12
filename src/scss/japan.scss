@@ -3,16 +3,18 @@
   font-size: 14px;
   .flex-box {
     display: flex;
-    &.col {
+    &.rows {
       flex-direction: column;
     }
-    &.row {
-      // flex-grow: 2;
-      // justify-content: space-around;
+    &.cols {
+      flex-direction: row;
     }
   }
   .japan-table {
     align-items: stretch;
+  }
+  .descr-wrapper{
+    align-items: center;
   }
   .buy-prices,
   .sell-prices,
@@ -24,7 +26,7 @@
       min-height: 34px;
       padding: 3px 0;
       text-align: center;
-      &:nth-child(even){
+      &:nth-child(even) {
         background: #F2F2F2;
       }
     }

@@ -38,7 +38,8 @@ const JapanPriceDetailsContainer = ({
 
   return (<JapanPriceDetails
     description={description}
-    type={type} />);
+    type={type}
+    label={text.get(`text${type}Name`)}/>);
 };
 
 JapanPriceDetailsContainer.displayName = 'JapanPriceDetailsContainer';
