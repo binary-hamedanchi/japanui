@@ -12,6 +12,16 @@ const getClasses = (price = Map()) => classNames({
   down: price.get('dynamics') < 0,
 });
 
+const getArrow = (price = Map()) => {
+  if (price.get('dynamics') > 0) {
+    return '↑';
+  } else if (price.get('dynamics') < 0) {
+    return '↓';
+  }
+
+  return '\u00A0\u00A0';
+};
+
 const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
   const type = table.get('contractType');
   const details = (<JapanPriceDetailsContainer
@@ -32,8 +42,8 @@ const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
     const barrierBlock = barrier.replace('_', ' ... ');
     const cb = () => (
       price.getIn(['ask', 'isActive']) && actions.buy({ barriers: barrier, price: buy, type }));
-    const buyBlock = typeof buy !== 'undefined' ? <button onClick={cb}>{`¥${buy}`}</button> : null;
-    const sellBlock = typeof sell !== 'undefined' ? `¥${sell}` : null;
+    const buyBlock = typeof buy !== 'undefined' ? <button onClick={cb}>{`¥${buy} ${getArrow(price.get('ask'))}`}</button> : null;
+    const sellBlock = typeof sell !== 'undefined' ? `¥${sell} ${getArrow(price.get('bid'))}` : null;
 
     barriers = barriers.push(barrierBlock);
     buyPrices = buyPrices.push(Map({

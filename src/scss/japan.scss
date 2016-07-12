@@ -55,16 +55,19 @@
     color: grey;
   }
   .down {
-    color: blue;
+    // color: #29abe2;
     button {
-      color: #C7CDFF
+      // color: #C7CDFF
     }
   }
   .up {
-    color: red;
+    // color: #c03;
     button {
-      color: #FFB3B3;
+      // color: #FFB3B3;
     }
+  }
+  .inactive {
+    // color: #FFF;
   }
   .heading {
     font-weight: bold;
