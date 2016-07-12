@@ -12,10 +12,28 @@ const getPeriods = (state = Map()) => {
 
   const periods = ContractsHelper.getTradingPeriods(contracts, category);
   return periods.map((period) => {
-    const duration = period.get('duration').replace('0d', '1d');
-    const formatDate = moment.utc(period.get('end') * 1000).utcOffset('+0800')
-      .format(`MM[${text.get('textJapanPeriodM')}] ` +
-        `DD[${text.get('textJapanPeriodD')}] HH:mm [(${duration})]`);
+    const duration = period.get('duration').replace('0d', '1d').replace(/[a-z]+/gi, (dur) => {
+      switch (dur) {
+        case 'm':
+          return text.get('textJapanPeriodMinutes');
+        case 'h':
+          return text.get('textJapanPeriodHours');
+        case 'd':
+          return text.get('textJapanPeriodDays');
+        case 'W':
+          return text.get('textJapanPeriodWeeks');
+        case 'M':
+          return text.get('textJapanPeriodMonths');
+        case 'Y':
+          return text.get('textJapanPeriodYears');
+        default:
+          return void 0;
+      }
+    });
+
+    const formatDate = moment.utc(period.get('end') * 1000).utcOffset(9)
+      .format(`MM[${text.get('textJapanPeriodMonth')}] ` +
+        `DD[${text.get('textJapanPeriodDay')}] HH:mm [(${duration})]`);
 
     return List.of(`${period.get('start') }_${period.get('end')}`, formatDate);
   });

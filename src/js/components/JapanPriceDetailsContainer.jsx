@@ -17,9 +17,9 @@ const JapanPriceDetailsContainer = ({
   }
 
   const endDate = period.split('_')[1];
-  const close = moment.utc(endDate * 1000).utcOffset('+0800')
-    .format(`MM[${text.get('textJapanPeriodM')}] ` +
-      `DD[${text.get('textJapanPeriodD')}] HH:mm`);
+  const close = moment.utc(endDate * 1000).utcOffset(9)
+    .format(`MM[${text.get('textJapanPeriodMonth')}] ` +
+      `DD[${text.get('textJapanPeriodDay')}] HH:mm`);
 
   const description = pattern.replace(/\[\_\d+\]/g, (r) => {
     switch (r) {
@@ -38,7 +38,8 @@ const JapanPriceDetailsContainer = ({
 
   return (<JapanPriceDetails
     description={description}
-    type={type} />);
+    type={type}
+    label={text.get(`text${type}Name`)}/>);
 };
 
 JapanPriceDetailsContainer.displayName = 'JapanPriceDetailsContainer';

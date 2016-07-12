@@ -11,7 +11,7 @@ import JapanForm from './JapanForm';
 const Japan = ({ state, actions }) => (<div className='japan-ui'>
   <FetchingBoxContainer state={state} />
   <JapanForm state={state} actions={actions}/>
-  <JapanTableContainer state={state}/>
+  <JapanTableContainer state={state} actions={actions}/>
 </div>);
 
 Japan.displayName = 'Japan';

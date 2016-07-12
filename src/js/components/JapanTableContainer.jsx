@@ -51,7 +51,11 @@ const getTable = (() => {
             .push(price.set('barrier', barrier)
               .deleteIn(['ask', 'time'])
               .deleteIn(['ask', 'time'])), List())
-          .sort((item1, item2) => item1.get('barrier') > item2.get('barrier') ? -1 : 1),
+          .sort((item1, item2) => {
+            const barrier1 = Number(item1.get('barrier').split('_')[0]);
+            const barrier2 = Number(item2.get('barrier').split('_')[0]);
+            return barrier1 > barrier2 ? -1 : 1;
+          }),
         contractType,
       })), List())
       .sort((type1, type2) => contractTypes.getIn([type1.get('contractType'), 'order']) -
@@ -59,16 +63,16 @@ const getTable = (() => {
   };
 })();
 
-const JapanTableContainer = ({ state }) => (<JapanTable
+const JapanTableContainer = ({ state, actions }) => (<JapanTable
   table={getTable(state)}
-  symbol={state.getIn(['values', 'symbol'])}
-  period={state.getIn(['values', 'period'])}
-  payout={String(state.getIn(['values', 'payout']))}
-  text={state.get('text')} />);
+  values={state.get('values', Map())}
+  text={state.get('text', Map())}
+  actions={actions} />);
 
 JapanTableContainer.displayName = 'JapanTableContainer';
 JapanTableContainer.propTypes = {
-  state: React.PropTypes.instanceOf(Map),
+  state: React.PropTypes.instanceOf(Map).isRequired,
+  actions: React.PropTypes.object.isRequired,
 };
 
 export default JapanTableContainer;

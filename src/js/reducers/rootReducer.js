@@ -77,8 +77,24 @@ export default function reducer(state = Map(), action = {}) {
     case 'SET_CONTRACT_TYPES':
       return state.set('contractTypes', payload);
 
-    case 'SET_storage':
+    case 'SET_STORAGE':
       return state.set('storage', payload);
+
+    case 'PENDING_BUY':
+      return state.setIn(['status', 'buy', action.shortCode], 'pending')
+        .deleteIn(['errors', 'buy', action.shortCode]);
+
+    case 'FAILURE_BUY':
+      return state.setIn(['status', 'buy', action.shortCode], 'error')
+        .setIn(['errors', 'buy', action.shortCode], payload);
+
+    case 'SUCCESS_BUY':
+      return state.setIn(['status', 'buy', action.shortCode], 'ready')
+        .deleteIn(['errors', 'buy', action.shortCode]);
+
+    case 'DELETE_BUY':
+      return state.deleteIn(['status', 'buy', action.shortCode])
+        .deleteIn(['errors', 'buy', action.shortCode]);
 
     default:
       return state;

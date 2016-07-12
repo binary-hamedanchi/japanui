@@ -1,5 +1,5 @@
 import { List, Map, OrderedMap } from 'immutable';
-import config from '../config.json';
+import config from 'config';
 
 export default class ContractsHelper {
   static getCategories(contracts = List()) {
@@ -56,16 +56,24 @@ export default class ContractsHelper {
   }
 
   static getTradingPeriods(contracts, category) {
-    return this.filter(contracts, { contract_category: category }).map((contract) => Map({
-      start: contract.getIn(['trading_period', 'date_start', 'epoch']),
-      end: contract.getIn(['trading_period', 'date_expiry', 'epoch']),
-      duration: contract.getIn(['trading_period', 'duration']),
-    })).sort((period1, period2) => {
-      if (period2.get('start') - period1.get('start')) {
+    return this
+      .filter(contracts, { contract_category: category })
+      .reduce((contracts, contract) => {
+        const start = contract.getIn(['trading_period', 'date_start', 'epoch']);
+        const end = contract.getIn(['trading_period', 'date_expiry', 'epoch']);
+        return contracts.set(`${start}_${end}`, Map({
+          duration: contract.getIn(['trading_period', 'duration']),
+          start,
+          end,
+        }));
+      }, Map())
+      .reduce((contracts, contract) => contracts.push(contract), List())
+      .sort((period1, period2) => {
+        if (period2.get('end') - period1.get('end')) {
+          return period1.get('end') - period2.get('end');
+        }
         return period2.get('start') - period1.get('start');
-      }
-      return period2.get('end') - period1.get('end');
-    });
+      });
   }
 
   static getJapanBarriers(contracts, category, startDate, endDate) {

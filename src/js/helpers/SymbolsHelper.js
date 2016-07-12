@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import config from '../config.json';
+import config from 'config';
 
 export default class SymbolsHelper {
 

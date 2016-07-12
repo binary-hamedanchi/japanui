@@ -160,6 +160,7 @@ export function getPrices() {
 
       dispatch({
         type: 'DELETE_STREAM',
+        skipLog: true,
         payload: { id },
       });
     });
@@ -206,10 +207,58 @@ export function getPrices() {
 
       dispatch({
         shortCode,
+        skipLog: true,
         [WS_API]: request,
       }).catch((err) => console.log(`${shortCode} ${err.message}`));
     }));
 
     return Promise.resolve();
+  };
+}
+
+export function buy({ type, price, barriers }) {
+  return (dispatch, getState) => {
+    const payout = getState().getIn(['values', 'payout']);
+    const symbol = getState().getIn(['values', 'symbol']);
+    const expiry = getState().getIn(['values', 'period']).split('_')[1];
+
+    const parameters = {
+      amount: payout,
+      basis: 'payout',
+      contract_type: type,
+      currency: 'JPY',
+      symbol: symbol,
+      date_expiry: expiry,
+    };
+
+    const match = barriers.match(/^([\d.]+)_([\d.]+)$/);
+    if (match) {
+      parameters.barrier = match[2];
+      parameters.barrier2 = match[1];
+    } else {
+      parameters.barrier = barriers;
+    }
+
+    const shortCode = [symbol, type, expiry, barriers, payout, price].join('|');
+    const cleanBuy = () => setTimeout(() => dispatch({ type: 'DELETE_BUY', shortCode }), 60 * 1000);
+
+    dispatch({
+      shortCode,
+      [WS_API]: {
+        types: ['PENDING_BUY', 'FAILURE_BUY', 'SUCCESS_BUY'],
+        buy: 1,
+        price: price,
+        parameters,
+      },
+    }).then(cleanBuy).catch(cleanBuy);
+  };
+}
+
+export function close() {
+  return {
+    type: 'CLOSE',
+    [WS_API]: {
+      close: 1,
+    },
   };
 }

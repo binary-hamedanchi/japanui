@@ -1,24 +1,72 @@
-.japan-table {
-  display: flex;
-
-  .row {
-  	display: flex;
-
-  	.col {
-  		padding: 5px;
-  		&.down  {
-  			color: blue;
-        button {
-          color: blue;
-        }
-  		}
-
-  		&.up  {
-  			color: red;
-        button {
-          color: red;
-        }
-  		}
-  	}
+.japan-ui {
+  font-family: roboto, sans-serif;
+  font-size: 14px;
+  .flex-box {
+    display: flex;
+    &.rows {
+      flex-direction: column;
+    }
+    &.cols {
+      flex-direction: row;
+    }
+  }
+  .japan-table {
+    align-items: stretch;
+  }
+  .descr-wrapper{
+    align-items: center;
+  }
+  .buy-prices,
+  .sell-prices,
+  .barriers {
+    flex-grow: 2;
+    .row {
+      padding: 0 5px;
+      line-height: 34px;
+      min-height: 34px;
+      padding: 3px 0;
+      text-align: center;
+      &:nth-child(even) {
+        background: #F2F2F2;
+      }
+    }
+  }
+  .descr-wrapper {
+    flex-grow: 2;
+  }
+  button {
+    width: 120px;
+    color: #FFF;
+    text-align: center;
+    line-height: 100%;
+    background: #2E8836;
+    border-radius: 3px;
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 14px;
+    border: 0;
+  }
+  .inactive button {
+    opacity: 0.5;
+    background: grey;
+    cursor: default;
+  }
+  .inactive {
+    color: grey;
+  }
+  .down {
+    color: blue;
+    button {
+      color: #C7CDFF
+    }
+  }
+  .up {
+    color: red;
+    button {
+      color: #FFB3B3;
+    }
+  }
+  .heading {
+    font-weight: bold;
   }
 }
