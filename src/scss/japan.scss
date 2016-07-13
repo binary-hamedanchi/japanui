@@ -9,7 +9,13 @@
     &.cols {
       flex-direction: row;
     }
+    @media screen and (max-width: 620px) {
+      &.japan-table {
+        flex-direction: column;
+      }
+    }
   }
+  
   .japan-table {
     align-items: stretch;
   }
@@ -125,16 +131,3 @@
     }
   }
 }
-
-
-@media screen and (max-width: 400px) {
-  .japan-ui .flex-box.cols.japan-table {
-    flex-direction: column;
-  }
-}
-
-// @media screen and (max-width: 450px) {
-// .japan-ui .japan-table.flex-box.cols {
-//     flex-direction: column;
-// }
-// }
