@@ -15,4 +15,4 @@ window.store = store;
 store.dispatch(Actions.getSymbols());
 
 ReactDOM.render(<Provider store={store}>
-    <JapanContainer /></Provider>, document.getElementById('app'));
+    <JapanContainer /></Provider>, document.getElementById('japan-app'));
