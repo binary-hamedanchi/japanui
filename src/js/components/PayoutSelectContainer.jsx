@@ -5,7 +5,7 @@ import Select from './Select';
 
 const getPayouts = (state = Map()) => {
   const payouts = state.get('payouts', List());
-  return payouts.map((payout) => List.of(payout, `¥ ${payout}`));
+  return payouts.map((payout) => List.of(payout, `¥ ${Number(payout).toLocaleString()}`));
 };
 
 const PayoutSelectContainer = (props) => (<Select

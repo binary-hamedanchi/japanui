@@ -14,13 +14,16 @@ const JapanPriceContainer = ({ price, cb, isActive }) => {
 
   if (cb) {
     return (<JapanPriceButton
-      price={String(price.get('val'))}
+      price={Number(price.get('val')).toLocaleString()}
       cb={isActive ? cb : () => {}}
       dynamics={dynamics}
       inactive={!isActive} />);
   }
 
-  return <JapanPrice price={String(price.get('val'))} dynamics={dynamics} inactive={!isActive}/>;
+  return (<JapanPrice
+    price={Number(price.get('val')).toLocaleString()}
+    dynamics={dynamics}
+    inactive={!isActive} />);
 };
 
 JapanPriceContainer.displayName = 'JapanPriceContainer';

@@ -26,7 +26,7 @@ const JapanPriceDetailsContainer = ({
       case '[_1]':
         return '¥';
       case '[_2]':
-        return payout;
+        return Number(payout).toLocaleString();
       case '[_3]':
         return symbol;
       case '[_4]':
