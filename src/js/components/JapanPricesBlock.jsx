@@ -1,6 +1,5 @@
 import React from 'react';
 import { List } from 'immutable';
-import classNames from 'classnames';
 
 const JapanPricesBlock = ({
   barrierLabel,
@@ -21,14 +20,12 @@ const JapanPricesBlock = ({
     <div className='col flex-box rows buy-prices'>
       <div className='row heading' key='buy-label'>{buyLabel}</div>
       {buyPrices.map((buyPrice, key) => (
-        <div className={classNames('row', buyPrice.get('classes'))}
-          key={key}>{buyPrice.get('val')}</div>))}
+        <div className='row' key={key}>{buyPrice}</div>))}
     </div>
     <div className='col flex-box rows sell-prices'>
       <div className='row heading' key='buy-label'>{sellLabel}</div>
       {sellPrices.map((sellPrice, key) => (
-        <div className={classNames('row', sellPrice.get('classes'))}
-          key={key}>{sellPrice.get('val')}</div>))}
+        <div className='row' key={key}>{sellPrice}</div>))}
     </div>
   </div>
 </div>);

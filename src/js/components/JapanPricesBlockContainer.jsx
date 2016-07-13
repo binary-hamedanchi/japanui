@@ -1,26 +1,9 @@
 import React from 'react';
 import { Map, List } from 'immutable';
-import classNames from 'classnames';
 
 import JapanPriceDetailsContainer from './JapanPriceDetailsContainer';
+import JapanPriceContainer from './JapanPriceContainer';
 import JapanPricesBlock from './JapanPricesBlock';
-
-
-const getClasses = (price = Map()) => classNames({
-  inactive: !price.get('isActive'),
-  up: price.get('dynamics') > 0,
-  down: price.get('dynamics') < 0,
-});
-
-const getArrow = (price = Map()) => {
-  if (price.get('dynamics') > 0) {
-    return '↑';
-  } else if (price.get('dynamics') < 0) {
-    return '↓';
-  }
-
-  return '\u00A0\u00A0';
-};
 
 const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
   const type = table.get('contractType');
@@ -35,25 +18,15 @@ const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
   let buyPrices = List();
   let sellPrices = List();
   table.get('prices', List()).forEach((price) => {
-    const barrier = price.get('barrier');
-    const buy = price.getIn(['ask', 'val']);
-    const sell = price.getIn(['bid', 'val']);
+    const cb = () => actions.buy({
+      barriers: price.get('barrier'),
+      price: price.getIn(['ask', 'val']),
+      type,
+    });
 
-    const barrierBlock = barrier.replace('_', ' ... ');
-    const cb = () => (
-      price.getIn(['ask', 'isActive']) && actions.buy({ barriers: barrier, price: buy, type }));
-    const buyBlock = typeof buy !== 'undefined' ? <button onClick={cb}>{`¥${buy} ${getArrow(price.get('ask'))}`}</button> : null;
-    const sellBlock = typeof sell !== 'undefined' ? `¥${sell} ${getArrow(price.get('bid'))}` : null;
-
-    barriers = barriers.push(barrierBlock);
-    buyPrices = buyPrices.push(Map({
-      val: buyBlock,
-      classes: getClasses(price.get('ask')),
-    }));
-    sellPrices = sellPrices.push(Map({
-      val: sellBlock,
-      classes: getClasses(price.get('bid')),
-    }));
+    barriers = barriers.push(price.get('barrier').replace('_', ' ... '));
+    buyPrices = buyPrices.push(<JapanPriceContainer price={price.get('ask')} cb={cb}/>);
+    sellPrices = sellPrices.push(<JapanPriceContainer price={price.get('bid')}/>);
   });
 
   return (<JapanPricesBlock

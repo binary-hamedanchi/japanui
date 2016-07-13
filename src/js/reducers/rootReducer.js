@@ -63,10 +63,10 @@ export default function reducer(state = Map(), action = {}) {
           payload.set('time', action.time))
         .deleteIn(['errors', 'proposals', action.shortCode]);
 
-    case 'DELETE_STREAM':
-      return state.deleteIn(['status', 'proposals', payload.get('id')])
-        .deleteIn(['streams', 'proposals', payload.get('id')])
-        .deleteIn(['errors', 'proposals', payload.get('id')]);
+    case 'DELETE_STREAMS':
+      return state.deleteIn(['status', 'proposals'])
+        .deleteIn(['streams', 'proposals'])
+        .deleteIn(['errors', 'proposals']);
 
     case 'SET_TEXT':
       return state.set('text', payload);

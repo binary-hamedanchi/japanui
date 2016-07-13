@@ -36,10 +36,10 @@ export function setSymbol(payload) {
       return Promise.reject();
     }
 
-    return dispatch({
+    return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_SYMBOL',
       payload: { symbol, store },
-    }).then(() => dispatch(getContracts()));
+    }).then(() => dispatch(getContracts())));
   };
 }
 
@@ -51,7 +51,7 @@ export function getContracts() {
       return Promise.reject();
     }
 
-    return dispatch({
+    return dispatch(deleteStreams()).then(() => dispatch({
       symbol: symbol,
       [WS_API]: {
         types: ['PENDING_CONTRACTS', 'FAILURE_CONTRACTS', 'SUCCESS_CONTRACTS'],
@@ -59,7 +59,7 @@ export function getContracts() {
         currency: 'JPY',
         region: 'japan',
       },
-    }).then(() => dispatch(setCategory()));
+    }).then(() => dispatch(setCategory())));
   };
 }
 
@@ -83,13 +83,13 @@ export function setCategory(payload) {
       category = categories.first();
     }
 
-    return dispatch({
+    return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_CATEGORY',
       payload: {
         category,
         store,
       },
-    }).then(() => dispatch(setPeriod()));
+    }).then(() => dispatch(setPeriod())));
   };
 }
 
@@ -113,13 +113,13 @@ export function setPeriod(payload) {
       }
     }
 
-    return dispatch({
+    return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_PERIOD',
       payload: {
         period,
         store,
       },
-    }).then(() => dispatch(setPayout()));
+    }).then(() => dispatch(setPayout())));
   };
 }
 
@@ -136,7 +136,7 @@ export function setPayout(payload) {
       payout = 1000;
     }
 
-    return dispatch({
+    return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_PAYOUT',
       payload: {
         payout,
@@ -144,27 +144,12 @@ export function setPayout(payload) {
       },
     }).then(() => {
       dispatch(getPrices());
-    });
+    }));
   };
 }
 
 export function getPrices() {
   return (dispatch, getState) => {
-    const streams = getState().getIn(['streams', 'proposals'], Map())
-      .concat(getState().getIn(['errors', 'proposals'], Map()));
-
-    streams.forEach((stream, id) => {
-      if (stream.has('channel')) {
-        stream.get('channel').close();
-      }
-
-      dispatch({
-        type: 'DELETE_STREAM',
-        skipLog: true,
-        payload: { id },
-      });
-    });
-
     const symbol = getState().getIn(['values', 'symbol']);
     const category = getState().getIn(['values', 'category']);
     const period = getState().getIn(['values', 'period']);
@@ -260,5 +245,27 @@ export function close() {
     [WS_API]: {
       close: 1,
     },
+  };
+}
+
+function deleteStreams() {
+  return (dispatch, getState) => {
+    const streams = getState().getIn(['streams', 'proposals'], Map())
+      .concat(getState().getIn(['errors', 'proposals'], Map()));
+
+    streams.forEach((stream) => {
+      const channel = stream.get('channel');
+      if (channel) {
+        channel.close();
+      }
+    });
+
+    if (!streams.isEmpty()) {
+      return dispatch({
+        type: 'DELETE_STREAMS',
+      });
+    }
+
+    return Promise.resolve();
   };
 }

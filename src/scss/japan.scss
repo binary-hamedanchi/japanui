@@ -112,4 +112,12 @@
       background-image: url('https://www.binary.com/images/pages/trade/stay-out_1.png')
     }
   }
+
+  .price-wrapper{
+    position: relative;
+
+    .dynamics{
+      position: absolute;
+    }
+  }
 }
