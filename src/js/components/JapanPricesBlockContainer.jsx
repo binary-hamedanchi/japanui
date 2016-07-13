@@ -5,13 +5,12 @@ import JapanPriceDetailsContainer from './JapanPriceDetailsContainer';
 import JapanPriceContainer from './JapanPriceContainer';
 import JapanPricesBlock from './JapanPricesBlock';
 
-const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
+const JapanPricesBlockContainer = ({ table, values, actions }) => {
   const type = table.get('contractType');
   const details = (<JapanPriceDetailsContainer
     symbol={values.get('symbol', '')}
     period={values.get('period', '')}
     payout={String(values.get('payout', ''))}
-    text={text}
     type={type}/>);
 
   let barriers = List();
@@ -37,18 +36,14 @@ const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
 
   return (<JapanPricesBlock
     priceDetails={details}
-    barrierLabel={text.get('textBarrier')}
     barriers={barriers}
-    buyLabel={text.get('textBuy')}
     buyPrices={buyPrices}
-    sellLabel={text.get('textSell')}
     sellPrices={sellPrices} />);
 };
 
 JapanPricesBlockContainer.displayName = 'JapanPricesBlockContainer';
 JapanPricesBlockContainer.propTypes = {
   values: React.PropTypes.instanceOf(Map).isRequired,
-  text: React.PropTypes.instanceOf(Map).isRequired,
   table: React.PropTypes.instanceOf(Map).isRequired,
   actions: React.PropTypes.object.isRequired,
 };

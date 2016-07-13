@@ -2,17 +2,17 @@ import React from 'react';
 import { List, Map } from 'immutable';
 
 import ContractsHelper from '../helpers/ContractsHelper';
+import text from '../helpers/text';
 import Select from './Select';
 
 const getCategories = (state = Map()) => {
   const contracts = state.getIn(['contracts', 'available'], List());
-  const text = state.get('text', Map());
 
   const categoryNames = {
-    higherlower: text.get('textHighLow'),
-    touchnotouch: text.get('textTouchNoTouch'),
-    endsinout: text.get('textEndInEndOut'),
-    staysinout: text.get('textStayInBreakOut'),
+    higherlower: text.localize('HIGH/LOW'),
+    touchnotouch: text.localize('TOUCH /NO-TOUCH'),
+    endsinout: text.localize('END-IN/END-OUT'),
+    staysinout: text.localize('STAY-IN/BREAK-OUT'),
   };
 
   return ContractsHelper.getCategories(contracts)

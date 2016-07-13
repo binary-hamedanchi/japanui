@@ -1,20 +1,17 @@
 import React from 'react';
-import { List, Map } from 'immutable';
+import { List } from 'immutable';
 
 import Select from './Select';
+import config from 'config/config.json';
 
-const getPayouts = (state = Map()) => {
-  const payouts = state.get('payouts', List());
-  return payouts.map((payout) => List.of(payout, `¥ ${Number(payout).toLocaleString()}`));
-};
+const getPayouts = () => List(
+  config.payouts.map((payout) => List.of(payout, `¥ ${Number(payout).toLocaleString()}`))
+);
 
 const PayoutSelectContainer = (props) => (<Select
   {...props}
-  options={getPayouts(props.state)} />);
+  options={getPayouts()} />);
 
 PayoutSelectContainer.displayName = 'PayoutSelectContainer';
-PayoutSelectContainer.propTypes = {
-  state: React.PropTypes.instanceOf(Map).isRequired,
-};
 
 export default PayoutSelectContainer;

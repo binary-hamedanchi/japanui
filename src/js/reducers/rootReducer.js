@@ -68,18 +68,6 @@ export default function reducer(state = Map(), action = {}) {
         .deleteIn(['streams', 'proposals'])
         .deleteIn(['errors', 'proposals']);
 
-    case 'SET_TEXT':
-      return state.set('text', payload);
-
-    case 'SET_PAYOUTS':
-      return state.set('payouts', payload);
-
-    case 'SET_CONTRACT_TYPES':
-      return state.set('contractTypes', payload);
-
-    case 'SET_STORAGE':
-      return state.set('storage', payload);
-
     case 'PENDING_BUY':
       return state.setIn(['status', 'buy', action.shortCode], 'pending')
         .deleteIn(['errors', 'buy', action.shortCode]);

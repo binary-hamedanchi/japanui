@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Map } from 'immutable';
 
 import JapanTable from './JapanTable';
+import contractTypes from '../config/contractTypes.json';
 
 const getTable = (() => {
   let table = Map();
@@ -10,7 +11,6 @@ const getTable = (() => {
     const proposals = state.getIn(['streams', 'proposals'], Map());
     const errors = state.getIn(['errors', 'proposals'], Map());
     const payout = state.getIn(['values', 'payout']);
-    const contractTypes = state.get('contractTypes', Map());
 
     table = proposals.concat(errors)
       .reduce((nextTable, proposal, shortCode) => {
@@ -41,7 +41,7 @@ const getTable = (() => {
 
         return nextTable
           .setIn([contractType, barrier, 'ask'], ask)
-          .setIn([contractTypes.getIn([contractType, 'opposite']), barrier, 'bid'], oppositeBid);
+          .setIn([contractTypes[contractType].opposite, barrier, 'bid'], oppositeBid);
       }, Map());
 
     return table
@@ -58,15 +58,14 @@ const getTable = (() => {
           }),
         contractType,
       })), List())
-      .sort((type1, type2) => contractTypes.getIn([type1.get('contractType'), 'order']) -
-        contractTypes.getIn([type2.get('contractType'), 'order']));
+      .sort((type1, type2) => contractTypes[type1.get('contractType')].order -
+        contractTypes[type2.get('contractType')].order);
   };
 })();
 
 const JapanTableContainer = ({ state, actions }) => (<JapanTable
   table={getTable(state)}
   values={state.get('values', Map())}
-  text={state.get('text', Map())}
   actions={actions} />);
 
 JapanTableContainer.displayName = 'JapanTableContainer';
