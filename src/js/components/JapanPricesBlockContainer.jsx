@@ -17,6 +17,7 @@ const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
   let barriers = List();
   let buyPrices = List();
   let sellPrices = List();
+
   table.get('prices', List()).forEach((price) => {
     const cb = () => actions.buy({
       barriers: price.get('barrier'),
@@ -25,8 +26,13 @@ const JapanPricesBlockContainer = ({ table, values, text, actions }) => {
     });
 
     barriers = barriers.push(price.get('barrier').replace('_', ' ... '));
-    buyPrices = buyPrices.push(<JapanPriceContainer price={price.get('ask')} cb={cb}/>);
-    sellPrices = sellPrices.push(<JapanPriceContainer price={price.get('bid')}/>);
+    buyPrices = buyPrices.push(<JapanPriceContainer
+      price={price.get('ask')}
+      cb={cb}
+      isActive={Boolean(price.getIn(['ask', 'isActive']))} />);
+    sellPrices = sellPrices.push(<JapanPriceContainer
+      price={price.get('bid')}
+      isActive={Boolean(price.getIn(['bid', 'isActive']))} />);
   });
 
   return (<JapanPricesBlock
