@@ -1,0 +1,8 @@
+{
+  "url": "wss://www.binaryqa15.com/websockets/v3?app_id=1003&l=EN",
+  "checkTimeout": 60,
+  "pingTimeout": 2,
+  "cacheExpiry": {
+    "active_symbols": 120
+  }
+}

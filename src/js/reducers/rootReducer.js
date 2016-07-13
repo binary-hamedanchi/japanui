@@ -63,22 +63,10 @@ export default function reducer(state = Map(), action = {}) {
           payload.set('time', action.time))
         .deleteIn(['errors', 'proposals', action.shortCode]);
 
-    case 'DELETE_STREAM':
-      return state.deleteIn(['status', 'proposals', payload.get('id')])
-        .deleteIn(['streams', 'proposals', payload.get('id')])
-        .deleteIn(['errors', 'proposals', payload.get('id')]);
-
-    case 'SET_TEXT':
-      return state.set('text', payload);
-
-    case 'SET_PAYOUTS':
-      return state.set('payouts', payload);
-
-    case 'SET_CONTRACT_TYPES':
-      return state.set('contractTypes', payload);
-
-    case 'SET_STORAGE':
-      return state.set('storage', payload);
+    case 'DELETE_STREAMS':
+      return state.deleteIn(['status', 'proposals'])
+        .deleteIn(['streams', 'proposals'])
+        .deleteIn(['errors', 'proposals']);
 
     case 'PENDING_BUY':
       return state.setIn(['status', 'buy', action.shortCode], 'pending')

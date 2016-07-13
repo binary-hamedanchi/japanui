@@ -1,32 +1,32 @@
 import React from 'react';
 import moment from 'moment';
-import { Map } from 'immutable';
 
 import JapanPriceDetails from './JapanPriceDetails';
+import text from '../helpers/text';
+import contractTypes from '../config/contractTypes.json';
 
 const JapanPriceDetailsContainer = ({
   symbol,
   period,
   payout,
   type,
-  text,
 }) => {
-  const pattern = text.get(`text${type}`);
+  const pattern = text.localize(contractTypes[type].description);
   if (!symbol || !period || !payout || !type || !pattern) {
     return null;
   }
 
   const endDate = period.split('_')[1];
   const close = moment.utc(endDate * 1000).utcOffset(9)
-    .format(`MM[${text.get('textJapanPeriodMonth')}] ` +
-      `DD[${text.get('textJapanPeriodDay')}] HH:mm`);
+    .format(`MM[${text.localize('month')}] ` +
+      `DD[${text.localize('day')}] HH:mm`);
 
   const description = pattern.replace(/\[\_\d+\]/g, (r) => {
     switch (r) {
       case '[_1]':
         return '¥';
       case '[_2]':
-        return payout;
+        return Number(payout).toLocaleString();
       case '[_3]':
         return symbol;
       case '[_4]':
@@ -39,12 +39,11 @@ const JapanPriceDetailsContainer = ({
   return (<JapanPriceDetails
     description={description}
     type={type}
-    label={text.get(`text${type}Name`)}/>);
+    label={text.localize(contractTypes[type].name)}/>);
 };
 
 JapanPriceDetailsContainer.displayName = 'JapanPriceDetailsContainer';
 JapanPriceDetailsContainer.propTypes = {
-  text: React.PropTypes.instanceOf(Map).isRequired,
   symbol: React.PropTypes.string,
   period: React.PropTypes.string,
   payout: React.PropTypes.string,

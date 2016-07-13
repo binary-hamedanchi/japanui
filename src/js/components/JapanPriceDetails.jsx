@@ -1,9 +1,10 @@
 import React from 'react';
+import classNames from 'classnames';
 
 const JapanPriceDetails = ({ description, type, label }) => (
   <div className='row descr-wrapper flex-box cols'>
-    <div className='col'>
-        <h1 className={`${type}-heading`}>{label}</h1>
+    <div className='col top-align'>
+        <h1 className={classNames(type, 'details-heading')}>{label}</h1>
     </div>
     <div className='col'>
       <div className='descr'>{description}</div>

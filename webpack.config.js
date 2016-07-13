@@ -28,7 +28,7 @@ module.exports = {
     root: path.resolve(__dirname),
     extensions: ['', '.js', '.jsx'],
     alias: {
-      config: __dirname + '/src/js/config.json',
+      config: __dirname + '/src/js/config',
     },
   },
   output: {
