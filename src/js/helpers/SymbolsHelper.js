@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import config from 'config';
+import order from 'config/order.json';
 
 export default class SymbolsHelper {
 
@@ -56,7 +56,7 @@ export default class SymbolsHelper {
   }
 
   static _getMarketsOrder() {
-    return config.marketsOrder;
+    return order.marketsOrder;
   }
 
   static _splashSymbols(groupedSymbols = Immutable.List()) {

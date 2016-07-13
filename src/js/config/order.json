@@ -39,18 +39,5 @@
     "m": 3,
     "h": 4,
     "d": 5
-  },
-  "dateFormat": "YYYY-MM-DD",
-  "timeFormat": "HH:mm:ss",
-  "startTimeDelay": 5,
-  "defaultPayoutAmount": 10,
-  "socket": {
-    "url": "wss://www.binaryqa15.com/websockets/v3?app_id=1003&l=EN",
-    "checkTimeout": 60,
-    "pingTimeout": 2,
-    "cacheExpiry": {
-      "active_symbols": 120
-    }
   }
 }
-

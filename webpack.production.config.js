@@ -26,7 +26,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
     root: path.resolve(__dirname),
     alias: {
-      config: __dirname + '/src/js/config.production.json',
+      config: __dirname + '/src/js/config.production',
     },
   },
   output: {

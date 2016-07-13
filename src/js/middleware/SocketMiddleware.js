@@ -1,8 +1,8 @@
 import Socket from '../utils/Socket';
-import config from 'config';
+import socketConfig from 'config/socket.json';
 import moment from 'moment';
 
-const socket = new Socket(config.socket);
+const socket = new Socket(socketConfig);
 
 export const WS_API = Symbol('WS API');
 

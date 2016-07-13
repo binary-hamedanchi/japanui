@@ -10,24 +10,24 @@ const JapanFrom = ({ state, actions }) => (<section className='japan-form flex-b
   <div className='col'>
     <SymbolSelectContainer
       state={state}
-      className='symbol-select'
+      className='symbol-select select'
       value={state.getIn(['values', 'symbol'])}
       onChange={(e) => actions.setSymbol({ symbol: e.target.value })} />
     <CategorySelectContainer
       state={state}
-      className='category-select'
+      className='category-select select'
       value={state.getIn(['values', 'category'])}
       onChange={(e) => actions.setCategory({ category: e.target.value })}/>
   </div>
   <div className='col'>
     <PeriodSelectContainer
       state={state}
-      className='period-select'
+      className='period-select select'
       value={state.getIn(['values', 'period'])}
       onChange={(e) => actions.setPeriod({ period: e.target.value })}/>
     <PayoutSelectContainer
       state={state}
-      className='payout-select'
+      className='payout-select select'
       value={String(state.getIn(['values', 'payout']))}
       onChange={(e) => actions.setPayout({ payout: e.target.value })}/>
   </div>

@@ -1,5 +1,5 @@
 import { List, Map, OrderedMap } from 'immutable';
-import config from 'config';
+import order from 'config/order.json';
 
 export default class ContractsHelper {
   static getCategories(contracts = List()) {
@@ -237,7 +237,7 @@ export default class ContractsHelper {
   }
 
   static _getCategoriesOrder() {
-    return config.categoriesOrder;
+    return order.categoriesOrder;
   }
 
   static _patchContracts(contracts = List()) {
