@@ -4,4 +4,6 @@ if (typeof window.getSocketURL === 'function') {
   socketConfig.url = window.getSocketURL();
 }
 
+console.log(socketConfig.url);
+
 export default socketConfig;
