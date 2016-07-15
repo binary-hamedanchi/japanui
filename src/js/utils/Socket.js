@@ -23,7 +23,7 @@ export default class Socket {
       ping: new SocketTimer(pingTimeout, () => this._onPingTimerExpiry()),
     };
 
-    this._open();
+    this.open();
     return this;
   }
 
@@ -36,7 +36,7 @@ export default class Socket {
     this._sendPing();
   }
 
-  _open() {
+  open() {
     if (!this.ws || (this.ws.readyState !== 0 && this.ws.readyState !== 1)) {
       this.ws = new WebSocket(this.url);
       this._bindWsEvents();
@@ -67,7 +67,7 @@ export default class Socket {
   _onclose() {
     if (!this.isClosed && this.ws.readyState !== 0 && this.ws.readyState !== 1) {
       this.reconCounter = this.reconCounter ? this.reconCounter + 1 : 1;
-      this._open();
+      this.open();
     } else if (this.isClosed) {
       this.status = 'closed';
     }

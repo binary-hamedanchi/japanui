@@ -12,12 +12,14 @@ const JapanFrom = ({ state, actions }) => (<section className='japan-form flex-b
       state={state}
       className='symbol-select select'
       value={state.getIn(['values', 'symbol'])}
-      onChange={(e) => actions.setSymbol({ symbol: e.target.value })} />
+      onChange={(e) => actions.setSymbol({ symbol: e.target.value })}
+      id='underlying' />
     <CategorySelectContainer
       state={state}
       className='category-select select'
       value={state.getIn(['values', 'category'])}
-      onChange={(e) => actions.setCategory({ category: e.target.value })}/>
+      onChange={(e) => actions.setCategory({ category: e.target.value })}
+      id='category-select'/>
   </div>
   <div className='col'>
     <PeriodSelectContainer

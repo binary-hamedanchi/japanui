@@ -1,6 +1,10 @@
 import { WS_API } from '../middleware/SocketMiddleware';
 import SymbolsHelper from '../helpers/SymbolsHelper';
 import ContractsHelper from '../helpers/ContractsHelper';
+
+import showBuyWindow from '../patches/showBuyWindow';
+import TradingAnalysis from '../patches/TradingAnalysis';
+
 import { Map } from 'immutable';
 
 export function getSymbols() {
@@ -35,6 +39,8 @@ export function setSymbol(payload) {
     if (!symbol) {
       return Promise.reject();
     }
+
+    TradingAnalysis.request();
 
     return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_SYMBOL',
@@ -82,6 +88,8 @@ export function setCategory(payload) {
       const categories = ContractsHelper.getCategories(contracts);
       category = categories.first();
     }
+
+    TradingAnalysis.request();
 
     return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_CATEGORY',
@@ -235,7 +243,10 @@ export function buy({ type, price, barriers }) {
         price: price,
         parameters,
       },
-    }).then(cleanBuy).catch(cleanBuy);
+    }).then((action) => {
+      showBuyWindow(action.payload.contract_id);
+      cleanBuy();
+    }).catch(cleanBuy);
   };
 }
 
