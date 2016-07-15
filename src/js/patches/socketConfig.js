@@ -5,6 +5,7 @@ if (typeof window.getSocketURL === 'function') {
   config = Object.assign({}, socketConfig, { url: window.getSocketURL() });
 }
 
+console.log(typeof window.getSocketURL, '!!!!!!!!!!');
 // console.log(socketConfig.url);
 
 export default config;
