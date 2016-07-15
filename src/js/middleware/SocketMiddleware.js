@@ -2,84 +2,86 @@ import Socket from '../utils/Socket';
 import socketConfig from 'config/socket.json';
 import moment from 'moment';
 
-const socket = new Socket(socketConfig);
-
 export const WS_API = Symbol('WS API');
 
-const SocketMiddleware = () => (next) => (action) => {
-  let resolve;
-  let reject;
-  let promise = new Promise((res, rej) => {
-    resolve = res;
-    reject = rej;
-  });
+const SocketMiddleware = () => {
+  const socket = new Socket(socketConfig);
 
-  if (!action) {
-    reject();
-  } else {
-    const apiRequest = action[WS_API];
+  return () => (next) => (action) => {
+    let resolve;
+    let reject;
+    let promise = new Promise((res, rej) => {
+      resolve = res;
+      reject = rej;
+    });
 
-    if (apiRequest && apiRequest.close) {
-      socket.close();
-      resolve(next(action));
-    } else if (typeof apiRequest !== 'object' ||
-      typeof apiRequest.types !== 'object' ||
-      apiRequest.types.length !== 3) {
-      resolve(next(action));
+    if (!action) {
+      reject();
     } else {
-      const finalAction = (action, data) => {
-        const time = { time: Number(moment()) };
-        const result = Object.assign({}, action, data, time);
-        delete result[WS_API];
-        return result;
-      };
+      const apiRequest = action[WS_API];
 
-      const [pendingType, failureType, successType] = apiRequest.types;
-      delete apiRequest.types;
-
-      next(finalAction(action, {
-        type: pendingType,
-      }));
-
-
-      if (!apiRequest.subscribe) {
-        promise = socket.request(apiRequest).then((res) =>
-          next(finalAction(action, {
-            type: successType,
-            payload: res,
-          }))).catch((err) =>
-          next(finalAction(action, {
-            type: failureType,
-            payload: err,
-          })));
+      if (apiRequest && apiRequest.close) {
+        socket.close();
+        resolve(next(action));
+      } else if (typeof apiRequest !== 'object' ||
+        typeof apiRequest.types !== 'object' ||
+        apiRequest.types.length !== 3) {
+        resolve(next(action));
       } else {
-        const stream = socket.stream(apiRequest);
-        stream.map((res) => {
-          const nextRes = Object.assign({}, res);
+        const finalAction = (action, data) => {
+          const time = { time: Number(moment()) };
+          const result = Object.assign({}, action, data, time);
+          delete result[WS_API];
+          return result;
+        };
 
-          if (!res.isError) {
+        const [pendingType, failureType, successType] = apiRequest.types;
+        delete apiRequest.types;
+
+        next(finalAction(action, {
+          type: pendingType,
+        }));
+
+
+        if (!apiRequest.subscribe) {
+          promise = socket.request(apiRequest).then((res) =>
             next(finalAction(action, {
               type: successType,
-              payload: nextRes,
-              stream,
-            }));
-
-            resolve(res);
-          } else {
-            delete nextRes.isError;
+              payload: res,
+            }))).catch((err) =>
             next(finalAction(action, {
               type: failureType,
-              payload: nextRes,
-            }));
+              payload: err,
+            })));
+        } else {
+          const stream = socket.stream(apiRequest);
+          stream.map((res) => {
+            const nextRes = Object.assign({}, res);
 
-            reject(nextRes);
-          }
-        });
+            if (!res.isError) {
+              next(finalAction(action, {
+                type: successType,
+                payload: nextRes,
+                stream,
+              }));
+
+              resolve(res);
+            } else {
+              delete nextRes.isError;
+              next(finalAction(action, {
+                type: failureType,
+                payload: nextRes,
+              }));
+
+              reject(nextRes);
+            }
+          });
+        }
       }
     }
-  }
 
-  return promise;
+    return promise;
+  };
 };
 
 export default SocketMiddleware;

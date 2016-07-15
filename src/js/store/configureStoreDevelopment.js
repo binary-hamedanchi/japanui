@@ -7,15 +7,15 @@ import { Map, fromJS } from 'immutable';
 
 import rootReducer from '../reducers/rootReducer';
 
-const finalCreateStore = compose(
-  applyMiddleware(thunk, SocketMiddleware, StorageMiddleware, createLogger({
-    stateTransformer: (state) => state && state.toJS(),
-    predicate: (getState, action) => !action.skipLog,
-  })),
-  window.devToolsExtension ? window.devToolsExtension() : (f) => f
-)(createStore);
-
 export default function configureStore(initialState = Map()) {
+  const finalCreateStore = compose(
+    applyMiddleware(thunk, SocketMiddleware(), StorageMiddleware, createLogger({
+      stateTransformer: (state) => state && state.toJS(),
+      predicate: (getState, action) => !action.skipLog,
+    })),
+    window.devToolsExtension ? window.devToolsExtension() : (f) => f
+  )(createStore);
+
   const store = finalCreateStore(rootReducer, fromJS(initialState));
 
   if (module.hot) {

@@ -6,11 +6,10 @@ import { Map, fromJS } from 'immutable';
 
 import rootReducer from '../reducers/rootReducer';
 
-const finalCreateStore = compose(
-  applyMiddleware(thunk, SocketMiddleware, StorageMiddleware))(createStore);
-
-
 export default function configureStore(initialState = Map()) {
+  const finalCreateStore = compose(
+    applyMiddleware(thunk, SocketMiddleware(), StorageMiddleware))(createStore);
+
   const store = finalCreateStore(rootReducer, fromJS(initialState));
   return store;
 }
