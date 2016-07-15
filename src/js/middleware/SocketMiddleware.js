@@ -1,5 +1,5 @@
 import Socket from '../utils/Socket';
-import socketConfig from 'config/socket.json';
+import socketConfig from '../patches/socketConfig';
 import moment from 'moment';
 
 export const WS_API = Symbol('WS API');

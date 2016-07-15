@@ -2,8 +2,8 @@ import { WS_API } from '../middleware/SocketMiddleware';
 import SymbolsHelper from '../helpers/SymbolsHelper';
 import ContractsHelper from '../helpers/ContractsHelper';
 
-import showBuyWindow from '../helpers/showBuyWindow';
-import TradingAnalysis from '../helpers/TradingAnalysis';
+import showBuyWindow from '../patches/showBuyWindow';
+import TradingAnalysis from '../patches/TradingAnalysis';
 
 import { Map } from 'immutable';
 
