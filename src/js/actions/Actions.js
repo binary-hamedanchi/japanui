@@ -40,8 +40,6 @@ export function setSymbol(payload) {
       return Promise.reject();
     }
 
-    TradingAnalysis.request();
-
     return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_SYMBOL',
       payload: { symbol, store },
@@ -89,6 +87,7 @@ export function setCategory(payload) {
       category = categories.first();
     }
 
+    console.log(TradingAnalysis);
     TradingAnalysis.request();
 
     return dispatch(deleteStreams()).then(() => dispatch({

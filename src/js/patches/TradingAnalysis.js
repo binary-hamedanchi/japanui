@@ -1,3 +1,4 @@
+console.log(window);
 const TradingAnalysis = typeof window.TradingAnalysis !== 'undefined' ? window.TradingAnalysis : {
   request: () => {},
   digit_info: () => {},
@@ -5,6 +6,7 @@ const TradingAnalysis = typeof window.TradingAnalysis !== 'undefined' ? window.T
   japan_info: () => {},
   getActiveTab: () => {},
   bindAnalysisTabEvent: () => {},
+  test: ()=>{},
 };
 
 export default TradingAnalysis;
