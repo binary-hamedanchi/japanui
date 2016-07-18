@@ -14,7 +14,7 @@ function authorize() {
     }
 
     const loginToken = window.getCookieItem('login');
-    if (getState().has('user') || loginToken || !localStorage.getItem('client.tokens')) {
+    if (getState().has('user') || !loginToken || !localStorage.getItem('client.tokens')) {
       return Promise.resolve();
     }
 
