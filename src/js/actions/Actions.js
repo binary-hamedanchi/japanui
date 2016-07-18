@@ -7,6 +7,26 @@ import TradingAnalysis from '../patches/TradingAnalysis';
 
 import { Map } from 'immutable';
 
+function authorize() {
+  return (dispatch, getState) => {
+    if (typeof window.getCookieItem !== 'function') {
+      return Promise.resolve();
+    }
+
+    const loginToken = window.getCookieItem('login');
+    if (getState().has('user') || loginToken || !localStorage.getItem('client.tokens')) {
+      return Promise.resolve();
+    }
+
+    return dispatch({
+      [WS_API]: {
+        types: ['PENDING_USER', 'FAILURE_USER', 'SUCCESS_USER'],
+        authorize: loginToken,
+      },
+    });
+  };
+}
+
 export function getSymbols() {
   return (dispatch) => dispatch({
     [WS_API]: {
@@ -232,8 +252,7 @@ export function buy({ type, price, barriers }) {
 
     const shortCode = [symbol, type, expiry, barriers, payout, price].join('|');
     const cleanBuy = () => setTimeout(() => dispatch({ type: 'DELETE_BUY', shortCode }), 60 * 1000);
-
-    dispatch({
+    dispatch(authorize()).then(() => dispatch({
       shortCode,
       [WS_API]: {
         types: ['PENDING_BUY', 'FAILURE_BUY', 'SUCCESS_BUY'],
@@ -244,7 +263,7 @@ export function buy({ type, price, barriers }) {
     }).then((action) => {
       showBuyWindow(action.payload.contract_id);
       cleanBuy();
-    }).catch(cleanBuy);
+    }).catch(cleanBuy));
   };
 }
 

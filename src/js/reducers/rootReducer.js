@@ -84,6 +84,24 @@ export default function reducer(state = Map(), action = {}) {
       return state.deleteIn(['status', 'buy', action.shortCode])
         .deleteIn(['errors', 'buy', action.shortCode]);
 
+    case 'PENDING_USER':
+      return state.setIn(['status', 'user'], 'pending')
+        .deleteIn(['errors', 'user']);
+
+    case 'FAILURE_USER':
+      return state.setIn(['status', 'user'], 'error')
+        .setIn(['errors', 'user'], payload);
+
+    case 'SUCCESS_USER':
+      return state.setIn(['status', 'user'], 'ready')
+        .set('user', payload)
+        .deleteIn(['errors', 'user']);
+
+    case 'DELETE_USER':
+      return state.deleteIn(['status', 'user'])
+        .delete('user')
+        .deleteIn(['errors', 'user']);
+
     default:
       return state;
   }
