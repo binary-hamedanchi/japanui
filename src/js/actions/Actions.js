@@ -87,8 +87,7 @@ export function setCategory(payload) {
       category = categories.first();
     }
 
-    console.log(TradingAnalysis);
-    TradingAnalysis.request();
+    TradingAnalysis().request();
 
     return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_CATEGORY',

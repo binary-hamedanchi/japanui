@@ -5,7 +5,7 @@ import moment from 'moment';
 export const WS_API = Symbol('WS API');
 
 const SocketMiddleware = () => {
-  const socket = new Socket(socketConfig);
+  const socket = new Socket(socketConfig());
 
   return () => (next) => (action) => {
     let resolve;

@@ -9,10 +9,10 @@ const getCategories = (state = Map()) => {
   const contracts = state.getIn(['contracts', 'available'], List());
 
   const categoryNames = {
-    higherlower: text.localize('HIGH/LOW'),
-    touchnotouch: text.localize('TOUCH /NO-TOUCH'),
-    endsinout: text.localize('END-IN/END-OUT'),
-    staysinout: text.localize('STAY-IN/BREAK-OUT'),
+    higherlower: text('HIGH/LOW'),
+    touchnotouch: text('TOUCH /NO-TOUCH'),
+    endsinout: text('END-IN/END-OUT'),
+    staysinout: text('STAY-IN/BREAK-OUT'),
   };
 
   return ContractsHelper.getCategories(contracts)

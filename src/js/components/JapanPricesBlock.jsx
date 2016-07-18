@@ -12,16 +12,16 @@ const JapanPricesBlock = ({
   {priceDetails}
   <div className='row flex-box cols'>
     <div className='col flex-box rows barriers'>
-      <div className='row heading' key='barriers-label'>{text.localize('Barrier')}</div>
+      <div className='row heading' key='barriers-label'>{text('Barrier')}</div>
       {barriers.map((barrier, key) => <div className='row' key={key}>{barrier}</div>)}
     </div>
     <div className='col flex-box rows buy-prices'>
-      <div className='row heading' key='buy-label'>{text.localize('Buy')}</div>
+      <div className='row heading' key='buy-label'>{text('Buy')}</div>
       {buyPrices.map((buyPrice, key) => (
         <div className='row' key={key}>{buyPrice}</div>))}
     </div>
     <div className='col flex-box rows sell-prices'>
-      <div className='row heading' key='buy-label'>{text.localize('Sell')}</div>
+      <div className='row heading' key='buy-label'>{text('Sell')}</div>
       {sellPrices.map((sellPrice, key) => (
         <div className='row' key={key}>{sellPrice}</div>))}
     </div>

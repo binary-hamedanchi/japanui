@@ -1,7 +1,11 @@
-import socketConfig from 'config/socket.json';
+import socket from 'config/socket.json';
 
-if (typeof window.getSocketURL === 'function') {
-  socketConfig.url = window.getSocketURL();
-}
+const socketConfig = () => {
+  if (typeof window.getSocketURL === 'function') {
+    socket.url = window.getSocketURL();
+  }
+
+  return socket;
+};
 
 export default socketConfig;
