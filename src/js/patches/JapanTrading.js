@@ -18,8 +18,6 @@ const start = () => {
   store = configureStore({ storage });
 
   store.dispatch(Actions.getSymbols());
-  console.log('============1=============');
-  console.log(appNode);
   ReactDOM.render(<Provider store={store}><JapanContainer /></Provider>, appNode);
 
   return true;
@@ -33,7 +31,7 @@ const stop = () => {
 
   store.dispatch(Actions.close());
   store = undefined;
-  // ReactDOM.unmountComponentAtNode(appNode);
+  ReactDOM.unmountComponentAtNode(appNode);
   return true;
 };
 
