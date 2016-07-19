@@ -31,7 +31,7 @@ const stop = () => {
 
   store.dispatch(Actions.close());
   store = undefined;
-  ReactDOM.unmountComponentAtNode(appNode);
+  // ReactDOM.unmountComponentAtNode(appNode);
   return true;
 };
 
