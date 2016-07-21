@@ -27,6 +27,30 @@ function authorize() {
   };
 }
 
+function getTicks() {
+  return (dispatch, getState) => {
+    const symbol = getState().getIn(['values', 'symbol']);
+    if (!symbol) {
+      return Promise.resolve();
+    }
+
+    const prevTickChannel = getState().getIn(['streams', 'ticks', 'channel']);
+    if (prevTickChannel) {
+      prevTickChannel.close();
+    }
+
+    return dispatch({
+      // skipLog: true,
+      symbol,
+      [WS_API]: {
+        types: ['PENDING_TICK', 'FAILURE_TICK', 'SUCCESS_TICK'],
+        ticks: symbol,
+        subscribe: 1,
+      },
+    });
+  };
+}
+
 export function getSymbols() {
   return (dispatch) => dispatch({
     [WS_API]: {
@@ -63,7 +87,10 @@ export function setSymbol(payload) {
     return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_SYMBOL',
       payload: { symbol, store },
-    }).then(() => dispatch(getContracts())));
+    }).then(() => {
+      dispatch(getTicks());
+      return dispatch(getContracts());
+    }));
   };
 }
 
