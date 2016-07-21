@@ -63,6 +63,22 @@ export default function reducer(state = Map(), action = {}) {
           payload.set('time', action.time))
         .deleteIn(['errors', 'proposals', action.shortCode]);
 
+    case 'PENDING_TICK':
+      return state.setIn(['status', 'ticks'], 'pending')
+        .deleteIn(['streams', 'ticks'])
+        .deleteIn(['errors', 'ticks']);
+
+    case 'FAILURE_TICK':
+      return state.setIn(['status', 'ticks'], 'error')
+        .deleteIn(['streams', 'ticks'])
+        .setIn(['errors', 'ticks'], payload.set('time', action.time));
+
+    case 'SUCCESS_TICK':
+      return state.setIn(['status', 'ticks'], 'ready')
+        .setIn(['streams', 'ticks', 'channel'], action.stream)
+        .setIn(['streams', 'ticks', 'value'], payload.set('time', action.time))
+        .deleteIn(['errors', 'ticks']);
+
     case 'DELETE_STREAMS':
       return state.deleteIn(['status', 'proposals'])
         .deleteIn(['streams', 'proposals'])
@@ -83,6 +99,24 @@ export default function reducer(state = Map(), action = {}) {
     case 'DELETE_BUY':
       return state.deleteIn(['status', 'buy', action.shortCode])
         .deleteIn(['errors', 'buy', action.shortCode]);
+
+    case 'PENDING_USER':
+      return state.setIn(['status', 'user'], 'pending')
+        .deleteIn(['errors', 'user']);
+
+    case 'FAILURE_USER':
+      return state.setIn(['status', 'user'], 'error')
+        .setIn(['errors', 'user'], payload);
+
+    case 'SUCCESS_USER':
+      return state.setIn(['status', 'user'], 'ready')
+        .set('user', payload)
+        .deleteIn(['errors', 'user']);
+
+    case 'DELETE_USER':
+      return state.deleteIn(['status', 'user'])
+        .delete('user')
+        .deleteIn(['errors', 'user']);
 
     default:
       return state;

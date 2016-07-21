@@ -1,15 +1,18 @@
-import socketConfig from 'config/socket.json';
+import socket from 'config/socket.json';
 
-socketConfig.url = getSocketURL();
+const socketConfig = () => {
+  if (typeof window.getSocketURL === 'function' &&
+    typeof window.getAppId === 'function' &&
+    typeof window.page === 'object' &&
+    typeof window.page.language === 'function') {
+    const url = window.getSocketURL();
+    const appId = window.getAppId();
+    const language = window.page.language() ? `&l=${window.page.language()}` : '';
 
-
-function getSocketURL() {
-  let serverUrl = localStorage.getItem('config.server_url');
-  if (!serverUrl) {
-    serverUrl = (/staging\.binary\.com/i.test(window.location.hostname) ? 'www2' : 'ws') + '.binaryws.com';
+    socket.url = `${url}?app_id=${appId}${language}`;
   }
-  // return 'wss://' + server_url + '/websockets/v3';
-  return 'wss://www.binaryqa15.com/websockets/v3?app_id=1003&l=EN';
-}
+
+  return socket;
+};
 
 export default socketConfig;

@@ -15,25 +15,25 @@ const getPeriods = (state = Map()) => {
     const duration = period.get('duration').replace('0d', '1d').replace(/[a-z]+/gi, (dur) => {
       switch (dur) {
         case 'm':
-          return text.localize('minutes');
+          return text('minutes');
         case 'h':
-          return text.localize('hours');
+          return text('hours');
         case 'd':
-          return text.localize('days');
+          return text('days');
         case 'W':
-          return text.localize('weeks');
+          return text('weeks');
         case 'M':
-          return text.localize('months');
+          return text('months');
         case 'Y':
-          return text.localize('years');
+          return text('years');
         default:
           return void 0;
       }
     });
 
     const formatDate = moment.utc(period.get('end') * 1000).utcOffset(9)
-      .format(`MM[${text.localize('month')}] ` +
-        `DD[${text.localize('day')}] HH:mm [(${duration})]`);
+      .format(`MM[${text('month')}] ` +
+        `DD[${text('day')}] HH:mm [(${duration})]`);
 
     return List.of(`${period.get('start') }_${period.get('end')}`, formatDate);
   });

@@ -1,6 +1,7 @@
 .japan-ui {
   font-family: roboto, sans-serif;
   font-size: 14px;
+  padding-top: 20px;
   .flex-box {
     display: flex;
     &.rows {
@@ -133,5 +134,21 @@
   .select{
     margin-right: 10px;
     margin-bottom: 10px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .spot {
+    padding-left: 5px;
+    font-style: italic;
+    line-height: 21px;
+    .col {
+      padding-right: 10px;
+    }
+  }
+  .spot-dyn{
+    width: 10px;
+    display: block;
+    float: right;
   }
 }

@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import Socket from '../utils/Socket';
+import socketConfig from '../patches/socketConfig';
 import SocketMiddleware from '../middleware/SocketMiddleware';
 import StorageMiddleware from '../middleware/StorageMiddleware';
 import createLogger from 'redux-logger';
@@ -8,8 +10,9 @@ import { Map, fromJS } from 'immutable';
 import rootReducer from '../reducers/rootReducer';
 
 export default function configureStore(initialState = Map()) {
+  const socket = new Socket(socketConfig());
   const finalCreateStore = compose(
-    applyMiddleware(thunk, SocketMiddleware(), StorageMiddleware, createLogger({
+    applyMiddleware(thunk, SocketMiddleware(socket), StorageMiddleware, createLogger({
       stateTransformer: (state) => state && state.toJS(),
       predicate: (getState, action) => !action.skipLog,
     })),
@@ -17,6 +20,7 @@ export default function configureStore(initialState = Map()) {
   )(createStore);
 
   const store = finalCreateStore(rootReducer, fromJS(initialState));
+  socket.onLost = () => store.dispatch({ type: 'DELETE_USER' });
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

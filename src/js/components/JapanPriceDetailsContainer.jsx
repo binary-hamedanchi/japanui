@@ -11,15 +11,15 @@ const JapanPriceDetailsContainer = ({
   payout,
   type,
 }) => {
-  const pattern = text.localize(contractTypes[type].description);
+  const pattern = text(contractTypes[type].description);
   if (!symbol || !period || !payout || !type || !pattern) {
     return null;
   }
 
   const endDate = period.split('_')[1];
   const close = moment.utc(endDate * 1000).utcOffset(9)
-    .format(`MM[${text.localize('month')}] ` +
-      `DD[${text.localize('day')}] HH:mm`);
+    .format(`MM[${text('month')}] ` +
+      `DD[${text('day')}] HH:mm`);
 
   const description = pattern.replace(/\[\_\d+\]/g, (r) => {
     switch (r) {
@@ -39,7 +39,7 @@ const JapanPriceDetailsContainer = ({
   return (<JapanPriceDetails
     description={description}
     type={type}
-    label={text.localize(contractTypes[type].name)}/>);
+    label={text(contractTypes[type].name)}/>);
 };
 
 JapanPriceDetailsContainer.displayName = 'JapanPriceDetailsContainer';

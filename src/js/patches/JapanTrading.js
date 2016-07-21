@@ -7,7 +7,7 @@ import configureStore from '../store/configureStore';
 import JapanContainer from '../components/JapanContainer';
 
 let store;
-const appNode = document.getElementById('japan-app');
+let appNode;
 
 const start = () => {
   if (typeof store === 'object') {
@@ -18,6 +18,7 @@ const start = () => {
   store = configureStore({ storage });
 
   store.dispatch(Actions.getSymbols());
+  appNode = document.getElementById('japan-app');
   ReactDOM.render(<Provider store={store}><JapanContainer /></Provider>, appNode);
 
   return true;

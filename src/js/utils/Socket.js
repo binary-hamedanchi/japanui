@@ -55,11 +55,19 @@ export default class Socket {
   }
 
   _onopen() {
+    const prevStatus = this.status;
+
     this.status = 'opened';
 
     this._timers.check.start();
 
     this._resend();
+
+    if (prevStatus === 'opening' && typeof this.onOpen === 'function') {
+      this.onOpen();
+    } else if (prevStatus === 'reopening' && typeof this.onReopen === 'function') {
+      this.onReopen();
+    }
 
     return;
   }
@@ -68,8 +76,16 @@ export default class Socket {
     if (!this.isClosed && this.ws.readyState !== 0 && this.ws.readyState !== 1) {
       this.reconCounter = this.reconCounter ? this.reconCounter + 1 : 1;
       this.open();
+      this.status = 'reopening';
+      if (typeof this.onLost === 'function') {
+        this.onLost();
+      }
     } else if (this.isClosed) {
       this.status = 'closed';
+
+      if (typeof this.onClose === 'function') {
+        this.onClose();
+      }
     }
 
     return;
