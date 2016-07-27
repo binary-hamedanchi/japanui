@@ -245,7 +245,7 @@ export function getPrices() {
 
       dispatch({
         shortCode,
-        skipLog: true,
+        // skipLog: true,
         [WS_API]: request,
       }).catch((err) => console.log(`${shortCode} ${err.message}`));
     }));
