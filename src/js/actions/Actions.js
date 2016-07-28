@@ -87,10 +87,7 @@ export function setSymbol(payload) {
     return dispatch(deleteStreams()).then(() => dispatch({
       type: 'SET_SYMBOL',
       payload: { symbol, store },
-    }).then(() => {
-      dispatch(getTicks());
-      return dispatch(getContracts());
-    }));
+    })).then(() => (dispatch(getTicks()) && dispatch(getContracts())));
   };
 }
 
@@ -110,7 +107,7 @@ export function getContracts() {
         currency: 'JPY',
         region: 'japan',
       },
-    }).then(() => dispatch(setCategory())));
+    })).then(() => dispatch(setCategory()));
   };
 }
 
@@ -142,7 +139,7 @@ export function setCategory(payload) {
         category,
         store,
       },
-    }).then(() => dispatch(setPeriod())));
+    })).then(() => dispatch(setPeriod()));
   };
 }
 
@@ -172,7 +169,7 @@ export function setPeriod(payload) {
         period,
         store,
       },
-    }).then(() => dispatch(setPayout())));
+    })).then(() => dispatch(setPayout()));
   };
 }
 
@@ -195,9 +192,7 @@ export function setPayout(payload) {
         payout,
         store,
       },
-    }).then(() => {
-      dispatch(getPrices());
-    }));
+    })).then(() => dispatch(getPrices()));
   };
 }
 
@@ -245,7 +240,7 @@ export function getPrices() {
 
       dispatch({
         shortCode,
-        // skipLog: true,
+        skipLog: true,
         [WS_API]: request,
       }).catch((err) => console.log(`${shortCode} ${err.message}`));
     }));
@@ -287,10 +282,10 @@ export function buy({ type, price, barriers }) {
         price: price,
         parameters,
       },
-    }).then((action) => {
+    })).then((action) => {
       showBuyWindow(action.payload.contract_id);
       cleanBuy();
-    }).catch(cleanBuy));
+    }).catch(cleanBuy);
   };
 }
 
