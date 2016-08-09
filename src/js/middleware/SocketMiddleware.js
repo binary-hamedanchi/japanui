@@ -39,7 +39,8 @@ const SocketMiddleware = (socket) => () => (next) => (action) => {
 
 
       if (!apiRequest.subscribe) {
-        promise = socket.request(apiRequest).then((res) =>
+        promise = socket.request(apiRequest);
+        promise.then((res) =>
           next(finalAction(action, {
             type: successType,
             payload: res,

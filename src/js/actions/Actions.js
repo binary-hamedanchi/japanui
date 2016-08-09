@@ -40,7 +40,7 @@ function getTicks() {
     }
 
     return dispatch({
-      // skipLog: true,
+      skipLog: true,
       symbol,
       [WS_API]: {
         types: ['PENDING_TICK', 'FAILURE_TICK', 'SUCCESS_TICK'],
@@ -285,7 +285,10 @@ export function buy({ type, price, barriers }) {
     })).then((action) => {
       showBuyWindow(action.payload.contract_id);
       cleanBuy();
-    }).catch(cleanBuy);
+    }).catch((err) => {
+      alert(err.message);
+      cleanBuy();
+    });
   };
 }
 
