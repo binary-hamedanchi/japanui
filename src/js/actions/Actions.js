@@ -7,6 +7,8 @@ import TradingAnalysis from '../patches/TradingAnalysis';
 
 import { Map } from 'immutable';
 
+let contractsTimer;
+
 function authorize() {
   return (dispatch, getState) => {
     if (typeof window.getCookieItem !== 'function') {
@@ -52,6 +54,8 @@ function getTicks() {
 }
 
 export function getSymbols() {
+  clearTimeout(contractsTimer);
+
   return (dispatch) => dispatch({
     [WS_API]: {
       types: ['PENDING_SYMBOLS', 'FAILURE_SYMBOLS', 'SUCCESS_SYMBOLS'],
@@ -91,7 +95,9 @@ export function setSymbol(payload) {
   };
 }
 
-export function getContracts() {
+export function getContracts(auto) {
+  clearTimeout(contractsTimer);
+
   return (dispatch, getState) => {
     const symbol = getState().getIn(['values', 'symbol']);
 
@@ -99,7 +105,9 @@ export function getContracts() {
       return Promise.reject();
     }
 
-    return dispatch(deleteStreams()).then(() => dispatch({
+    const deleteStreamsP = auto ? Promise.resolve() : dispatch(deleteStreams());
+
+    return deleteStreamsP.then(() => dispatch({
       symbol: symbol,
       [WS_API]: {
         types: ['PENDING_CONTRACTS', 'FAILURE_CONTRACTS', 'SUCCESS_CONTRACTS'],
@@ -107,7 +115,10 @@ export function getContracts() {
         currency: 'JPY',
         region: 'japan',
       },
-    })).then(() => dispatch(setCategory()));
+    })).then(() => {
+      contractsTimer = setTimeout(() => dispatch(getContracts(true)), 3000);
+      return !auto ? dispatch(setCategory()) : Promise.resolve();
+    });
   };
 }
 
