@@ -1,5 +1,5 @@
 let texts = {};
-
+console.log(texts);
 const text = (text) => {
   if (!Object.keys(texts).length && typeof window.text !== 'undefined') {
     texts = Object.keys(window.text.texts).reduce((texts, key) => {
