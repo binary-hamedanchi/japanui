@@ -116,8 +116,17 @@ export function getContracts(auto) {
         region: 'japan',
       },
     })).then(() => {
+      const contracts = getState().getIn(['contracts', 'available']);
+      const category = getState().getIn(['values', 'category']);
+      const periods = ContractsHelper.getTradingPeriods(contracts, category);
+      const period = getState().getIn(['values', 'period']);
+
       contractsTimer = setTimeout(() => dispatch(getContracts(true)), 3000);
-      return !auto ? dispatch(setCategory()) : Promise.resolve();
+      if (periods.filter((v) => `${v.get('start')}_${v.get('end')}` === period).size && auto) {
+        return Promise.resolve();
+      }
+
+      return dispatch(setCategory());
     });
   };
 }
