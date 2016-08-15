@@ -11,8 +11,7 @@ const JapanPriceDetailsContainer = ({
   payout,
   type,
 }) => {
-  const pattern = text(contractTypes[type].description);
-  if (!symbol || !period || !payout || !type || !pattern) {
+  if (!symbol || !period || !payout || !type) {
     return null;
   }
 
@@ -21,20 +20,12 @@ const JapanPriceDetailsContainer = ({
     .format(`MM[${text('month')}] ` +
       `DD[${text('day')}] HH:mm`);
 
-  const description = pattern.replace(/\[\_\d+\]/g, (r) => {
-    switch (r) {
-      case '[_1]':
-        return '¥';
-      case '[_2]':
-        return Number(payout).toLocaleString();
-      case '[_3]':
-        return symbol;
-      case '[_4]':
-        return close;
-      default:
-        return void 0;
-    }
-  });
+  const description = text(contractTypes[type].description, [
+    '¥',
+    Number(payout).toLocaleString(),
+    symbol,
+    close,
+  ]);
 
   return (<JapanPriceDetails
     description={description}
