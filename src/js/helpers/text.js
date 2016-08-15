@@ -1,11 +1,12 @@
 let texts = {};
-console.log(texts);
 const text = (text) => {
   if (!Object.keys(texts).length && typeof window.text !== 'undefined') {
     texts = Object.keys(window.text.texts).reduce((texts, key) => {
       texts[key.replace(/{JAPAN_ONLY}/, '')] = window.text.texts[key];
       return texts;
     }, {});
+    console.log(texts);
+
   }
 
   return texts[text] || text;
