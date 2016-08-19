@@ -31,9 +31,11 @@ const getPeriods = (state = Map()) => {
       }
     });
 
-    const formatDate = moment.utc(period.get('end') * 1000).utcOffset(9)
+    let formatDate = moment.utc(period.get('end') * 1000).utcOffset(9)
       .format(`MM[${text('month')}] ` +
         `DD[${text('day')}] HH:mm [(${duration})]`);
+
+    formatDate = formatDate.replace(/08:59/, '09:00≈');
 
     return List.of(`${period.get('start') }_${period.get('end')}`, formatDate);
   });
