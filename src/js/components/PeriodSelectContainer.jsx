@@ -35,7 +35,7 @@ const getPeriods = (state = Map()) => {
       .format(`MM[${text('month')}] ` +
         `DD[${text('day')}] HH:mm [(${duration})]`);
 
-    formatDate = formatDate.replace(/08:59/, '09:00≈');
+    formatDate = formatDate.replace(/08:59/, '09:00«');
 
     return List.of(`${period.get('start') }_${period.get('end')}`, formatDate);
   });
