@@ -152,4 +152,16 @@
     display: block;
     float: right;
   }
+  .select-box{
+    float: left;
+    background: #F2F2F2;
+    border-radius: 3px;
+    margin: 3px;
+    padding: 2px 5px;
+
+    .select {
+      width: 100%;
+      margin-top: 5px;
+    }
+  }
 }

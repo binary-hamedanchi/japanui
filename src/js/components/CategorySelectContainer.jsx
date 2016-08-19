@@ -3,7 +3,7 @@ import { List, Map } from 'immutable';
 
 import ContractsHelper from '../helpers/ContractsHelper';
 import text from '../helpers/text';
-import Select from './Select';
+import SelectBlock from './SelectBlock';
 
 const getCategories = (state = Map()) => {
   const contracts = state.getIn(['contracts', 'available'], List());
@@ -20,8 +20,9 @@ const getCategories = (state = Map()) => {
     .toList();
 };
 
-const CategorySelectContainer = (props) => (<Select
+const CategorySelectContainer = (props) => (<SelectBlock
   {...props}
+  heading={text('Option Type')}
   options={getCategories(props.state)} />);
 
 CategorySelectContainer.displayName = 'CategorySelectContainer';

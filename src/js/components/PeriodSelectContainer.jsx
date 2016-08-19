@@ -3,7 +3,7 @@ import { List, Map } from 'immutable';
 import moment from 'moment';
 
 import ContractsHelper from '../helpers/ContractsHelper';
-import Select from './Select';
+import SelectBlock from './SelectBlock';
 import text from '../helpers/text';
 
 const getPeriods = (state = Map()) => {
@@ -39,8 +39,9 @@ const getPeriods = (state = Map()) => {
   });
 };
 
-const PeriodSelectContainer = (props) => (<Select
+const PeriodSelectContainer = (props) => (<SelectBlock
   {...props}
+  heading={text('Trading Period')}
   options={getPeriods(props.state)} />);
 
 PeriodSelectContainer.displayName = 'PeriodSelectContainer';
