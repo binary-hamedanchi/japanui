@@ -11,11 +11,11 @@ const timers = {};
 
 function authorize() {
   return (dispatch, getState) => {
-    if (typeof window.getCookieItem !== 'function') {
+    if (typeof window.CommonData !== 'undefined') {
       return Promise.resolve();
     }
 
-    const apiToken = CommonData.getLoginToken();
+    const apiToken = window.CommonData.getLoginToken();
 
     if (getState().has('user') || !apiToken || !localStorage.getItem('client.tokens')) {
       return Promise.resolve();
