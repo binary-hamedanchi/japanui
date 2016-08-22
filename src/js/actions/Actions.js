@@ -7,7 +7,7 @@ import TradingAnalysis from '../patches/TradingAnalysis';
 
 import { Map } from 'immutable';
 
-let contractsTimer;
+const timers = {};
 
 function authorize() {
   return (dispatch, getState) => {
@@ -15,17 +15,38 @@ function authorize() {
       return Promise.resolve();
     }
 
-    const loginToken = window.getCookieItem('login');
-    if (getState().has('user') || !loginToken || !localStorage.getItem('client.tokens')) {
+    const apiToken = CommonData.getLoginToken();
+
+    if (getState().has('user') || !apiToken || !localStorage.getItem('client.tokens')) {
       return Promise.resolve();
     }
 
     return dispatch({
       [WS_API]: {
         types: ['PENDING_USER', 'FAILURE_USER', 'SUCCESS_USER'],
-        authorize: loginToken,
+        authorize: apiToken,
       },
     });
+  };
+}
+
+function getTimeOffset() {
+  return {
+    clientTime: parseInt((new Date()) / 1000, 10),
+    [WS_API]: {
+      types: ['PENDING_TIME', 'FAILURE_TIME', 'SUCCESS_TIME'],
+      time: 1,
+    },
+  };
+}
+
+function setExpiryCounter() {
+  return (dispatch, getState) => {
+    const offset = getState().get('timeOffset');
+
+    if (typeof offset !== 'undefined') {
+      const expiry = getState().getIn(['values', 'period']).split('_')[1];
+    }
   };
 }
 
@@ -54,15 +75,18 @@ function getTicks() {
 }
 
 export function getSymbols() {
-  clearTimeout(contractsTimer);
+  clearTimeout(timers.contractsTimer);
 
-  return (dispatch) => dispatch({
-    [WS_API]: {
-      types: ['PENDING_SYMBOLS', 'FAILURE_SYMBOLS', 'SUCCESS_SYMBOLS'],
-      landing_company: 'japan',
-      active_symbols: 'brief',
-    },
-  }).then(() => dispatch(setSymbol()));
+  return (dispatch) => {
+    dispatch(getTimeOffset());
+    return dispatch({
+      [WS_API]: {
+        types: ['PENDING_SYMBOLS', 'FAILURE_SYMBOLS', 'SUCCESS_SYMBOLS'],
+        landing_company: 'japan',
+        active_symbols: 'brief',
+      },
+    }).then(() => dispatch(setSymbol()));
+  };
 }
 
 export function setSymbol(payload) {
@@ -96,7 +120,7 @@ export function setSymbol(payload) {
 }
 
 export function getContracts(auto) {
-  clearTimeout(contractsTimer);
+  clearTimeout(timers.contractsTimer);
 
   return (dispatch, getState) => {
     const symbol = getState().getIn(['values', 'symbol']);
@@ -121,7 +145,7 @@ export function getContracts(auto) {
       const periods = ContractsHelper.getTradingPeriods(contracts, category);
       const period = getState().getIn(['values', 'period']);
 
-      contractsTimer = setTimeout(() => dispatch(getContracts(true)), 3000);
+      timers.contractsTimer = setTimeout(() => dispatch(getContracts(true)), 3000);
       if (periods.filter((v) => `${v.get('start')}_${v.get('end')}` === period).size && auto) {
         return Promise.resolve();
       }
@@ -189,7 +213,7 @@ export function setPeriod(payload) {
         period,
         store,
       },
-    })).then(() => dispatch(setPayout()));
+    })).then(() => dispatch(setExpiryCounter())).then(() => dispatch(setPayout()));
   };
 }
 
@@ -313,6 +337,11 @@ export function buy({ type, price, barriers }) {
 }
 
 export function close() {
+  for (const id of Object.keys(timers)) {
+    clearInterval(timers[id]);
+    clearTimeout(timers[id]);
+  }
+
   return {
     type: 'CLOSE',
     [WS_API]: {

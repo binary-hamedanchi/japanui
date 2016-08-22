@@ -118,6 +118,18 @@ export default function reducer(state = Map(), action = {}) {
         .delete('user')
         .deleteIn(['errors', 'user']);
 
+    case 'PENDING_TIME':
+      return state.setIn(['status', 'time'], 'pending').deleteIn(['errors', 'time']);
+
+    case 'FAILURE_TIME':
+      return state.setIn(['status', 'time'], 'error')
+        .setIn(['errors', 'time'], payload);
+
+    case 'SUCCESS_TIME':
+      return state.setIn(['status', 'time'], 'ready')
+        .set('timeOffset', payload - action.clientTime)
+        .deleteIn(['errors', 'time']);
+
     default:
       return state;
   }
