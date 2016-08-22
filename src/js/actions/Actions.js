@@ -11,7 +11,7 @@ const timers = {};
 
 function authorize() {
   return (dispatch, getState) => {
-    if (typeof window.CommonData !== 'undefined') {
+    if (typeof window.CommonData !== 'object') {
       return Promise.resolve();
     }
 
