@@ -46,7 +46,18 @@ function setExpiryCounter() {
 
     if (typeof offset !== 'undefined') {
       const expiry = getState().getIn(['values', 'period']).split('_')[1];
+      const left = expiry - (parseInt((new Date()) / 1000, 10) + offset);
+
+      return dispatch({
+        skipLog: true,
+        type: 'SET_TIME_LEFT',
+        payload: left,
+      }).then(() => (
+        timers.leftTime = setTimeout(() => dispatch(setExpiryCounter()), 1000)
+      ));
     }
+
+    return Promise.resolve();
   };
 }
 
@@ -188,6 +199,8 @@ export function setCategory(payload) {
 }
 
 export function setPeriod(payload) {
+  clearTimeout(timers.leftTime);
+
   return (dispatch, getState) => {
     let period = payload && payload.period;
     const store = Boolean(period);
@@ -327,9 +340,11 @@ export function buy({ type, price, barriers }) {
         parameters,
       },
     })).then((action) => {
+      console.log(action);
       showBuyWindow(action.payload.contract_id);
       cleanBuy();
     }).catch((err) => {
+            console.log(err,'error');
       alert(err.message);
       cleanBuy();
     });

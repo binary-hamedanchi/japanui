@@ -130,6 +130,9 @@ export default function reducer(state = Map(), action = {}) {
         .set('timeOffset', payload - action.clientTime)
         .deleteIn(['errors', 'time']);
 
+    case 'SET_TIME_LEFT':
+      return state.setIn(['values', 'timeLeft'], String(payload));
+
     default:
       return state;
   }
