@@ -16,7 +16,6 @@
       }
     }
   }
-  
   .japan-table {
     align-items: stretch;
   }
@@ -131,13 +130,12 @@
       position: absolute;
     }
   }
-  .select{
+  .select {
     margin-right: 10px;
     margin-bottom: 10px;
     height: 30px;
     line-height: 30px;
   }
-
   .spot {
     padding: 5px;
     padding-bottom: 10px;
@@ -147,22 +145,34 @@
       padding-right: 10px;
     }
   }
-  .spot-dyn{
+  .spot-dyn {
     width: 10px;
-    display: block;
-    float: right;
+    display: inline-block;
+    // float: right;
   }
-  .select-box{
+  .select-box {
     float: left;
     background: #F2F2F2;
     border-radius: 3px;
     margin: 3px;
     padding: 2px 5px;
     padding-top: 10px;
-
     .select {
       width: 100%;
       margin-top: 5px;
+    }
+  }
+  .space-between {
+    justify-content: space-between;
+  }
+  .spot {
+    white-space: nowrap;
+  }
+  .countdown-timer {
+    padding: 5px;
+    border-radius: 3px;
+    &.alert {
+      background: #fbe4d7;
     }
   }
 }
