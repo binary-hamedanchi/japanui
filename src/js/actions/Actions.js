@@ -339,12 +339,10 @@ export function buy({ type, price, barriers }) {
         price: price,
         parameters,
       },
-    })).then((action) => {
-      console.log(action);
-      showBuyWindow(action.payload.contract_id);
+    })).then((payload) => {
+      showBuyWindow(payload.contract_id);
       cleanBuy();
     }).catch((err) => {
-            console.log(err,'error');
       alert(err.message);
       cleanBuy();
     });
