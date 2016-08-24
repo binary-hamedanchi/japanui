@@ -2,16 +2,11 @@ import React from 'react';
 import { List, Map } from 'immutable';
 import moment from 'moment';
 
-import ContractsHelper from '../helpers/ContractsHelper';
 import SelectBlock from './SelectBlock';
 import text from '../helpers/text';
 
 const getPeriods = (state = Map()) => {
-  const contracts = state.getIn(['contracts', 'available'], List());
-  const category = state.getIn(['values', 'category'], '');
-
-  const periods = ContractsHelper.getTradingPeriods(contracts, category);
-  return periods.map((period) => {
+  return state.getIn(['values', 'periods'], List()).map((period) => {
     const duration = period.get('duration').replace('0d', '1d').replace(/[a-z]+/gi, (dur) => {
       switch (dur) {
         case 'm':

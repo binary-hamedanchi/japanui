@@ -1,13 +1,10 @@
 import React from 'react';
 import { List, Map } from 'immutable';
 
-import ContractsHelper from '../helpers/ContractsHelper';
 import text from '../helpers/text';
 import SelectBlock from './SelectBlock';
 
 const getCategories = (state = Map()) => {
-  const contracts = state.getIn(['contracts', 'available'], List());
-
   const categoryNames = {
     higherlower: text('HIGH/LOW'),
     touchnotouch: text('TOUCH /NO-TOUCH'),
@@ -15,7 +12,7 @@ const getCategories = (state = Map()) => {
     staysinout: text('STAY-IN/BREAK-OUT'),
   };
 
-  return ContractsHelper.getCategories(contracts)
+  return state.getIn(['values', 'categories'], Map())
     .map((name, category) => List.of(category, categoryNames[category]))
     .toList();
 };
