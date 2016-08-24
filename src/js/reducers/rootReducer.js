@@ -17,7 +17,7 @@ export default function reducer(state = Map(), action = {}) {
 
     case 'SET_SYMBOL':
       return state.setIn(['values', 'symbol'], payload.get('symbol'))
-        .updateIn(['storage', 'symbol'], (v) => payload.get('store') ? payload.get('symbol') : v);
+        .updateIn(['storage', 'symbol'], (v) => payload.get('needToStore') ? payload.get('symbol') : v);
 
     case 'PENDING_CONTRACTS':
       return state.setIn(['status', 'contracts'], 'pending').deleteIn(['errors', 'contracts']);
@@ -34,16 +34,16 @@ export default function reducer(state = Map(), action = {}) {
     case 'SET_CATEGORY':
       return state.setIn(['values', 'category'], payload.get('category'))
         .updateIn(['storage', 'category'],
-          (v) => payload.get('store') ? payload.get('category') : v);
+          (v) => payload.get('needToStore') ? payload.get('category') : v);
 
     case 'SET_PERIOD':
       return state.setIn(['values', 'period'], payload.get('period'))
-        .updateIn(['storage', 'period'], (v) => payload.get('store') ? payload.get('period') : v);
+        .updateIn(['storage', 'period'], (v) => payload.get('needToStore') ? payload.get('period') : v);
 
 
     case 'SET_PAYOUT':
       return state.setIn(['values', 'payout'], payload.get('payout'))
-        .updateIn(['storage', 'payout'], (v) => payload.get('store') ? payload.get('payout') : v);
+        .updateIn(['storage', 'payout'], (v) => payload.get('needToStore') ? payload.get('payout') : v);
 
 
     case 'PENDING_PROPOSAL':
@@ -131,7 +131,22 @@ export default function reducer(state = Map(), action = {}) {
         .deleteIn(['errors', 'time']);
 
     case 'SET_TIME_LEFT':
-      return state.setIn(['values', 'timeLeft'], String(payload));
+      return state.setIn(['values', 'timeLeft'], String(payload.get('timeLeft')));
+
+    case 'SET_SYMBOLS':
+      return state.setIn(['values', 'symbols'], payload.get('symbols'));
+
+    case 'SET_CATEGORIES':
+      return state.setIn(['values', 'categories'], payload.get('categories'));
+
+    case 'SET_PERIODS':
+      return state.setIn(['values', 'periods'], payload.get('periods'));
+
+    case 'SET_BARRIERS':
+      return state.setIn(['values', 'barriers'], payload.get('barriers'));
+
+    case 'SET_CONTRACT_TYPES':
+      return state.setIn(['values', 'contractTypes'], payload.get('contractTypes'));
 
     default:
       return state;

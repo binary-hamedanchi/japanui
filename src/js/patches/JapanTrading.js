@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import * as Actions from '../actions/Actions';
+import * as ActionsCreators from '../actions/ActionsCreators';
 import configureStore from '../store/configureStore';
 import JapanContainer from '../components/JapanContainer';
 
@@ -17,7 +17,7 @@ const start = () => {
   const storage = localStorage.japan ? JSON.parse(localStorage.japan) : {};
   store = configureStore({ storage });
 
-  store.dispatch(Actions.getSymbols());
+  store.dispatch(ActionsCreators.getSymbols());
   appNode = document.getElementById('japan-app');
   ReactDOM.render(<Provider store={store}><JapanContainer /></Provider>, appNode);
 
@@ -30,7 +30,7 @@ const stop = () => {
     return false;
   }
 
-  store.dispatch(Actions.close());
+  store.dispatch(ActionsCreators.close());
   store = undefined;
   ReactDOM.unmountComponentAtNode(appNode);
   return true;
