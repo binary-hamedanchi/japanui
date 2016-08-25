@@ -11,6 +11,7 @@ const getTable = (() => {
     const proposals = state.getIn(['streams', 'proposals'], Map());
     const errors = state.getIn(['errors', 'proposals'], Map());
     const payout = state.getIn(['values', 'payout']);
+    const barriers = state.getIn(['values', 'barriers']);
 
     table = proposals.concat(errors)
       .reduce((nextTable, proposal, shortCode) => {

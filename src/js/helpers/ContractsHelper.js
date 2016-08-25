@@ -77,11 +77,19 @@ export default class ContractsHelper {
   }
 
   static getJapanBarriers(contracts, category, startDate, endDate) {
-    return this.filter(contracts, { contract_category: category })
+    const filteredContracts = this.filter(contracts, { contract_category: category })
       .filter((contract) => {
         return (contract.getIn(['trading_period', 'date_expiry', 'epoch']) == endDate &&
           contract.getIn(['trading_period', 'date_start', 'epoch']) == startDate);
-      }).getIn([0, 'available_barriers'], List());
+      });
+
+    const handleBarrier = (barrier) =>
+      (typeof barrier === 'object' ? barrier.join('_') : String(barrier));
+    const availableBarriers = filteredContracts.getIn([0, 'available_barriers'], List());
+    const expiredBarriers = filteredContracts.getIn([0, 'expired_barriers'], List())
+      .reduce((expiredBarriers, barrier) => expiredBarriers.set(handleBarrier(barrier), 1), Map());
+
+    return availableBarriers.filter((barrier) => !expiredBarriers.has(handleBarrier(barrier)));
   }
 
   static getExpirySelectTypes(...args) {
