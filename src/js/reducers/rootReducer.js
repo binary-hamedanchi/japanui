@@ -127,7 +127,7 @@ export default function reducer(state = Map(), action = {}) {
 
     case 'SUCCESS_TIME':
       return state.setIn(['status', 'time'], 'ready')
-        .set('timeOffset', payload - action.clientTime)
+        .set('timeOffset', payload - action.clientTime > 0 ? payload - action.clientTime : 0)
         .deleteIn(['errors', 'time']);
 
     case 'SET_TIME_LEFT':
