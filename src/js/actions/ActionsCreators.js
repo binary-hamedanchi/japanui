@@ -266,7 +266,7 @@ export function buy({ type, price, barriers }) {
     const expiry = getState().getIn(['values', 'period']).split('_')[1];
 
     dispatch(authorize())
-      .then(() => dispatch(Actions.buy(type, price, barriers, payout, symbol, expiry)))
+      .then(() => dispatch(Actions.buy({ type, price, barriers, payout, symbol, expiry })))
       .then((payload) => {
         showBuyWindow(payload.contract_id);
       }).catch((err) => {
