@@ -4,6 +4,7 @@ import ContractsHelper from '../helpers/ContractsHelper';
 import showBuyWindow from '../patches/showBuyWindow';
 import TradingAnalysis from '../patches/TradingAnalysis';
 import * as Actions from './Actions';
+import text from '../helpers/text';
 
 import { Map, List } from 'immutable';
 
@@ -26,12 +27,11 @@ function authorize() {
 }
 
 function getTimeOffset() {
-  return (dispatch) => {
-    return dispatch(Actions.getTimeOffset());
-  };
+  return (dispatch) => dispatch(Actions.getTimeOffset());
 }
 
 function setExpiryCounter() {
+  clearTimeout(timers.leftTime);
   return (dispatch, getState) => {
     const offset = getState().get('timeOffset');
 
@@ -40,7 +40,21 @@ function setExpiryCounter() {
       const timeLeft = expiry - (parseInt((new Date()) / 1000, 10) + offset);
 
       return dispatch(Actions.setExpiryCounter({ timeLeft }))
-        .then(() => (timers.leftTime = setTimeout(() => dispatch(setExpiryCounter()), 1000)));
+        .then(() => {
+          if (timeLeft < 120 && timeLeft > 0) {
+            dispatch(Actions.showNotification({
+              message: text(`This contract can not be traded 
+in the final 2 minutes before settlement`),
+              level: 'info',
+              uid: 'TIME_LEFT',
+              autoDismiss: timeLeft,
+            }));
+          }
+
+          if (timeLeft > 0) {
+            timers.leftTime = setTimeout(() => dispatch(setExpiryCounter()), 1000);
+          }
+        });
     }
 
     return Promise.resolve();
@@ -104,7 +118,12 @@ export function setSymbol(payload) {
     return dispatch(deleteProposalsStreams())
       .then(() => dispatch(Actions.setSymbol({ needToStore, symbol })))
       .then(() => dispatch(getContracts()))
-      .then(() => dispatch(getTicks()));
+      .then(() => dispatch(getTicks()))
+      .catch((err = {}) => dispatch(
+        Actions.showNotification({
+          message: err.message,
+          level: 'error',
+        })));
   };
 }
 
@@ -117,7 +136,12 @@ function getContracts() {
         timers.contractsTimer = setTimeout(() => dispatch(updateContracts()), 15 * 1000);
       })
       .then(() => dispatch(setCategories()))
-      .then(() => dispatch(setCategory()));
+      .then(() => dispatch(setCategory()))
+      .catch((err = {}) => dispatch(
+        Actions.showNotification({
+          message: err.message,
+          level: 'error',
+        })));
   };
 }
 
@@ -130,7 +154,12 @@ function updateContracts() {
         timers.contractsTimer = setTimeout(() => dispatch(updateContracts()), 15 * 1000);
       })
       .then(() => dispatch(setCategories()))
-      .then(() => dispatch(setPeriods()));
+      .then(() => dispatch(setPeriods()))
+      .catch((err = {}) => dispatch(
+        Actions.showNotification({
+          message: err.message,
+          level: 'error',
+        })));
   };
 }
 
@@ -195,7 +224,12 @@ export function setCategory(payload) {
       .then(() => dispatch(Actions.setCategory({ needToStore, category })))
       .then(() => dispatch(setContractTypes()))
       .then(() => dispatch(setPeriods()))
-      .then(() => dispatch(setPeriod()));
+      .then(() => dispatch(setPeriod()))
+      .catch((err = {}) => dispatch(
+        Actions.showNotification({
+          message: err.message,
+          level: 'error',
+        })));
   };
 }
 
@@ -218,7 +252,12 @@ export function setPeriod(payload) {
       .then(() => dispatch(Actions.setPeriod({ period, needToStore })))
       .then(() => dispatch(setBarriers()))
       .then(() => dispatch(setExpiryCounter()))
-      .then(() => dispatch(setPayout()));
+      .then(() => dispatch(setPayout()))
+      .catch((err = {}) => dispatch(
+        Actions.showNotification({
+          message: err.message,
+          level: 'error',
+        })));
   };
 }
 
@@ -237,7 +276,12 @@ export function setPayout(payload) {
 
     return dispatch(deleteProposalsStreams())
       .then(() => dispatch(Actions.setPayout({ payout, needToStore })))
-      .then(() => dispatch(getPrices()));
+      .then(() => dispatch(getPrices()))
+      .catch((err = {}) => dispatch(
+        Actions.showNotification({
+          message: err.message,
+          level: 'error',
+        })));
   };
 }
 
@@ -252,7 +296,26 @@ export function getPrices() {
 
     contractTypes.forEach((contractType) => barriers.forEach((barrier) => (
       dispatch(Actions.getPrice({ contractType, symbol, endDate, payout, barrier }))
-      .catch((err) => console.log(`${err.message}`))
+      .catch((err = {}) => {
+        if (err.code === 'RateLimit') {
+          return dispatch(Actions.showNotification({
+            message: err.message,
+            level: 'error',
+            autoDismiss: 0,
+            dismissible: false,
+            uid: 'PROPOSAL_LIMIT',
+            action: {
+              label: text('Refresh page'),
+              callback() {
+                location.reload();
+              },
+            },
+          }));
+        }
+
+        console.log(`${err.message}`);
+        return Promise.resolve();
+      })
     )));
 
     return Promise.resolve();
@@ -269,9 +332,9 @@ export function buy({ type, price, barriers }) {
       .then(() => dispatch(Actions.buy({ type, price, barriers, payout, symbol, expiry })))
       .then((payload) => {
         showBuyWindow(payload.contract_id);
-      }).catch((err) => {
-        alert(err.message);
-      });
+      }).catch((err = {}) => (
+        dispatch(Actions.showNotification({ message: err.message, level: 'error' }))
+      ));
   };
 }
 

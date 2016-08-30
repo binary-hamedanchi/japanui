@@ -196,3 +196,11 @@ export function close() {
 export function deleteProposalsStreams() {
   return { type: 'DELETE_STREAMS' };
 }
+
+export function showNotification(payload) {
+  return { type: 'SHOW_NOTIFICATION', skipLog: true, payload };
+}
+
+export function hideNotification(payload) {
+  return { type: 'HIDE_NOTIFICATION', skipLog: true, payload };
+}

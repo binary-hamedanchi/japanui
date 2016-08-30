@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { Map, fromJS, List } from 'immutable';
 
 export default function reducer(state = Map(), action = {}) {
   const payload = action.payload ? fromJS(action.payload) : Map();
@@ -147,6 +147,12 @@ export default function reducer(state = Map(), action = {}) {
 
     case 'SET_CONTRACT_TYPES':
       return state.setIn(['values', 'contractTypes'], payload.get('contractTypes'));
+
+    case 'SHOW_NOTIFICATION':
+      return state.set('notification', payload.set('state', true));
+
+    case 'HIDE_NOTIFICATION':
+      return state.set('notification', payload.set('state', false));
 
     default:
       return state;
