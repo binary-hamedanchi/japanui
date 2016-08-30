@@ -1,18 +1,14 @@
 import React from 'react';
-import { List } from 'immutable';
-
-import SelectBlock from './SelectBlock';
-import config from 'config/config.json';
+import InputBlock from './InputBlock';
 import text from '../helpers/text';
 
-const getPayouts = () => List(
-  config.payouts.map((payout) => List.of(payout, `¥ ${Number(payout).toLocaleString()}`))
-);
-
-const PayoutSelectContainer = (props) => (<SelectBlock
-  {...props}
-  heading={text('Payout Amount ')}
-  options={getPayouts()} />);
+const PayoutSelectContainer = (props) => (<InputBlock
+  heading={text('Payout Amount ')}>
+    <div className='payout-input'>
+    ¥ <input  {...props} id='payout'/>
+      <label className='payout-mult' htmlFor='payout'>,000</label>
+    </div>
+  </InputBlock>);
 
 PayoutSelectContainer.displayName = 'PayoutSelectContainer';
 

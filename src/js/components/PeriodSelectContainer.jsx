@@ -2,7 +2,8 @@ import React from 'react';
 import { List, Map } from 'immutable';
 import moment from 'moment';
 
-import SelectBlock from './SelectBlock';
+import InputBlock from './InputBlock';
+import Select from './Select';
 import text from '../helpers/text';
 
 const getPeriods = (state = Map()) => {
@@ -36,10 +37,11 @@ const getPeriods = (state = Map()) => {
   });
 };
 
-const PeriodSelectContainer = (props) => (<SelectBlock
-  {...props}
-  heading={text('Trading Period')}
-  options={getPeriods(props.state)} />);
+const PeriodSelectContainer = (props) => (<InputBlock
+  heading={text('Trading Period')}><Select
+    {...props}
+    options={getPeriods(props.state)}
+    className='select'/></InputBlock>);
 
 PeriodSelectContainer.displayName = 'PeriodSelectContainer';
 PeriodSelectContainer.propTypes = {

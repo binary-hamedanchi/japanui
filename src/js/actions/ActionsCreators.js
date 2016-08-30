@@ -263,7 +263,7 @@ export function setPeriod(payload) {
 
 export function setPayout(payload) {
   return (dispatch, getState) => {
-    let payout = payload && payload.payout;
+    let payout = payload && payload.payout * 1000;
     const needToStore = Boolean(payout);
 
     if (!payout) {

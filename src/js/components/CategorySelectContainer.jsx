@@ -2,7 +2,8 @@ import React from 'react';
 import { List, Map } from 'immutable';
 
 import text from '../helpers/text';
-import SelectBlock from './SelectBlock';
+import InputBlock from './InputBlock';
+import Select from './Select';
 
 const getCategories = (state = Map()) => {
   const categoryNames = {
@@ -17,10 +18,11 @@ const getCategories = (state = Map()) => {
     .toList();
 };
 
-const CategorySelectContainer = (props) => (<SelectBlock
-  {...props}
-  heading={text('Option Type')}
-  options={getCategories(props.state)} />);
+const CategorySelectContainer = (props) => (<InputBlock
+  heading={text('Option Type')}><Select
+    {...props}
+    options={getCategories(props.state)}
+    className='select'/></InputBlock>);
 
 CategorySelectContainer.displayName = 'CategorySelectContainer';
 CategorySelectContainer.propTypes = {

@@ -157,9 +157,30 @@
     margin: 3px;
     padding: 2px 5px;
     padding-top: 10px;
-    .select {
+    .select, .payout-select {
       width: 100%;
       margin-top: 5px;
+      padding: 2px 3px;
+      border: 1px solid #F2F2F2;
+      background: #FFF;
+      border-radius: 3px;
+    }
+    .payout-input{
+      position: relative;
+      white-space: nowrap;
+    }
+    .payout-select {
+      display: inline;
+      width: 50px;
+      height: 24px;
+      text-align: right;
+      padding-right: 30px
+    }
+    .payout-mult{
+      position: absolute;
+      right: 17px;
+      top:13px;
+      font-size: 12px;
     }
   }
   .space-between {
