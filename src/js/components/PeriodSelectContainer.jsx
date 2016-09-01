@@ -2,16 +2,12 @@ import React from 'react';
 import { List, Map } from 'immutable';
 import moment from 'moment';
 
-import ContractsHelper from '../helpers/ContractsHelper';
+import InputBlock from './InputBlock';
 import Select from './Select';
 import text from '../helpers/text';
 
 const getPeriods = (state = Map()) => {
-  const contracts = state.getIn(['contracts', 'available'], List());
-  const category = state.getIn(['values', 'category'], '');
-
-  const periods = ContractsHelper.getTradingPeriods(contracts, category);
-  return periods.map((period) => {
+  return state.getIn(['values', 'periods'], List()).map((period) => {
     const duration = period.get('duration').replace('0d', '1d').replace(/[a-z]+/gi, (dur) => {
       switch (dur) {
         case 'm':
@@ -31,17 +27,21 @@ const getPeriods = (state = Map()) => {
       }
     });
 
-    const formatDate = moment.utc(period.get('end') * 1000).utcOffset(9)
+    let formatDate = moment.utc(period.get('end') * 1000).utcOffset(9)
       .format(`MM[${text('month')}] ` +
         `DD[${text('day')}] HH:mm [(${duration})]`);
+
+    formatDate = formatDate.replace(/08:59/, '09:00«');
 
     return List.of(`${period.get('start') }_${period.get('end')}`, formatDate);
   });
 };
 
-const PeriodSelectContainer = (props) => (<Select
-  {...props}
-  options={getPeriods(props.state)} />);
+const PeriodSelectContainer = (props) => (<InputBlock
+  heading={text('Trading Period')}><Select
+    {...props}
+    options={getPeriods(props.state)}
+    className='select'/></InputBlock>);
 
 PeriodSelectContainer.displayName = 'PeriodSelectContainer';
 PeriodSelectContainer.propTypes = {

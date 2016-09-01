@@ -5,7 +5,7 @@ import JapanPriceDetails from './JapanPriceDetails';
 import text from '../helpers/text';
 import contractTypes from '../config/contractTypes.json';
 
-const JapanPriceDetailsContainer = ({
+const JapanMsgContainer = ({
   symbol,
   period,
   payout,
@@ -33,12 +33,12 @@ const JapanPriceDetailsContainer = ({
     label={text(contractTypes[type].name)}/>);
 };
 
-JapanPriceDetailsContainer.displayName = 'JapanPriceDetailsContainer';
-JapanPriceDetailsContainer.propTypes = {
+JapanMsgContainer.displayName = 'JapanMsgContainer';
+JapanMsgContainer.propTypes = {
   symbol: React.PropTypes.string,
   period: React.PropTypes.string,
   payout: React.PropTypes.string,
   type: React.PropTypes.string,
 };
 
-export default JapanPriceDetailsContainer;
+export default JapanMsgContainer;

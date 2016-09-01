@@ -1,21 +1,15 @@
 import React from 'react';
 import { List, Map } from 'immutable';
 
-import SymbolsHelper from '../helpers/SymbolsHelper';
+import InputBlock from './InputBlock';
 import Select from './Select';
+import text from '../helpers/text';
 
-const getSymbols = (state = Map()) => {
-  const symbols = state.get('symbols', List());
-
-  return SymbolsHelper.getSymbols(symbols, 'major_pairs')
-  // return SymbolsHelper.getSymbols(symbols, 'volidx')
-    .toList()
-    .map((symbol) => List.of(symbol.get('symbol'), symbol.get('display_name')));
-};
-
-const SymbolSelectContainer = (props) => (<Select
-  {...props}
-  options={getSymbols(props.state)} />);
+const SymbolSelectContainer = (props) => (<InputBlock
+  heading={text('FX Rate')}>
+    <Select {...props}
+      className='select' options={props.state.getIn(['values', 'symbols'], List())}/>
+  </InputBlock>);
 
 SymbolSelectContainer.displayName = 'SymbolSelectContainer';
 SymbolSelectContainer.propTypes = {

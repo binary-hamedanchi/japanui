@@ -6,6 +6,7 @@ import CategorySelectContainer from './CategorySelectContainer';
 import PeriodSelectContainer from './PeriodSelectContainer';
 import PayoutSelectContainer from './PayoutSelectContainer';
 import SpotContainer from './SpotContainer';
+import ContractEndTimerContainer from './ContractEndTimerContainer';
 
 const JapanForm = ({ state, actions }) => (<section className='japan-form flex-box rows'>
   <div className='flex-box cols row'>
@@ -32,12 +33,17 @@ const JapanForm = ({ state, actions }) => (<section className='japan-form flex-b
       <PayoutSelectContainer
         state={state}
         className='payout-select select'
-        value={String(state.getIn(['values', 'payout']))}
+        value={String(state.getIn(['values', 'payout'], 1000) / 1000)}
         onChange={(e) => actions.setPayout({ payout: e.target.value })}/>
     </div>
   </div>
-  <div className='row'><SpotContainer
-    spot={state.getIn(['streams', 'ticks', 'value'], Map())} />
+  <div className='row flex-box cols space-between'>
+    <div className='col'>
+      <SpotContainer spot={state.getIn(['streams', 'ticks', 'value'], Map())} />
+    </div>
+    <div className='col'>
+      <ContractEndTimerContainer timeLeft={state.getIn(['values', 'timeLeft'])} />
+    </div>
   </div>
 </section>);
 

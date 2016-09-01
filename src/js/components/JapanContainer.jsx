@@ -3,15 +3,17 @@ import { Map } from 'immutable';
 import { bindActionCreators } from 'redux';
 import React from 'react';
 
-import * as Actions from '../actions/Actions';
+import * as ActionsCreators from '../actions/ActionsCreators';
 import FetchingBoxContainer from './FetchingBoxContainer';
 import JapanTableContainer from './JapanTableContainer';
 import JapanForm from './JapanForm';
+import NotificationsContainer from './NotificationsContainer';
 
 const Japan = ({ state, actions }) => (<div className='japan-ui'>
   <FetchingBoxContainer state={state} />
   <JapanForm state={state} actions={actions}/>
   <JapanTableContainer state={state} actions={actions}/>
+  <NotificationsContainer state={state} />
 </div>);
 
 Japan.displayName = 'Japan';
@@ -21,7 +23,7 @@ Japan.propTypes = {
 };
 
 const mapStateToProps = (state) => ({ state });
-const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(Actions, dispatch) });
+const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(ActionsCreators, dispatch) });
 
 const JapanContainer = connect(
   mapStateToProps,
