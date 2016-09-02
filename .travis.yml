@@ -3,4 +3,3 @@ node_js:
   - "0.12.7"
 script:
   - bash ./.travis-deploy.sh
-  
