@@ -2,4 +2,4 @@ language: node_js
 node_js:
   - "0.12.7"
 script:
-  - bash .travis-deploy.sh
+  - ./travis-deploy.sh
