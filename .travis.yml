@@ -9,4 +9,8 @@ cache:
   directories:
   - node_modules
 script:
-  - ./travis-deploy.sh
+  - bash ./deploy.sh
+env:
+  global:
+  - ENCRYPTION_LABEL: "d49917e17229"
+  - COMMIT_AUTHOR_EMAIL: "jy@binary.com"
