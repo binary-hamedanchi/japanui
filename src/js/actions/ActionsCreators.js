@@ -41,16 +41,6 @@ function setExpiryCounter() {
 
       return dispatch(Actions.setExpiryCounter({ timeLeft }))
         .then(() => {
-          if (timeLeft < 120 && timeLeft > 0) {
-            dispatch(Actions.showNotification({
-              message: text(`This contract can not be traded 
-in the final 2 minutes before settlement`),
-              level: 'info',
-              uid: 'TIME_LEFT',
-              autoDismiss: timeLeft,
-            }));
-          }
-
           if (timeLeft > 0) {
             timers.leftTime = setTimeout(() => dispatch(setExpiryCounter()), 1000);
           }
@@ -252,6 +242,22 @@ export function setPeriod(payload) {
       .then(() => dispatch(Actions.setPeriod({ period, needToStore })))
       .then(() => dispatch(setBarriers()))
       .then(() => dispatch(setExpiryCounter()))
+      .then(() => {
+        const offset = getState().get('timeOffset');
+        if (typeof offset !== 'undefined') {
+          const expiry = getState().getIn(['values', 'period']).split('_')[1];
+          const timeLeft = expiry - (parseInt((new Date()) / 1000, 10) + offset);
+
+          if (timeLeft < 120 && timeLeft > 0) {
+            dispatch(Actions.showNotification({
+              message: text(`This contract can not be traded 
+          in the final 2 minutes before settlement`),
+              level: 'info',
+              uid: 'TIME_LEFT',
+            }));
+          }
+        }
+      })
       .then(() => dispatch(setPayout()))
       .catch((err = {}) => dispatch(
         Actions.showNotification({
@@ -289,7 +295,7 @@ export function setPayout(payload) {
           payoutPromise.resolve();
           payoutPromise.resolved = true;
           return dispatch(getPrices());
-        }, 500);
+        }, needToStore ? 500 : 0);
 
         return payoutPromise;
       }).catch((err = {}) => dispatch(
