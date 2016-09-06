@@ -261,35 +261,50 @@ export function setPeriod(payload) {
   };
 }
 
+let payoutPromise;
 export function setPayout(payload) {
   return (dispatch, getState) => {
-    let payout = payload && payload.payout * 1000;
+    let payout = payload && payload.payout;
+
     const needToStore = Boolean(payout);
 
-    if (!payout) {
+    if (typeof payout === 'undefined') {
       payout = getState().getIn(['storage', 'payout']);
     }
 
-    if (!payout) {
-      payout = 1000;
+    if (typeof payout === 'undefined') {
+      payout = 1;
     }
 
-    return dispatch(deleteProposalsStreams())
-      .then(() => dispatch(Actions.setPayout({ payout, needToStore })))
-      .then(() => dispatch(getPrices()))
-      .catch((err = {}) => dispatch(
+    return dispatch(Actions.setPayout({ payout, needToStore }))
+      .then(() => dispatch(deleteProposalsStreams()))
+      .then(() => {
+        if (!payoutPromise || payoutPromise.resolved) {
+          let resolve;
+          payoutPromise = new Promise((res) => { resolve = res });
+          payoutPromise.resolve = resolve;
+        }
+        clearTimeout(timers.setPayout);
+        timers.setPayout = setTimeout(() => {
+          payoutPromise.resolve();
+          payoutPromise.resolved = true;
+          return dispatch(getPrices());
+        }, 500);
+
+        return payoutPromise;
+      }).catch((err = {}) => dispatch(
         Actions.showNotification({
           message: err.message,
           level: 'error',
         })));
-  };
+  }
 }
 
 export function getPrices() {
   return (dispatch, getState) => {
     const symbol = getState().getIn(['values', 'symbol']);
     const [, endDate] = getState().getIn(['values', 'period'], '').split('_');
-    const payout = getState().getIn(['values', 'payout']);
+    const payout = Number(getState().getIn(['values', 'payout']), 10) * 1000 || 1000;
     const barriers = getState().getIn(['values', 'barriers']);
     const contractTypes = getState().getIn(['values', 'contractTypes']);
 
