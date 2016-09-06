@@ -33,7 +33,7 @@ const JapanForm = ({ state, actions }) => (<section className='japan-form flex-b
       <PayoutSelectContainer
         state={state}
         className='payout-select select'
-        value={String(state.getIn(['values', 'payout'], 1000) / 1000)}
+        value={String(state.getIn(['values', 'payout'], ''))}
         onChange={(e) => actions.setPayout({ payout: e.target.value })}/>
     </div>
   </div>

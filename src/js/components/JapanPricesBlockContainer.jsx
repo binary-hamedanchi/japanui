@@ -10,7 +10,7 @@ const JapanPricesBlockContainer = ({ table, values, actions }) => {
   const details = (<JapanPriceDetailsContainer
     symbol={values.get('symbol', '')}
     period={values.get('period', '')}
-    payout={String(values.get('payout', ''))}
+    payout={String(values.get('payout', '') || 1)}
     type={type}/>);
 
   let barriers = List();

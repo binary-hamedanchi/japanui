@@ -1,6 +1,16 @@
 language: node_js
 node_js:
   - "0.12.7"
+npm:
+  - "2.11.3"
+language: objective-c
+cache:
+  bundler: true
+  directories:
+  - node_modules
 script:
-  - bash ./.travis-deploy.sh
-  
+  - bash ./deploy.sh
+env:
+  global:
+  - ENCRYPTION_LABEL: "d49917e17229"
+  - COMMIT_AUTHOR_EMAIL: "jy@binary.com"
