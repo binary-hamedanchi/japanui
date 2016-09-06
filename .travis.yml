@@ -4,10 +4,6 @@ node_js:
 npm:
   - "2.11.3"
 language: objective-c
-cache:
-  bundler: true
-  directories:
-  - node_modules
 script:
   - bash ./deploy.sh
 env:
