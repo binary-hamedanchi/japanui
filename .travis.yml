@@ -6,7 +6,7 @@ node_js:
   - "0.12.7"
 npm:
   - "2.11.3"
-after_success:
+script:
   - bash ./deploy.sh
 env:
   global:
