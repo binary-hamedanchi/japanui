@@ -9,7 +9,7 @@ const PayoutSelectContainer = (props) => {
     .reduce((props2, key) => (props2[key] = props[key], props2), {});
 
   return (<InputBlock
-    heading={text('Payout Amount ')}>
+    heading={text('Payout Amount')}>
       <div className='payout-input'>
       ¥ <input {...props2} id='payout'/>
         <label className='payout-mult' htmlFor='payout'>,000</label>
