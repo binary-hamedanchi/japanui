@@ -4,8 +4,8 @@ set -e # Exit with nonzero exit code if anything fails
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
+npm install
 function doCompile {
-	npm install
   npm run compile
 }
 
