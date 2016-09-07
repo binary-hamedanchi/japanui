@@ -8,6 +8,8 @@ npm:
   - "2.11.3"
 script:
   - bash ./deploy.sh
+install:
+  - true
 env:
   global:
   - ENCRYPTION_LABEL: "d49917e17229"
