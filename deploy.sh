@@ -5,6 +5,7 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
 # npm install
+
 function doCompile {
   npm run compile
 }
