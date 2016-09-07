@@ -1,9 +1,12 @@
 language: node_js
+branches:
+  only: 
+    - master
 node_js:
   - "0.12.7"
 npm:
   - "2.11.3"
-script:
+after_success:
   - bash ./deploy.sh
 env:
   global:
