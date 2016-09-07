@@ -4,18 +4,19 @@ set -e # Exit with nonzero exit code if anything fails
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
+# npm install
+
 function doCompile {
-	npm install
   npm run compile
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
-if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]; then
-    # echo "Skipping deploy; just doing a build."
-    echo "Skipping deploy;"
-    # doCompile
-    exit 0
-fi
+# if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]; then
+#     # echo "Skipping deploy; just doing a build."
+#     echo "Skipping deploy;"
+#     # doCompile
+#     exit 0
+# fi
 
 # Save some useful information
 REPO=`git config remote.origin.url`
@@ -24,6 +25,7 @@ SHA=`git rev-parse --verify HEAD`
 
 # Clone the existing gh-pages for this repo into dist/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deply)
+rm -rf dist
 git clone $REPO dist
 cd dist
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
@@ -48,7 +50,7 @@ fi
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
-git add .
+git add --all .
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc

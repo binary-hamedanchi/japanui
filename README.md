@@ -1,26 +1,23 @@
 # japanui
 UI for Japan site
 
-## Development:
-Navigate to root folder and run
+##Pre-installments
 
-`webpack-dev-server`
+- Install node and npm (https://nodejs.org/en/download/)
+- Install webpack-dev-server 
+`sudo npm install -g webpack-dev-server`
+- clone project
+- navigate to project root and run `npm install`
 
-You will UI by the adress http://localhost:8080/.
+##Development
+- Navigate to project root
+- run `webpack-dev-server`
+- UI will be available on http://localhost:8080/
 
-## Release
-
-To update bundle.js with last changes run:
-
-`npm compile`
-
-After that bundle.js should be committed and PR created.
-
-*Project setup (draft)
-Install Nodejs https://nodejs.org/en/download/
-
-Install globally webpack-dev-server ```sudo npm install -g webpack-dev-server```
-
-Navigate to project root folder and install all depencies ```npm install```
-
-If needed change the link to QA websocket in ```src/js/config/socket.json``` 
+##Release to production (should be changed in the future)
+- commit your changes
+- Navigate to project root
+- run `npm run compile`
+- commit updated bundle.js
+- push changes
+- create PR to *binary-com/japanui/gh-pages*
