@@ -22,7 +22,7 @@ const JapanPriceDetailsContainer = ({
 
   const description = text(contractTypes[type].description, [
     '¥',
-    Number(payout).toLocaleString(),
+    Number(payout * 1000).toLocaleString(),
     symbol,
     close,
   ]);

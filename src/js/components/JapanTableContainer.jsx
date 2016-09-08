@@ -10,7 +10,7 @@ const getTable = (() => {
   return (state = Map()) => {
     const proposals = state.getIn(['streams', 'proposals'], Map());
     const errors = state.getIn(['errors', 'proposals'], Map());
-    const payout = state.getIn(['values', 'payout']);
+    const payout = Number(state.getIn(['values', 'payout']))*1000 || 1000;
     const barriers = state.getIn(['values', 'barriers']);
 
     table = proposals.concat(errors)
