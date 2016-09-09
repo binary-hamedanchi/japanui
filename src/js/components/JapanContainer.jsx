@@ -10,10 +10,10 @@ import JapanForm from './JapanForm';
 import NotificationsContainer from './NotificationsContainer';
 
 const Japan = ({ state, actions }) => (<div className='japan-ui'>
+  <NotificationsContainer state={state} />
   <FetchingBoxContainer state={state} />
   <JapanForm state={state} actions={actions}/>
   <JapanTableContainer state={state} actions={actions}/>
-  <NotificationsContainer state={state} />
 </div>);
 
 Japan.displayName = 'Japan';
