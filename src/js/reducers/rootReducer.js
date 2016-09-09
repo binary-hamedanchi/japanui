@@ -19,6 +19,10 @@ export default function reducer(state = Map(), action = {}) {
       return state.setIn(['values', 'symbol'], payload.get('symbol'))
         .updateIn(['storage', 'symbol'], (v) => payload.get('needToStore') ? payload.get('symbol') : v);
 
+    case 'SET_DISPLAY_NAME':
+      return state.setIn(['values', 'display_name'], payload.get('display_name'))
+        .updateIn(['storage', 'display_name'], (v) => payload.get('needToStore') ? payload.get('display_name') : v);
+
     case 'PENDING_CONTRACTS':
       return state.setIn(['status', 'contracts'], 'pending').deleteIn(['errors', 'contracts']);
 

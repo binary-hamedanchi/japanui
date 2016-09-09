@@ -12,6 +12,13 @@ export default class SymbolsHelper {
     return this.getMarkets(symbols).get(market);
   }
 
+  static getDisplayName(symbols = Immutable.List(), symbol, filters = {}) {
+    const newFilters = Object.assign({}, filters);
+    newFilters.symbol = symbol;
+    const displayName = this.getList(symbols, 'display_name', newFilters);
+    return displayName.first().get('display_name');
+  }
+
   static isMarketOpened(symbols = Immutable.List(), checkMarket = '') {
     const openedMarkets = this.getMarkets(symbols, { state: 1 });
     return Boolean(openedMarkets.get(checkMarket));

@@ -8,7 +8,7 @@ import JapanPricesBlock from './JapanPricesBlock';
 const JapanPricesBlockContainer = ({ table, values, actions }) => {
   const type = table.get('contractType');
   const details = (<JapanPriceDetailsContainer
-    symbol={values.get('symbol', '')}
+    symbol={values.get('display_name', '')}
     period={values.get('period', '')}
     payout={String(values.get('payout', '') || 1)}
     type={type}/>);
