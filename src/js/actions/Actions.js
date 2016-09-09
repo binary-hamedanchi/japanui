@@ -61,6 +61,13 @@ export function setSymbol({ needToStore, symbol }) {
   };
 }
 
+export function setDisplayName({ needToStore, display_name }) {
+  return {
+    type: 'SET_DISPLAY_NAME',
+    payload: { needToStore, display_name },
+  };
+}
+
 export function getTicks(payload) {
   return {
     skipLog: true,

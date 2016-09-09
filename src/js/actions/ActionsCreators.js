@@ -105,8 +105,11 @@ export function setSymbol(payload) {
       return Promise.reject();
     }
 
+    const displayName = SymbolsHelper.getDisplayName(symbols, symbol);
+
     return dispatch(deleteProposalsStreams())
       .then(() => dispatch(Actions.setSymbol({ needToStore, symbol })))
+      .then(() => dispatch(Actions.setDisplayName({ needToStore: 1, symbol: symbol, display_name: displayName })))
       .then(() => dispatch(getContracts()))
       .then(() => dispatch(getTicks()))
       .catch((err = {}) => dispatch(
