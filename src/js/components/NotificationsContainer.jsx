@@ -8,8 +8,8 @@ export default class NotificationsContainer extends React.Component {
   render() {
     const { state } = this.props;
     return (
-        <div className="gr-padding-10 gr-parent">
-            <div className="notice-msg center-text">
+        <div className={(state.getIn(['notification']) ? '' : 'invisible') + ' gr-padding-10 gr-parent'}>
+            <div className='notice-msg center-text'>
                 {state.getIn(['notification', 'message'])}
                 {' '}
                 <a onClick={state.getIn(['notification', 'action', 'callback'])}>
