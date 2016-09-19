@@ -253,8 +253,7 @@ export function setPeriod(payload) {
 
           if (timeLeft < 120 && timeLeft > 0) {
             dispatch(Actions.showNotification({
-              message: text(`This contract can not be traded 
-          in the final 2 minutes before settlement`),
+              message: text('This contract can not be traded in the final 2 minutes before settlement'),
               level: 'info',
               uid: 'TIME_LEFT',
             }));
@@ -280,8 +279,11 @@ export function setPayout(payload) {
     if (typeof payout === 'undefined') {
       payout = getState().getIn(['storage', 'payout']);
     }
+    else if (isNaN(payout*1) || !Number.isInteger(payout*1) || parseInt(payout) < 0 || parseInt(payout) > 100) {
+        return false;
+    }
 
-    if (typeof payout === 'undefined') {
+    if (!payout) {
       payout = 1;
     }
 
