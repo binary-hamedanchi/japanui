@@ -272,14 +272,14 @@ export function setPeriod(payload) {
 let payoutPromise;
 export function setPayout(payload) {
   return (dispatch, getState) => {
-    let payout = payload && payload.payout;
+    let payout = payload && (+payload.payout);
 
     const needToStore = Boolean(payout);
 
     if (typeof payout === 'undefined') {
       payout = getState().getIn(['storage', 'payout']);
     }
-    else if (isNaN(payout*1) || !Number.isInteger(payout*1) || parseInt(payout) < 0 || parseInt(payout) > 100) {
+    else if (!Number.isInteger(payout) || payout < 0 || payout > 100) {
         return false;
     }
 
