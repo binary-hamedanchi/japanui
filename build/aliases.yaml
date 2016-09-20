@@ -1,0 +1,17 @@
+dev:
+  description: 'Starts the development server'
+  tasks:
+    - 'webpack:compile_dev'
+    - 'shell:dev_server'
+
+deploy:
+  description: 'Deploys to developer fork'
+  tasks:
+    - 'webpack:compile'
+    - 'gh-pages'
+
+release:
+  description: 'Release to production. It will normally compile bundle_beta.js unless used with: --production'
+  tasks:
+    - 'webpack:compile'
+    - 'gh-pages'

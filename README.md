@@ -14,10 +14,8 @@ UI for Japan site
 - run `webpack-dev-server`
 - UI will be available on http://localhost:8080/
 
-##Release to production (should be changed in the future)
-- commit your changes
-- Navigate to project root
-- run `npm run compile`
-- commit updated bundle.js
-- push changes
-- create PR to *binary-com/japanui/gh-pages*
+##Release to Production
+
+```
+grunt release [--production]
+```
