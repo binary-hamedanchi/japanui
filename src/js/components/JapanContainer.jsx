@@ -6,10 +6,10 @@ import React from 'react';
 import * as ActionsCreators from '../actions/ActionsCreators';
 import JapanTableContainer from './JapanTableContainer';
 import JapanForm from './JapanForm';
-import NotificationsContainer from './NotificationsContainer';
+import Notifications from './Notifications';
 
 const Japan = ({ state, actions }) => (<div className='japan-ui'>
-  <NotificationsContainer state={state} />
+  <Notifications state={state} />
   <JapanForm state={state} actions={actions}/>
   <JapanTableContainer state={state} actions={actions}/>
 </div>);
