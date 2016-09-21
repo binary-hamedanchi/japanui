@@ -3,7 +3,7 @@ import text from '../helpers/text';
 import classNames from 'classnames';
 
 const ContractEndTimer = ({ children, alert }) => (
-  <div className={classNames('countdown-timer', { alert })}>
+  <div className={classNames('countdown-timer align-end', { alert })}>
   <span className='labek'>{text('Remaining time')}</span> {children}
 </div>);
 

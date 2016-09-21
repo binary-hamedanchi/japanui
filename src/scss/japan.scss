@@ -186,12 +186,13 @@
   .space-between {
     justify-content: space-between;
   }
-  .spot {
+  .spot div {
     white-space: nowrap;
   }
   .countdown-timer {
     padding: 5px;
     border-radius: 3px;
+    white-space: nowrap;
     &.alert {
       background: #fbe4d7;
     }
