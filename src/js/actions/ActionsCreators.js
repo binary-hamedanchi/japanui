@@ -279,7 +279,7 @@ export function setPayout(payload) {
     if (typeof payout === 'undefined') {
       payout = getState().getIn(['storage', 'payout']);
     }
-    else if (!Number.isInteger(payout) || payout < 0 || payout > 100) {
+    else if ((payout % 1 !== 0) || payout < 1 || payout > 100) {
         return false;
     }
 
