@@ -39,11 +39,11 @@ const JapanForm = ({ state, actions }) => (<section className='japan-form flex-b
         onChange={(e) => actions.setPayout({ payout: e.target.value })}/>
     </div>
   </div>
-  <div className='row flex-box cols space-between'>
-    <div className='col'>
+  <div className='gr-row space-between'>
+    <div className='gr-grow'>
       <SpotContainer spot={state.getIn(['streams', 'ticks', 'value'], Map())} />
     </div>
-    <div className='col'>
+    <div className='gr-adapt'>
       <ContractEndTimerContainer timeLeft={state.getIn(['values', 'timeLeft'])} />
     </div>
   </div>

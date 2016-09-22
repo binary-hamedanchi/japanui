@@ -19,9 +19,6 @@
   .japan-table {
     align-items: stretch;
   }
-  .descr-wrapper {
-    align-items: center;
-  }
   .buy-prices,
   .sell-prices,
   .barriers {
@@ -40,9 +37,6 @@
   }
   .price-wrapper {
     padding-right: 20px;
-  }
-  .descr-wrapper {
-    flex-grow: 2;
   }
   .price-button {
     width: 120px;
@@ -84,8 +78,9 @@
     font-weight: bold;
   }
   .descr-wrapper {
+    margin-top: 20px;
     .descr {
-      padding: 10px;
+      padding: 0 10px 10px;
       font-size: 16px;
       max-width: 370px;
     }
@@ -186,12 +181,14 @@
   .space-between {
     justify-content: space-between;
   }
-  .spot {
+  .spot div {
     white-space: nowrap;
+    display: block;
   }
   .countdown-timer {
     padding: 5px;
     border-radius: 3px;
+    white-space: nowrap;
     &.alert {
       background: #fbe4d7;
     }

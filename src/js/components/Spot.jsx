@@ -2,9 +2,9 @@ import React from 'react';
 import text from '../helpers/text';
 import Sparkline from 'react-sparkline';
 
-const Spot = ({ quote, dyn, spots }) => (<div className='flex-box cols spot'>
-  <div className='col'>{text('Spot')}: {quote}<span className='spot-dyn'>{dyn}</span></div>
-  <div className='col'>
+const Spot = ({ quote, dyn, spots }) => (<div className='gr-row spot'>
+  <div className='gr-adapt'>{text('Spot')}: {quote}<span className='spot-dyn'>{dyn}</span></div>
+  <div className='gr-adapt'>
   <Sparkline
     data={spots}
     interpolate='none'
