@@ -11,11 +11,19 @@ import rootReducer from '../reducers/rootReducer';
 
 export default function configureStore(initialState = Map()) {
   const socket = new Socket(socketConfig());
+
+  const logger = createLogger({
+    stateTransformer: (state) => state && state.toJS(),
+    predicate: (getState, action) => !action.skipLog,
+  });
+
   const finalCreateStore = compose(
-    applyMiddleware(thunk, SocketMiddleware(socket), StorageMiddleware, createLogger({
-      stateTransformer: (state) => state && state.toJS(),
-      predicate: (getState, action) => !action.skipLog,
-    })),
+    applyMiddleware(
+        thunk,
+        SocketMiddleware(socket),
+        StorageMiddleware,
+        // logger,
+    ),
     window.devToolsExtension ? window.devToolsExtension() : (f) => f
   )(createStore);
 
