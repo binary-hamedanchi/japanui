@@ -1,15 +1,20 @@
 import React from 'react';
 import text from '../helpers/text';
-import Sparkline from 'react-sparkline';
+import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';
 
 const Spot = ({ quote, dyn, spots }) => (<div className='gr-row spot'>
   <div className='gr-adapt'>{text('Spot')}: {quote}<span className='spot-dyn'>{dyn}</span></div>
   <div className='gr-adapt'>
-  <Sparkline
-    data={spots}
-    interpolate='none'
-    strokeColor='#2bade0'
-    strokeWidth='2px'/></div>
+    <Sparklines
+      data={spots.map(x => x.value)}
+      style={{ width: 100, height: 30 }}
+      width={100}
+      height={30}
+      margin={5}>
+      <SparklinesLine style={{ stroke: "#394171" }}/>
+      <SparklinesSpots />
+    </Sparklines>
+    </div>
 </div>);
 
 Spot.displayName = 'Spot';
