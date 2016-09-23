@@ -165,19 +165,25 @@
     .payout-input{
       position: relative;
       white-space: nowrap;
+      .hint {
+        padding: 4px;
+        margin-left: 10px;
+        line-height: 16px;
+      }
     }
     .payout-select {
       display: inline;
       width: 30px;
       height: 24px;
       text-align: right;
+      margin-right: 0;
     }
     .payout-mult{
-      position: absolute;
-      right: 17px;
-      top:9px;
       font-size: 15px;
     }
+  }
+  .float-left {
+    float: left;
   }
   .space-between {
     justify-content: space-between;
