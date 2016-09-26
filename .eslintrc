@@ -11,9 +11,6 @@
       "space-return-throw-case": 0,
       "max-len": [2, 100, 2, {"ignoreUrls": true}],
       "id-length": 0,
-      "react/display-name": [2, {
-        "ignoreTranspilerName": true,
-      }]
   },
   "parserOptions": {
         "ecmaVersion": 6,
