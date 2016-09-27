@@ -114,7 +114,7 @@ export function setSymbol(payload) {
       .then(() => dispatch(getTicks()))
       .catch((err = {}) => dispatch(
         Actions.showNotification({
-          message: err.message,
+          message: text(err.message),
           level: 'error',
         })));
   };
@@ -132,7 +132,7 @@ function getContracts() {
       .then(() => dispatch(setCategory()))
       .catch((err = {}) => dispatch(
         Actions.showNotification({
-          message: err.message,
+          message: text(err.message),
           level: 'error',
         })));
   };
@@ -150,7 +150,7 @@ function updateContracts() {
       .then(() => dispatch(setPeriods()))
       .catch((err = {}) => dispatch(
         Actions.showNotification({
-          message: err.message,
+          message: text(err.message),
           level: 'error',
         })));
   };
@@ -220,7 +220,7 @@ export function setCategory(payload) {
       .then(() => dispatch(setPeriod()))
       .catch((err = {}) => dispatch(
         Actions.showNotification({
-          message: err.message,
+          message: text(err.message),
           level: 'error',
         })));
   };
@@ -263,7 +263,7 @@ export function setPeriod(payload) {
       .then(() => dispatch(setPayout()))
       .catch((err = {}) => dispatch(
         Actions.showNotification({
-          message: err.message,
+          message: text(err.message),
           level: 'error',
         })));
   };
@@ -305,7 +305,7 @@ export function setPayout(payload) {
         return payoutPromise;
       }).catch((err = {}) => dispatch(
         Actions.showNotification({
-          message: err.message,
+          message: text(err.message),
           level: 'error',
         })));
   }
@@ -325,7 +325,7 @@ export function getPrices() {
       .catch((err = {}) => {
         if (err.code === 'RateLimit') {
           return dispatch(Actions.showNotification({
-            message: err.message,
+            message: text(err.message),
             level: 'error',
             autoDismiss: 0,
             dismissible: false,
@@ -358,7 +358,7 @@ export function buy({ type, price, barriers }) {
       .then((payload) => {
         showBuyWindow(payload.contract_id);
       }).catch((err = {}) => (
-        dispatch(Actions.showNotification({ message: err.message, level: 'error' }))
+        dispatch(Actions.showNotification({ message: text(err.message), level: 'error' }))
       ));
   };
 }
