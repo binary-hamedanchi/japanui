@@ -5,6 +5,7 @@ import Spot from './Spot';
 let prevSpot = Map();
 let spots = [];
 let dyn = '';
+let className = '';
 
 const SpotContainer = ({ spot }) => {
   const quote = spot.get('quote');
@@ -13,10 +14,13 @@ const SpotContainer = ({ spot }) => {
   if (time !== prevSpot.get('time')) {
     if (quote > prevSpot.get('quote')) {
       dyn = '⬆';
+      className = 'up';
     } else if (quote < prevSpot.get('quote')) {
       dyn = '⬇';
+      className = 'down';
     } else {
       dyn = '';
+      className = '';
     }
 
     spots.push({
@@ -34,7 +38,7 @@ const SpotContainer = ({ spot }) => {
     dyn = '';
   }
 
-  return <Spot quote={quote} dyn={dyn} spots={spots}/>;
+  return <Spot className={className} quote={quote} dyn={dyn} spots={spots}/>;
 };
 
 SpotContainer.displayName = 'SpotContainer';
