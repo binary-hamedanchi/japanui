@@ -339,7 +339,6 @@ export function getPrices() {
           }));
         }
 
-        console.log(`${err.message}`);
         return Promise.resolve();
       })
     )));
