@@ -8,6 +8,5 @@ export default function showBuyWindow(contractId) {
   }
 
   const button = window.$('<div />', { contract_id: contractId }).get(0);
-  console.log(button, contractId);
   window.ViewPopupWS.init(button);
 }
