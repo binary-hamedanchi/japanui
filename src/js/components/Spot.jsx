@@ -2,8 +2,8 @@ import React from 'react';
 import text from '../helpers/text';
 import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';
 
-const Spot = ({ quote, dyn, spots }) => (<div className='gr-row spot'>
-  <div className='gr-adapt'>{text('Spot')}: {quote}<span className='spot-dyn'>{dyn}</span></div>
+const Spot = ({ className, quote, dyn, spots }) => (<div className='gr-row spot'>
+  <div className='gr-adapt spot-value'>{text('Spot')}: {quote}<span className={'spot-dyn ' + className}>{dyn}</span></div>
   <div className='gr-adapt'>
     <Sparklines
       data={spots.map(x => x.value)}

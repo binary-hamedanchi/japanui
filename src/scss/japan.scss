@@ -60,13 +60,13 @@
     }
   }
   .down {
-    // color: #29abe2;
+    color: #c03;
     .price-button {
       // color: #C7CDFF
     }
   }
   .up {
-    // color: #c03;
+    color: #2e8836;
     .price-button {
       // color: #FFB3B3;
     }
@@ -183,6 +183,9 @@
   .spot div {
     white-space: nowrap;
     display: block;
+    &.spot-value {
+      line-height: 30px;
+    }
   }
   .countdown-timer {
     padding: 5px;
