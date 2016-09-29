@@ -24,8 +24,9 @@ class JALocalizable {
 
 let local;
 const text = (text, params) => {
+  const lang = (typeof page === 'object' ? page.language() : 'JA');
   if (!local) {
-    local = japan_text !== 'undefined' ?
+    local = japan_text !== 'undefined' && lang === 'JA' ?
       new JALocalizable(japan_text.JA) :
       new JALocalizable();
   }
