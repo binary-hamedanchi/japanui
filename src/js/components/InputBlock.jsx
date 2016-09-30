@@ -1,8 +1,12 @@
 import React from 'react';
 
-const InputBlock = (props) => (<div className='select-box'>
-  <div className='select-heading'>{props.heading}</div>
-  {props.children}
+const InputBlock = (props) => (<div className='gr-6'>
+    <div className='select-box'>
+        <div className='padding-10'>
+            <div className='select-heading'>{props.heading}</div>
+            {props.children}
+        </div>
+    </div>
 </div>);
 
 InputBlock.displayName = 'InputBlock';

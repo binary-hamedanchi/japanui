@@ -7,7 +7,7 @@ const JapanTable = ({
   table,
   values,
   actions,
-}) => (<div className='japan-table flex-box cols'>
+}) => (<div className='japan-table gr-row'>
   {table.map((item, key) => (<JapanPricesBlockContainer
     key={key}
     table={item}

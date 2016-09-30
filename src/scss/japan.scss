@@ -1,7 +1,6 @@
 .japan-ui {
   font-family: roboto, sans-serif;
   font-size: 14px;
-  padding-top: 20px;
   .flex-box {
     display: flex;
     &.rows {
@@ -25,7 +24,6 @@
     flex-grow: 2;
     white-space: nowrap;
     .row {
-      padding: 0 5px;
       line-height: 35px;
       min-height: 35px;
       padding: 3px 0;
@@ -34,6 +32,9 @@
         background: #F2F2F2;
       }
     }
+  }
+  .sell-prices .heading {
+      padding-right: 20px;
   }
   .price-wrapper {
     padding-right: 20px;
@@ -77,24 +78,24 @@
   .heading {
     font-weight: bold;
   }
-  .descr-wrapper {
-    margin-top: 20px;
-    height: 90px;
-    .descr {
-      padding: 0 10px 10px;
+  .descr-wrapper .descr {
+      padding: 0 16px 0 0;
       font-size: 16px;
-      max-width: 370px;
-    }
+      max-width: 420px;
+      line-height: 1.4em;
+  }
+  .background-gray {
+      padding-top: 10px;
   }
   .details-heading {
-    padding-top: 40px;
+    padding: 40px 16px 0;
     background-repeat: no-repeat;
     background-position: top center;
     font-size: 18px;
-    min-width: 80px;
     max-width: 80px;
     text-align: center;
     align-self: flex-start;
+    white-space: nowrap;
     &.CALLE {
       background-image: url('https://www.binary.com/images/pages/trade/rise_1.png')
     }
@@ -138,13 +139,14 @@
     display: inline-block;
     // float: right;
   }
+  .padding-10 {
+      padding: 10px 10px 0;
+  }
   .select-box {
     float: left;
     background: #F2F2F2;
     border-radius: 3px;
-    margin: 3px;
-    padding: 2px 5px;
-    padding-top: 10px;
+    width: 100%;
     .select, .payout-select {
       width: 100%;
       margin-top: 5px;
@@ -179,6 +181,13 @@
   }
   .space-between {
     justify-content: space-between;
+    margin: 8px 0;
+    .gr-grow {
+        padding: 0;
+    }
+    .gr-adapt {
+        padding: 0 0 0 10px;
+    }
   }
   .spot div {
     white-space: nowrap;
@@ -194,5 +203,10 @@
     &.alert {
       background: #fbe4d7;
     }
+  }
+  @media screen and (max-width: 768px) {
+      .gr-12-p {
+          padding-bottom: 10px;
+      }
   }
 }
