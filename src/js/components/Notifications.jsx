@@ -46,7 +46,55 @@ export default class Notifications extends React.Component {
     this._notificationSystem.removeNotification(notification.get('uid'));
   }
 
+  _overridingStyles() {
+    const defaultWidth = Math.min(window.innerWidth * 0.9, 500);
+    return {
+      Containers: {
+        DefaultStyle: {
+          width: defaultWidth,
+          margin: '0 auto',
+        },
+        tc: {
+          top: '112px',
+          marginLeft: -(defaultWidth / 2),
+          padding: '0',
+        }
+      },
+      NotificationItem: {
+        DefaultStyle: {
+          border: '2px solid #2a3052',
+          borderRadius: '0',
+          color: '#000',
+          backgroundColor: '#FEF1CF',
+          textAlign: 'center',
+          fontSize: '14px',
+          lineHeight: '25px',
+          padding: '10px 26px',
+          margin: '0',
+          WebkitBoxShadow: 'none',
+          MozBoxShadow: 'none',
+          boxShadow: 'none',
+        },
+      },
+      Dismiss: {
+        DefaultStyle: {
+          top: '0px',
+          right: '0px',
+          backgroundColor: '#2a3052',
+          color: '#fff',
+          borderRadius: '0',
+          width: '24px',
+          height: '24px',
+          lineHeight: '24px',
+          fontSize: '24px',
+          fontWeight: 'normal',
+          textAlign: 'center',
+        },
+      },
+    };
+  }
+
   render() {
-    return <NotificationSystem ref='notificationSystem' />;
+    return <NotificationSystem ref='notificationSystem' style={this._overridingStyles()} />;
   }
 }
