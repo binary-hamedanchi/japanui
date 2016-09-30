@@ -69,7 +69,8 @@ function getTicks() {
 
 export function getSymbols() {
   clearTimeout(timers.contractsTimer);
-  return (dispatch) => dispatch(getTimeOffset())
+  return (dispatch) => dispatch(authorize())
+    .then(() => dispatch(getTimeOffset()))
     .then(() => dispatch(Actions.getSymbols()))
     .then(() => dispatch(setSymbols()))
     .then(() => dispatch(setSymbol()));
@@ -353,8 +354,7 @@ export function buy({ type, price, barriers }) {
     const symbol = getState().getIn(['values', 'symbol']);
     const expiry = getState().getIn(['values', 'period']).split('_')[1];
 
-    dispatch(authorize())
-      .then(() => dispatch(Actions.buy({ type, price, barriers, payout, symbol, expiry })))
+    dispatch(() => dispatch(Actions.buy({ type, price, barriers, payout, symbol, expiry })))
       .then((payload) => {
         showBuyWindow(payload.contract_id);
       }).catch((err = {}) => (
