@@ -245,6 +245,19 @@ export function setPeriod(payload) {
     return dispatch(deleteProposalsStreams())
       .then(() => dispatch(Actions.setPeriod({ period, needToStore })))
       .then(() => dispatch(setBarriers()))
+      .then(() => {
+        const barriersCount = getState().getIn(['values', 'barriers']).size;
+        if (barriersCount === 0) {
+          dispatch(Actions.showNotification({
+            message: text('All barriers in this trading window are expired'),
+            level: 'warning',
+            uid: 'NO_BARRIER',
+            autoDismiss: 0,
+          }));
+        } else {
+          dispatch(Actions.hideNotification({uid: 'NO_BARRIER'}));
+        }
+      })
       .then(() => dispatch(setExpiryCounter()))
       .then(() => {
         const offset = getState().get('timeOffset');
