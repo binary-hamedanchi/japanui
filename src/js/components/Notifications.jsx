@@ -1,24 +1,52 @@
 import React from 'react';
-import classNames from 'classnames';
+import NotificationSystem from 'react-notification-system';
 import { Map } from 'immutable';
 
-const Notifications = ({state}) => (
-  <div className={classNames({invisible: !state.has('notification')}, 'gr-padding-10', 'gr-parent')}>
-      <div className={classNames('notice-msg', 'center-text')}>
-          {state.getIn(['notification', 'message'])}
-          {' '}
-          <a onClick={state.getIn(['notification', 'action', 'callback'])}>
-              {state.getIn(['notification', 'action', 'label'])}
-          </a>
-      </div>
-  </div>
-);
+export default class Notifications extends React.Component {
+  static displayName() {
+    return 'NotificationsContainer';
+  }
 
-Notifications.displayName = 'Notifications';
-Notifications.propTypes = {
-  state: React.PropTypes.instanceOf(Map).isRequired,
-};
+  static propTypes() {
+    return { state: React.PropTypes.instanceOf(Map).isRequired };
+  }
 
-export default Notifications;
+  constructor() {
+    const _this = super();
+    _this._notificationSystem = null;
 
+    return _this;
+  }
 
+  componentDidMount() {
+    this._notificationSystem = this.refs.notificationSystem;
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.state.get('notification') !== this.props.state.get('notification');
+  }
+
+  componentDidUpdate() {
+    const notification = this.props.state.get('notification', Map());
+    if (typeof notification.get('state') !== 'undefined') {
+      if (notification.get('state')) {
+        this._addNotification(notification);
+      } else if (notification.has('uid')) {
+        this._delNotification(notification);
+      }
+    }
+  }
+
+  _addNotification(notification) {
+    this._notificationSystem.addNotification(Object.assign({},
+      notification.toJS(), { position: 'tc' }));
+  }
+
+  _delNotification(notification) {
+    this._notificationSystem.removeNotification(notification.get('uid'));
+  }
+
+  render() {
+    return <NotificationSystem ref='notificationSystem' />;
+  }
+}
