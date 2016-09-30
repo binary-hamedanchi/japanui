@@ -19,8 +19,8 @@ const SpotContainer = ({ spot }) => {
       dyn = '⬇';
       className = 'down';
     } else {
-      dyn = '';
-      className = '';
+      dyn = '●';
+      className = 'still';
     }
 
     spots.push({

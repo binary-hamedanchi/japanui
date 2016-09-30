@@ -137,7 +137,11 @@
   .spot-dyn {
     width: 10px;
     display: inline-block;
-    // float: right;
+    padding-left: 3px;
+    &.still {
+      color: #c2c2c2;
+      padding-left: 6px;
+    }
   }
   .padding-10 {
       padding: 10px 10px 0;
