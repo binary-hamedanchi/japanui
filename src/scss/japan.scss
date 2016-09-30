@@ -92,7 +92,6 @@
     background-repeat: no-repeat;
     background-position: top center;
     font-size: 18px;
-    max-width: 80px;
     text-align: center;
     align-self: flex-start;
     white-space: nowrap;
@@ -201,7 +200,7 @@
     }
   }
   .countdown-timer {
-    padding: 5px;
+    padding: 5px 0 5px 5px;
     border-radius: 3px;
     white-space: nowrap;
     line-height: 22px;
