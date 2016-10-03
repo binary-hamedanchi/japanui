@@ -9,7 +9,7 @@ import SpotContainer from './SpotContainer';
 import ContractEndTimerContainer from './ContractEndTimerContainer';
 
 const JapanForm = ({ state, actions }) => (<section className='japan-form gr-row'>
-    <div className='gr-6 gr-12-m gr-12-p'>
+    <div className='gr-6 gr-12-m gr-12-p gr-no-gutter'>
         <div className='gr-row'>
           <SymbolSelectContainer
             state={state}
@@ -25,7 +25,7 @@ const JapanForm = ({ state, actions }) => (<section className='japan-form gr-row
             id='category-select'/>
         </div>
     </div>
-    <div className='gr-6 gr-12-m gr-12-p'>
+    <div className='gr-6 gr-12-m gr-12-p gr-no-gutter'>
         <div className='gr-row'>
           <PeriodSelectContainer
             state={state}
