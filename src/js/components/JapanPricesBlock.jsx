@@ -8,7 +8,7 @@ const JapanPricesBlock = ({
   sellPrices,
   priceDetails,
 }) => (
-  <div className='prices-wrapper gr-6 gr-12-m gr-12-p'>
+  <div className='prices-wrapper gr-6 gr-12-m gr-12-p gr-no-gutter-left'>
   {priceDetails}
   <div className='row flex-box cols'>
     <div className='gr-4 gr-no-gutter barriers'>
