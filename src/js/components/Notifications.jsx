@@ -76,6 +76,28 @@ export default class Notifications extends React.Component {
           boxShadow: 'none',
         },
       },
+      MessageWrapper: {
+        DefaultStyle: {
+          display: 'inline-block',
+        },
+      },
+      ActionWrapper: {
+        DefaultStyle: {
+          display: 'inline-block',
+        },
+      },
+      Action: {
+        DefaultStyle: {
+          backgroundColor: 'transparent',
+          borderRadius: '0',
+          padding: '0 5px',
+          margin: '0',
+          color: '#2A3052',
+          textDecoration: 'underline',
+          fontSize: '1em',
+          lineHeight: '25px',
+        },
+      },
       Dismiss: {
         DefaultStyle: {
           top: '0px',
