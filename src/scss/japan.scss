@@ -86,9 +86,11 @@
   }
   .background-gray {
       padding-top: 10px;
+      padding-bottom: 10px;
   }
   .details-heading {
-    padding: 40px 16px 0;
+    padding: 45px 16px 0;
+    margin-bottom: 0;
     background-repeat: no-repeat;
     background-position: top center;
     font-size: 18px;
@@ -136,6 +138,7 @@
   .spot-dyn {
     width: 10px;
     display: inline-block;
+    font-family: Arial;
     padding-left: 3px;
     &.still {
       color: #c2c2c2;
