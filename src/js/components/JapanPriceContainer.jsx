@@ -3,7 +3,7 @@ import { Map } from 'immutable';
 import JapanPriceButton from './JapanPriceButton';
 import JapanPrice from './JapanPrice';
 
-const JapanPriceContainer = ({ price, cb, isActive }) => {
+const JapanPriceContainer = ({ price, cb, isActive, message }) => {
   if (!price) {
     return null;
   }
@@ -17,7 +17,8 @@ const JapanPriceContainer = ({ price, cb, isActive }) => {
       price={Number(price.get('val')).toLocaleString()}
       cb={isActive ? cb : () => {}}
       dynamics={dynamics}
-      inactive={!isActive} />);
+      inactive={!isActive}
+      message={message} />);
   }
 
   return (<JapanPrice
@@ -31,6 +32,7 @@ JapanPriceContainer.propTypes = {
   price: React.PropTypes.instanceOf(Map),
   cb: React.PropTypes.func,
   isActive: React.PropTypes.bool,
+  message: React.PropTypes.string,
 };
 
 export default JapanPriceContainer;

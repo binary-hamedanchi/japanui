@@ -11,7 +11,7 @@ const JapanPricesBlockContainer = ({ table, values, actions }) => {
     symbol={values.get('display_name', '')}
     period={values.get('period', '')}
     payout={String(values.get('payout', '') || 1)}
-    type={type}/>);
+    type={type} />);
 
   let barriers = List();
   let buyPrices = List();
@@ -28,10 +28,12 @@ const JapanPricesBlockContainer = ({ table, values, actions }) => {
     buyPrices = buyPrices.push(<JapanPriceContainer
       price={price.get('ask')}
       cb={cb}
-      isActive={Boolean(price.getIn(['ask', 'isActive']))} />);
+      isActive={Boolean(price.getIn(['ask', 'isActive']))}
+      message={price.getIn(['ask', 'message'])} />);
     sellPrices = sellPrices.push(<JapanPriceContainer
       price={price.get('bid')}
-      isActive={Boolean(price.getIn(['bid', 'isActive']))} />);
+      isActive={Boolean(price.getIn(['bid', 'isActive']))}
+      message={price.getIn(['bid', 'message'])} />);
   });
 
   return (<JapanPricesBlock
