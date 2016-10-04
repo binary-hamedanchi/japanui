@@ -20,7 +20,7 @@ const getTable = (() => {
         const contractType = params[1];
 
         const isActive = Boolean(proposal.getIn(['value', 'ask_price']));
-        const message = proposal.get('message');
+        const message = proposal.get('code') !== 'RateLimit' ? proposal.get('message') : undefined;
         const askPrice = Math.round(proposal.getIn(['value', 'ask_price'])) || payout;
         const oppositeBidPrice = payout - askPrice;
 

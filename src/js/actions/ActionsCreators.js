@@ -338,6 +338,10 @@ export function getPrices() {
       dispatch(Actions.getPrice({ contractType, symbol, endDate, payout, barrier }))
       .catch((err = {}) => {
         if (err.code === 'RateLimit') {
+          var binary_static_error = document.getElementById('ratelimit-error-message');
+          if (binary_static_error && binary_static_error.offsetWidth) {
+            binary_static_error.setAttribute('style', 'display:none;');
+          }
           return dispatch(Actions.showNotification({
             message: text(err.message),
             level: 'error',
