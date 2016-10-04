@@ -245,6 +245,19 @@ export function setPeriod(payload) {
     return dispatch(deleteProposalsStreams())
       .then(() => dispatch(Actions.setPeriod({ period, needToStore })))
       .then(() => dispatch(setBarriers()))
+      .then(() => {
+        const barriersCount = getState().getIn(['values', 'barriers']).size;
+        if (barriersCount === 0) {
+          dispatch(Actions.showNotification({
+            message: text('All barriers in this trading window are expired'),
+            level: 'warning',
+            uid: 'NO_BARRIER',
+            autoDismiss: 0,
+          }));
+        } else {
+          dispatch(Actions.hideNotification({uid: 'NO_BARRIER'}));
+        }
+      })
       .then(() => dispatch(setExpiryCounter()))
       .then(() => {
         const offset = getState().get('timeOffset');
@@ -325,6 +338,10 @@ export function getPrices() {
       dispatch(Actions.getPrice({ contractType, symbol, endDate, payout, barrier }))
       .catch((err = {}) => {
         if (err.code === 'RateLimit') {
+          var binary_static_error = document.getElementById('ratelimit-error-message');
+          if (binary_static_error && binary_static_error.offsetWidth) {
+            binary_static_error.setAttribute('style', 'display:none;');
+          }
           return dispatch(Actions.showNotification({
             message: text(err.message),
             level: 'error',
@@ -357,8 +374,9 @@ export function buy({ type, price, barriers }) {
     dispatch(() => dispatch(Actions.buy({ type, price, barriers, payout, symbol, expiry })))
       .then((payload) => {
         showBuyWindow(payload.contract_id);
+        dispatch(Actions.hideNotification({uid: 'BUY_ERROR'}));
       }).catch((err = {}) => (
-        dispatch(Actions.showNotification({ message: text(err.message), level: 'error' }))
+        dispatch(Actions.showNotification({ message: text(err.message), level: 'error', uid: 'BUY_ERROR' }))
       ));
   };
 }

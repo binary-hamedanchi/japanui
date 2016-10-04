@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const JapanPriceButton = ({ price, cb, dynamics, inactive }) => (
-  <button onClick={cb} className={classNames('price-button', { inactive: inactive })}>
+const JapanPriceButton = ({ price, cb, dynamics, inactive, message }) => (
+  <button onClick={cb} className={classNames('price-button', { inactive: inactive })} data-balloon={message}>
     {price}<span className='dynamics'>{dynamics}</span>
   </button>
 );

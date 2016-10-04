@@ -55,8 +55,7 @@
     color: grey;
     &.price-button {
       color: #FFF;
-      opacity: 0.5;
-      background: grey;
+      background: #dedede;
       cursor: default;
     }
   }
@@ -86,13 +85,14 @@
   }
   .background-gray {
       padding-top: 10px;
+      padding-bottom: 10px;
   }
   .details-heading {
-    padding: 40px 16px 0;
+    padding: 45px 16px 0;
+    margin-bottom: 0;
     background-repeat: no-repeat;
     background-position: top center;
     font-size: 18px;
-    max-width: 80px;
     text-align: center;
     align-self: flex-start;
     white-space: nowrap;
@@ -137,7 +137,12 @@
   .spot-dyn {
     width: 10px;
     display: inline-block;
-    // float: right;
+    font-family: Arial;
+    padding-left: 3px;
+    &.still {
+      color: #c2c2c2;
+      padding-left: 6px;
+    }
   }
   .padding-10 {
       padding: 10px 10px 0;
@@ -200,9 +205,10 @@
     }
   }
   .countdown-timer {
-    padding: 5px;
+    padding: 5px 0 5px 5px;
     border-radius: 3px;
     white-space: nowrap;
+    line-height: 22px;
     &.alert {
       background: #fbe4d7;
     }
