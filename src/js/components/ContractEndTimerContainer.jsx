@@ -43,7 +43,7 @@ const ContractEndTimerContainer = ({ timeLeft }) => {
     }
   }
 
-  return <ContractEndTimer alert={alert}>{timeLeft ? resultStr : '...'}</ContractEndTimer>;
+  return <ContractEndTimer alert={alert}>{timeLeft ? (timeLeft > 0 ? resultStr : '0') : '...'}</ContractEndTimer>;
 };
 
 ContractEndTimerContainer.displayName = 'ContractEndTimerContainer';
