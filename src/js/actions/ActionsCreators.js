@@ -252,7 +252,6 @@ export function setPeriod(payload) {
             message: text('All barriers in this trading window are expired'),
             level: 'warning',
             uid: 'NO_BARRIER',
-            autoDismiss: 0,
           }));
         } else {
           dispatch(Actions.hideNotification({uid: 'NO_BARRIER'}));
@@ -345,7 +344,6 @@ export function getPrices() {
           return dispatch(Actions.showNotification({
             message: text(err.message),
             level: 'error',
-            autoDismiss: 0,
             dismissible: false,
             uid: 'PROPOSAL_LIMIT',
             action: {

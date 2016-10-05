@@ -39,7 +39,10 @@ export default class Notifications extends React.Component {
 
   _addNotification(notification) {
     this._notificationSystem.addNotification(Object.assign({},
-      notification.toJS(), { position: 'tc' }));
+      notification.toJS(), {
+        position: 'tc',
+        autoDismiss: 0,
+      }));
   }
 
   _delNotification(notification) {
