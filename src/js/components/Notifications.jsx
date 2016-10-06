@@ -42,6 +42,9 @@ export default class Notifications extends React.Component {
       notification.toJS(), {
         position: 'tc',
         autoDismiss: 0,
+        onAdd: () => {
+          $.scrollTo($('.notifications-wrapper'), 500, {offset: -5})
+        },
       }));
   }
 
