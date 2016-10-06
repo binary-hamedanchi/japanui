@@ -174,13 +174,14 @@ export function forgetAllStreams(msg_type) {
 }
 
 export function buy(payload) {
-  const { type, price, barriers, payout, symbol, expiry } = payload;
+  const { type, price, barriers, payout, symbol, start, expiry } = payload;
   const parameters = {
     amount: payout,
     basis: 'payout',
     contract_type: type,
     currency: 'JPY',
     symbol: symbol,
+    trading_period_start: start,
     date_expiry: expiry,
     app_markup_percentage: '0'
   };
