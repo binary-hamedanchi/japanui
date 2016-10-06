@@ -8,6 +8,7 @@ const JapanTable = ({
   values,
   actions,
 }) => (<div className='japan-table gr-row'>
+  <div id='disable-overlay' className='invisible'></div>
   {table.map((item, key) => (<JapanPricesBlockContainer
     key={key}
     table={item}

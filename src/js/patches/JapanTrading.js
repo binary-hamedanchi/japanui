@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import * as ActionsCreators from '../actions/ActionsCreators';
 import configureStore from '../store/configureStore';
 import JapanContainer from '../components/JapanContainer';
+import addAppendEventListener from './addAppendEventListener';
 
 let store;
 let appNode;
@@ -20,6 +21,8 @@ const start = () => {
   store.dispatch(ActionsCreators.getSymbols());
   appNode = document.getElementById('japan-app');
   ReactDOM.render(<Provider store={store}><JapanContainer /></Provider>, appNode);
+
+  addAppendEventListener();
 
   return true;
 };
