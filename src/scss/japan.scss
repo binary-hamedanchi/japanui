@@ -209,8 +209,10 @@
     border-radius: 3px;
     white-space: nowrap;
     line-height: 22px;
+    margin-right: 5px;
     &.alert {
       background: #fbe4d7;
+      padding-right: 5px;
     }
   }
   .overlay {
