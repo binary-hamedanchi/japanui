@@ -41,7 +41,7 @@ const JapanForm = ({ state, actions }) => (<section className='japan-form gr-row
             onChange={(e) => actions.setPayout({ payout: e.target.value })}/>
         </div>
   </div>
-  <div className='gr-12'>
+  <div className='gr-12 gr-no-gutter'>
     <div className='gr-row space-between'>
         <div className='gr-grow'>
             <SpotContainer spot={state.getIn(['streams', 'ticks', 'value'], Map())} />

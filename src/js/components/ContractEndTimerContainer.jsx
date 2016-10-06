@@ -8,6 +8,7 @@ let resultStr;
 let alert = false;
 
 const ContractEndTimerContainer = ({ timeLeft }) => {
+  if (timeLeft <= 0) location.reload();
   if (prevTimeLeft !== timeLeft) {
     const duration = moment.duration(timeLeft * 1000);
 
@@ -43,7 +44,7 @@ const ContractEndTimerContainer = ({ timeLeft }) => {
     }
   }
 
-  return <ContractEndTimer alert={alert}>{timeLeft ? resultStr : '...'}</ContractEndTimer>;
+  return <ContractEndTimer alert={alert}>{timeLeft ? (timeLeft > 0 ? resultStr : '0') : '...'}</ContractEndTimer>;
 };
 
 ContractEndTimerContainer.displayName = 'ContractEndTimerContainer';

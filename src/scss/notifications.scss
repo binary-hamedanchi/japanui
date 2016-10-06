@@ -1,0 +1,58 @@
+.japan-ui .notifications-wrapper {
+  margin: 0 -5px 0 -10px;
+  .notifications-tc {
+    .notification {
+      margin-bottom: 5px;
+      position: relative;
+      cursor: pointer;
+      padding: 10px 26px;
+      background-color: #fef1cf;
+      color: #000;
+      text-align: center;
+      line-height: 25px;
+      .notification-message {
+        margin: 0px;
+        padding: 0px;
+        display: inline-block;
+      }
+      .notification-dismiss {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        color: #2a3052;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        font-family: Arial;
+        font-size: 24px;
+      }
+      &:hover .notification-dismiss {
+        color: #e98024;
+      }
+      .notification-action-wrapper {
+        display: inline-block;
+        .notification-action-button {
+          background-color: transparent;
+          padding: 0 5px;
+          margin: 0;
+          color: #2a3052;
+          font-size: 1em;
+          font-weight: bold;
+          line-height: 25px;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .japan-ui .notifications-wrapper {
+    .notifications-tc {
+      width: calc(100vw - 20px);
+      margin-left: calc((100vw - 20px) / -2);
+    }
+  }
+}
