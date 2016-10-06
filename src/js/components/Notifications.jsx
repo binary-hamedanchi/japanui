@@ -42,14 +42,6 @@ export default class Notifications extends React.Component {
       notification.toJS(), {
         position: 'tc',
         autoDismiss: 0,
-        onAdd: () => {
-          var overlay = document.getElementsByClassName('notifications-wrapper')[0];
-          overlay.classList.add('overlay');
-        },
-        onRemove: () => {
-          var overlay = document.getElementsByClassName('notifications-wrapper')[0];
-          overlay.classList.remove('overlay');
-        },
       }));
   }
 
