@@ -85,6 +85,8 @@ export default class Notifications extends React.Component {
           WebkitBoxShadow: 'none',
           MozBoxShadow: 'none',
           boxShadow: 'none',
+          transition: 'none',
+          transform: 'none',
         },
       },
       MessageWrapper: {
@@ -128,6 +130,6 @@ export default class Notifications extends React.Component {
   }
 
   render() {
-    return <NotificationSystem ref='notificationSystem' style={this._overridingStyles()} />;
+    return <NotificationSystem ref='notificationSystem' style={this._overridingStyles()} noAnimation={true} />;
   }
 }
