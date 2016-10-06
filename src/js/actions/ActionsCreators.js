@@ -375,10 +375,8 @@ export function buy({ type, price, barriers }) {
         showBuyWindow(payload.contract_id);
         dispatch(Actions.hideNotification({uid: 'BUY_ERROR'}));
       }).catch((err = {}) => (
-        dispatch(Actions.showNotification({ message: text(err.message), level: 'error', uid: 'BUY_ERROR' })
-          .then(() => {
-            enablePriceButtons();
-          }))
+        dispatch(Actions.showNotification({ message: text(err.message), level: 'error', uid: 'BUY_ERROR' }))
+          .then(enablePriceButtons())
       ));
   };
 }
