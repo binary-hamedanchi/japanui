@@ -369,14 +369,24 @@ export function buy({ type, price, barriers }) {
     const symbol = getState().getIn(['values', 'symbol']);
     const expiry = getState().getIn(['values', 'period']).split('_')[1];
 
+    disablePriceButtons()
     dispatch(() => dispatch(Actions.buy({ type, price, barriers, payout, symbol, expiry })))
       .then((payload) => {
         showBuyWindow(payload.contract_id);
         dispatch(Actions.hideNotification({uid: 'BUY_ERROR'}));
       }).catch((err = {}) => (
         dispatch(Actions.showNotification({ message: text(err.message), level: 'error', uid: 'BUY_ERROR' }))
+          .then(enablePriceButtons())
       ));
   };
+}
+
+export function enablePriceButtons() {
+  document.getElementById('disable-overlay').classList.add('invisible');
+}
+
+function disablePriceButtons() {
+  document.getElementById('disable-overlay').classList.remove('invisible');
 }
 
 export function close() {

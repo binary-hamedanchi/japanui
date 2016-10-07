@@ -17,6 +17,16 @@
   }
   .japan-table {
     align-items: stretch;
+    position: relative;
+    #disable-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: calc(100% - 5px);
+      height: 100%;
+      background-color: rgba(242, 242, 242, 0.5);
+    }
   }
   .buy-prices,
   .sell-prices,
