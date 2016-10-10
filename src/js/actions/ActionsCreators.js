@@ -63,7 +63,8 @@ function getTicks() {
       prevTickChannel.close();
     }
 
-    return dispatch(Actions.getTicks({ symbol }));
+    return dispatch(Actions.forgetAllStreams('ticks'))
+      .then(() => dispatch(Actions.getTicks({ symbol })));
   };
 }
 
@@ -108,8 +109,7 @@ export function setSymbol(payload) {
 
     const displayName = SymbolsHelper.getDisplayName(symbols, symbol);
 
-    return dispatch(deleteProposalsStreams())
-      .then(() => dispatch(Actions.setSymbol({ needToStore, symbol })))
+    return dispatch(Actions.setSymbol({ needToStore, symbol }))
       .then(() => dispatch(Actions.setDisplayName({ needToStore: 1, symbol: symbol, display_name: displayName })))
       .then(() => dispatch(getContracts()))
       .then(() => dispatch(getTicks()))
@@ -214,8 +214,7 @@ export function setCategory(payload) {
 
     TradingAnalysis().request();
 
-    return dispatch(deleteProposalsStreams())
-      .then(() => dispatch(Actions.setCategory({ needToStore, category })))
+    return dispatch(Actions.setCategory({ needToStore, category }))
       .then(() => dispatch(setContractTypes()))
       .then(() => dispatch(setPeriods()))
       .then(() => dispatch(setPeriod()))
@@ -242,8 +241,7 @@ export function setPeriod(payload) {
       }
     }
 
-    return dispatch(deleteProposalsStreams())
-      .then(() => dispatch(Actions.setPeriod({ period, needToStore })))
+    return dispatch(Actions.setPeriod({ period, needToStore }))
       .then(() => dispatch(setBarriers()))
       .then(() => {
         const barriersCount = getState().getIn(['values', 'barriers']).size;
@@ -301,7 +299,6 @@ export function setPayout(payload) {
     }
 
     return dispatch(Actions.setPayout({ payout, needToStore }))
-      .then(() => dispatch(deleteProposalsStreams()))
       .then(() => {
         if (!payoutPromise || payoutPromise.resolved) {
           let resolve;
@@ -332,32 +329,35 @@ export function getPrices() {
     const barriers = getState().getIn(['values', 'barriers']);
     const contractTypes = getState().getIn(['values', 'contractTypes']);
 
+    return dispatch(Actions.forgetAllStreams('proposal'))
+      .then(() => dispatch(deleteProposalsStreams()))
+      .then(() => {
+        contractTypes.forEach((contractType) => barriers.forEach((barrier) => (
+          dispatch(Actions.getPrice({ contractType, symbol, endDate, payout, barrier }))
+          .catch((err = {}) => {
+            if (err.code === 'RateLimit') {
+              var binary_static_error = document.getElementById('ratelimit-error-message');
+              if (binary_static_error && binary_static_error.offsetWidth) {
+                binary_static_error.setAttribute('style', 'display:none;');
+              }
+              return dispatch(Actions.showNotification({
+                message: text(err.message),
+                level: 'error',
+                dismissible: false,
+                uid: 'PROPOSAL_LIMIT',
+                action: {
+                  label: text('Refresh page'),
+                  callback() {
+                    location.reload();
+                  },
+                },
+              }));
+            }
 
-    contractTypes.forEach((contractType) => barriers.forEach((barrier) => (
-      dispatch(Actions.getPrice({ contractType, symbol, endDate, payout, barrier }))
-      .catch((err = {}) => {
-        if (err.code === 'RateLimit') {
-          var binary_static_error = document.getElementById('ratelimit-error-message');
-          if (binary_static_error && binary_static_error.offsetWidth) {
-            binary_static_error.setAttribute('style', 'display:none;');
-          }
-          return dispatch(Actions.showNotification({
-            message: text(err.message),
-            level: 'error',
-            dismissible: false,
-            uid: 'PROPOSAL_LIMIT',
-            action: {
-              label: text('Refresh page'),
-              callback() {
-                location.reload();
-              },
-            },
-          }));
-        }
-
-        return Promise.resolve();
-      })
-    )));
+            return Promise.resolve();
+          })
+        )))
+      });
 
     return Promise.resolve();
   };
