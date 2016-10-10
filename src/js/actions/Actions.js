@@ -163,6 +163,16 @@ export function getPrice(payload) {
   };
 }
 
+export function forgetAllStreams(msg_type) {
+  return {
+    [WS_API]: {
+      types: ['PENDING_FORGETALL', 'FAILURE_FORGETALL', 'SUCCESS_FORGETALL'],
+      forget_all: msg_type,
+    },
+    msg_type,
+  };
+}
+
 export function buy(payload) {
   const { type, price, barriers, payout, symbol, expiry } = payload;
   const parameters = {

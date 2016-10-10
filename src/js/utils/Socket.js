@@ -124,9 +124,9 @@ export default class Socket {
     if (result instanceof SocketStream) {
       result.on('end', (err) => {
         this._queue.remove(result.id);
-        if (!err) {
-          result.wsID.then((id) => this._forgetStream(id));
-        }
+        // if (!err) {
+        //   result.wsID.then((id) => this._forgetStream(id));
+        // }
       });
     } else {
       result.then(() => this._queue.remove(result.id)).catch(() => this._queue.remove(result.id));
