@@ -33,6 +33,8 @@ const stop = () => {
     return false;
   }
 
+  $('body').unbind('append');
+
   store.dispatch(ActionsCreators.close());
   store = undefined;
   ReactDOM.unmountComponentAtNode(appNode);
