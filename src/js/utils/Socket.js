@@ -114,7 +114,11 @@ export default class Socket {
       } else if (isStream && res.error) {
         result.error(Object.assign({}, { isError: true }, res.error));
       } else if (isStream && !res.error) {
-        result.push(res[res.msg_type]);
+        if (res.msg_type === 'proposal' && res.echo_req.amount != this.getState().getIn(['values', 'payout']) * 1000) {
+          this._forgetStream(res.proposal.id);
+        } else {
+          result.push(res[res.msg_type]);
+        }
       }
     }
     return;
