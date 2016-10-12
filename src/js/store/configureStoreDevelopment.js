@@ -29,6 +29,7 @@ export default function configureStore(initialState = Map()) {
 
   const store = finalCreateStore(rootReducer, fromJS(initialState));
   socket.onLost = () => store.dispatch({ type: 'DELETE_USER' });
+  socket.getState = store.getState;
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
