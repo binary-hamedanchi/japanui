@@ -30,7 +30,7 @@ export default class SocketStream extends Readable {
 
   error(res) {
     this.push(res);
-    this.close(res);
+    // this.close(res);
   }
 
   close(err) {
