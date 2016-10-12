@@ -390,10 +390,10 @@ function disablePriceButtons() {
 }
 
 export function close() {
-  for (const id of Object.keys(timers)) {
-    clearInterval(timers[id]);
-    clearTimeout(timers[id]);
-  }
+  Object.keys(timers).forEach((key) => {
+    clearInterval(timers[key]);
+    clearTimeout(timers[key]);
+  });
 
   return Actions.close();
 }
