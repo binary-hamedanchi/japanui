@@ -3,36 +3,31 @@ import { List } from 'immutable';
 import text from '../helpers/text';
 
 const JapanPricesBlock = ({
-  barriers,
-  buyPrices,
-  sellPrices,
   priceDetails,
-}) => (
-  <div className='prices-wrapper gr-6 gr-12-m gr-12-p gr-no-gutter-left'>
-  {priceDetails}
-  <div className='row flex-box cols'>
-    <div className='gr-4 gr-no-gutter barriers'>
-      <div className='row heading' key='barriers-label'>{text('Barrier')}</div>
-      {barriers.map((barrier, key) => <div className='row' key={key}>{barrier}</div>)}
+  rows,
+}) => {
+  return (<div className='prices-wrapper gr-6 gr-12-m gr-12-p gr-no-gutter-left'>
+    {priceDetails}
+    <div className='gr-12'>
+      <div className='gr-row heading'>
+        <div className='gr-4 barriers' key='barrier-label'>{text('Barrier')}</div>
+        <div className='gr-4 buy-prices' key='buy-label'>{text('Buy')}</div>
+        <div className='gr-4 sell-prices' key='sell-label'>{text('Sell')}</div>
+      </div>
+      {rows.map((row, key) => {
+        return (<div className='gr-row price-row' key={'row_' + key}>
+          <div className='gr-4 barriers' key={'barrier_' + key}>{row.barrier}</div>
+          <div className='gr-4 buy-prices' key={'buy_' + key}>{row.buyPrice}</div>
+          <div className='gr-4 sell-prices' key={'sell_' + key}>{row.sellPrice}</div>
+        </div>);
+      })}
     </div>
-    <div className='gr-4 gr-no-gutter buy-prices'>
-      <div className='row heading' key='buy-label'>{text('Buy')}</div>
-      {buyPrices.map((buyPrice, key) => (
-        <div className='row' key={key}>{buyPrice}</div>))}
-    </div>
-    <div className='gr-4 gr-no-gutter sell-prices'>
-      <div className='row heading' key='buy-label'>{text('Sell')}</div>
-      {sellPrices.map((sellPrice, key) => (
-        <div className='row' key={key}>{sellPrice}</div>))}
-    </div>
-  </div>
-</div>);
+  </div>);
+};
 
 JapanPricesBlock.displayName = 'JapanPricesBlock';
 JapanPricesBlock.propTypes = {
-  barriers: React.PropTypes.instanceOf(List).isRequired,
-  buyPrices: React.PropTypes.instanceOf(List).isRequired,
-  sellPrices: React.PropTypes.instanceOf(List).isRequired,
+  rows: React.PropTypes.instanceOf(Array).isRequired,
   priceDetails: React.PropTypes.element.isRequired,
 };
 
