@@ -12,9 +12,11 @@ const getTable = (() => {
     const errors = state.getIn(['errors', 'proposals'], Map());
     const payout = Number(state.getIn(['values', 'payout']))*1000 || 1000;
     const barriers = state.getIn(['values', 'barriers']);
+    const req_id = state.getIn(['values', 'proposal_req_id']);
 
     table = proposals.concat(errors)
       .reduce((nextTable, proposal, shortCode) => {
+        if ((proposal.getIn(['value', 'req_id']) || proposal.get('req_id')) != req_id) return nextTable;
         const params = shortCode.split('|');
         const barrier = params[3];
         const contractType = params[1];
