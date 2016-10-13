@@ -28,23 +28,25 @@
       background-color: rgba(242, 242, 242, 0.5);
     }
   }
-  .buy-prices,
-  .sell-prices,
-  .barriers {
-    flex-grow: 2;
-    white-space: nowrap;
-    .row {
-      line-height: 35px;
-      min-height: 35px;
-      padding: 3px 0;
-      text-align: center;
+  .prices-wrapper {
+    .price-row, .heading {
       &:nth-child(even) {
         background: #F2F2F2;
       }
+      .buy-prices,
+      .sell-prices,
+      .barriers {
+        flex-grow: 2;
+        white-space: nowrap;
+        line-height: 35px;
+        min-height: 35px;
+        padding: 3px 0;
+        text-align: center;
+      }
     }
-  }
-  .sell-prices .heading {
+    .heading .sell-prices {
       padding-right: 20px;
+    }
   }
   .price-wrapper {
     padding-right: 20px;
