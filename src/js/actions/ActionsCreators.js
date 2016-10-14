@@ -367,10 +367,11 @@ export function buy({ type, price, barriers }) {
   return (dispatch, getState) => {
     const payout = (getState().getIn(['values', 'payout']) || 1) * 1000;
     const symbol = getState().getIn(['values', 'symbol']);
+    const start = getState().getIn(['values', 'period']).split('_')[0];
     const expiry = getState().getIn(['values', 'period']).split('_')[1];
 
     disablePriceButtons()
-    dispatch(() => dispatch(Actions.buy({ type, price, barriers, payout, symbol, expiry })))
+    dispatch(() => dispatch(Actions.buy({ type, price, barriers, payout, symbol, start, expiry })))
       .then((payload) => {
         showBuyWindow(payload.contract_id);
         dispatch(Actions.hideNotification({uid: 'BUY_ERROR'}));
