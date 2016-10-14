@@ -51,9 +51,8 @@ function setExpiryCounter() {
   };
 }
 
-function getTicks() {
+function getTicks(symbol) {
   return (dispatch, getState) => {
-    const symbol = getState().getIn(['values', 'symbol']);
     if (!symbol) {
       return Promise.resolve();
     }
@@ -112,7 +111,7 @@ export function setSymbol(payload) {
     return dispatch(Actions.setSymbol({ needToStore, symbol }))
       .then(() => dispatch(Actions.setDisplayName({ needToStore: 1, symbol: symbol, display_name: displayName })))
       .then(() => dispatch(getContracts()))
-      .then(() => dispatch(getTicks()))
+      .then(() => dispatch(getTicks(symbol)))
       .catch((err = {}) => dispatch(
         Actions.showNotification({
           message: text(err.message),
@@ -328,12 +327,13 @@ export function getPrices() {
     const payout = Number(getState().getIn(['values', 'payout']), 10) * 1000 || 1000;
     const barriers = getState().getIn(['values', 'barriers']);
     const contractTypes = getState().getIn(['values', 'contractTypes']);
+    const req_id = (getState().getIn(['values', 'proposal_req_id']) || 0) + 1;
 
     return dispatch(Actions.forgetAllStreams('proposal'))
       .then(() => dispatch(deleteProposalsStreams()))
       .then(() => {
         contractTypes.forEach((contractType) => barriers.forEach((barrier) => (
-          dispatch(Actions.getPrice({ contractType, symbol, endDate, payout, barrier }))
+          dispatch(Actions.getPrice({ contractType, symbol, endDate, payout, barrier, req_id }))
           .catch((err = {}) => {
             if (err.code === 'RateLimit') {
               var binary_static_error = document.getElementById('ratelimit-error-message');

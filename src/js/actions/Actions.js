@@ -130,7 +130,7 @@ export function setPayout({ payout, needToStore }) {
 }
 
 export function getPrice(payload) {
-  const { contractType, symbol, endDate, payout, barrier } = payload;
+  const { contractType, symbol, endDate, payout, barrier, req_id } = payload;
   const request = {
     types: ['PENDING_PROPOSAL', 'FAILURE_PROPOSAL', 'SUCCESS_PROPOSAL'],
     proposal: 1,
@@ -141,6 +141,7 @@ export function getPrice(payload) {
     currency: 'JPY',
     symbol: symbol,
     date_expiry: endDate,
+    req_id: req_id,
   };
 
   let barrierName;

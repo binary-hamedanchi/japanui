@@ -52,6 +52,7 @@ export default function reducer(state = Map(), action = {}) {
 
     case 'PENDING_PROPOSAL':
       return state.setIn(['status', 'proposals', action.shortCode], 'pending')
+        .setIn(['values', 'proposal_req_id'], action.payload.req_id)
         .deleteIn(['streams', 'proposals', action.shortCode])
         .deleteIn(['errors', 'proposals', action.shortCode]);
 

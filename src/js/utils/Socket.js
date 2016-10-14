@@ -112,16 +112,22 @@ export default class Socket {
       } else if (!isStream && !res.error) {
         result.resolve(res[res.msg_type]);
       } else if (isStream && res.error) {
-        result.error(Object.assign({}, { isError: true }, res.error));
+        if (this._isApplicable(res) && res.error.code !== 'AlreadySubscribed') {
+          result.error(Object.assign({}, { isError: true }, res.error, { req_id: res.req_id}));
+        }
       } else if (isStream && !res.error) {
-        if (res.msg_type === 'proposal' && res.echo_req.amount != this.getState().getIn(['values', 'payout']) * 1000) {
+        if (!this._isApplicable(res)) {
           this._forgetStream(res.proposal.id);
         } else {
-          result.push(res[res.msg_type]);
+          result.push(Object.assign({}, res[res.msg_type], { req_id: res.req_id}));
         }
       }
     }
     return;
+  }
+
+  _isApplicable(res) {
+    return (res.msg_type !== 'proposal' || res.req_id == this.getState().getIn(['values', 'proposal_req_id']));
   }
 
   _bindResultEvents(result) {
