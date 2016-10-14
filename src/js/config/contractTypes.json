@@ -33,7 +33,7 @@
     "opposite": "EXPIRYRANGEE",
     "order": 2,
     "name": "Ends Outside",
-    "description": "[_1] [_2] payout if [_3] ends otside low and high values of Exercise price at close on [_4]."
+    "description": "[_1] [_2] payout if [_3] ends outside low and high values of Exercise price at close on [_4]."
   },
   "RANGE": {
     "opposite": "UPORDOWN",
@@ -45,6 +45,6 @@
     "opposite": "RANGE",
     "order": 2,
     "name": "Goes Outside",
-    "description": "[_1] [_2] payout if [_3] goes ouside of low and high values of Exercise price through close on [_4]."
+    "description": "[_1] [_2] payout if [_3] goes outside of low and high values of Exercise price through close on [_4]."
   }
 }
